@@ -22,13 +22,13 @@ module Jekyll
     end
 
     def has_alt_urls?(page_or_post)
-      page_or_post.data.has_key?('alt_urls') &&
+      page_or_post.data.has_key?('redirect_from') &&
         !alt_urls(page_or_post).nil? &&
-        alt_urls(page_or_post).is_a?(Array)
+        !alt_urls(page_or_post).empty?
     end
 
     def alt_urls(page_or_post)
-      page_or_post.data['alt_urls']
+      Array[page_or_post.data['redirect_from']].flatten
     end
   end
 end
