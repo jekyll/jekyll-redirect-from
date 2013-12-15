@@ -1,4 +1,4 @@
-# Jekyll::AltUrls
+# Jekyll::RedirectFrom
 
 Give your Jekyll posts and pages multiple URLs.
 
