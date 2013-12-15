@@ -1,7 +1,8 @@
-require "jekyll/alt_urls/version"
+require "jekyll/redirect_from/version"
+require "jekyll/redirect_from/redirect_page"
 
 module Jekyll
-  class AltUrls < Generator
+  class RedirectFrom < Generator
     def generate(site)
       original_pages = site.pages.dup
       generate_alt_urls(site, site.posts)

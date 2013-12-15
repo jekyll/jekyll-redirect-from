@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'jekyll/alt_urls/version'
+require 'jekyll/redirect_from/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "jekyll-alt-urls"
-  spec.version       = Jekyll::AltUrls::VERSION
+  spec.name          = "jekyll-redirect-from"
+  spec.version       = Jekyll::RedirectFrom::VERSION
   spec.authors       = ["Parker Moore"]
   spec.email         = ["parkrmoore@gmail.com"]
   spec.description   = %q{Seamlessly specify multiple redirection URLs for your pages and posts}
   spec.summary       = %q{Seamlessly specify multiple redirection URLs for your pages and posts}
-  spec.homepage      = "https://github.com/jekyll/jekyll-alt-urls"
+  spec.homepage      = "https://github.com/jekyll/jekyll-redirect-from"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

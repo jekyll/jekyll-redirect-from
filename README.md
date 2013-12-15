@@ -7,13 +7,13 @@ impractical to create new pages in the proper subdirectories so they, e.g.
 `/post/123456789/my-slug-that-is-often-incompl`, redirect to the new post URL.
 
 Instead of dealing with maintaining those pages for redirection, let
-`jekyll-alt-urls` handle it for you.
+`jekyll-redirect-from` handle it for you.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'jekyll-alt-urls'
+    gem 'jekyll-redirect-from'
 
 And then execute:
 
@@ -21,13 +21,13 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install jekyll-alt-urls
+    $ gem install jekyll-redirect-from
 
 Once it's installed into your evironment, add it to your `_config.yml`:
 
 ```yaml
 gem:
-  - jekyll-alt-urls
+  - jekyll-redirect-from
 ```
 
 ## Usage
@@ -39,7 +39,7 @@ To use it, simply add the array to the YAML front-matter of your page or post:
 
 ```yaml
 title: My amazing post
-alt_urls:
+redirect_from:
   - /post/123456789
   - /post/123456789/my-amazing-post
 ```
@@ -52,6 +52,14 @@ This will generate the following pages in the destination:
 ```
 
 These pages will contain an HTTP-REFRESH meta tag which redirect to your URL.
+
+You can also specify just one url like this:
+
+
+```text
+title: My other awesome post
+redirect_from: /post/123456798
+```
 
 ## Contributing
 

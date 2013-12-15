@@ -1,5 +1,5 @@
 module Jekyll
-  class AltUrls < Generator
+  class RedirectFrom < Generator
     class RedirectPage < Page
       # Initialize a new RedirectPage.
       #
