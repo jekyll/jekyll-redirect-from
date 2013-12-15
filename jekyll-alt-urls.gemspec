@@ -5,7 +5,7 @@ require 'jekyll/alt_urls/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "jekyll-alt-urls"
-  spec.version       = Jekyll::Alt::Urls::VERSION
+  spec.version       = Jekyll::AltUrls::VERSION
   spec.authors       = ["Parker Moore"]
   spec.email         = ["parkrmoore@gmail.com"]
   spec.description   = %q{Seamlessly specify multiple redirection URLs for your pages and posts}
