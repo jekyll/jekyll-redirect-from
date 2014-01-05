@@ -1,5 +1,5 @@
 require "jekyll"
-require File.expand_path("lib/jekyll/redirect_from")
+require File.expand_path("lib/jekyll-redirect-from.rb")
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -32,5 +32,17 @@ RSpec.configure do |config|
 
   config.after(:all) do
     @dest.rmtree if @dest.exist?
+  end
+
+  def setup_post(file)
+    Jekyll::Post.new(@site, @fixtures_path, '', file)
+  end
+
+  def setup_page(file)
+    Jekyll::Page.new(@site, @fixtures_path, File.dirname(file), File.basename(file))
+  end
+
+  def destination_file_exists?(file)
+    File.exists?(File.join(@dest.to_s, file))
   end
 end

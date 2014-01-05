@@ -13,10 +13,11 @@ module JekyllRedirectFrom
       @name = name
 
       self.process(name)
+      self.data = {}
     end
 
     def generate_redirect_content(item_url)
-      self.content = <<-EOF
+      self.output = self.content = <<-EOF
       <!DOCTYPE html>
       <html>
       <head>
