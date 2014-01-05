@@ -1,4 +1,4 @@
 require "jekyll"
-require "jekyll_redirect_from/version"
-require "jekyll_redirect_from/redirect_page"
-require "jekyll_redirect_from/redirector"
+require "jekyll-redirect-from/version"
+require "jekyll-redirect-from/redirect_page"
+require "jekyll-redirect-from/redirector"
