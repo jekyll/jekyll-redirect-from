@@ -9,6 +9,8 @@ impractical to create new pages in the proper subdirectories so they, e.g.
 Instead of dealing with maintaining those pages for redirection, let
 `jekyll-redirect-from` handle it for you.
 
+[![Build Status](https://travis-ci.org/jekyll/jekyll-redirect-from.png?branch=master)](https://travis-ci.org/jekyll/jekyll-redirect-from)
+
 ## Installation
 
 Add this line to your application's Gemfile:
