@@ -1,0 +1,50 @@
+require "spec_helper"
+
+describe JekyllRedirectFrom::RedirectPage do
+  let(:redirect_page) { described_class.new(@site, @site.source, "posts/12435151125", "larry-had-a-little-lamb") }
+  let(:item_url)      { File.join(@site.config["url"], "2014", "01", "03", "moving-to-jekyll.md") }
+  let(:page_content)  { redirect_page.generate_redirect_content(item_url) }
+
+  context "#generate_redirect_content" do
+    it "sets the #content to the generated refresh page" do
+      expect(page_content).to eq("      <!DOCTYPE html>\n      <html>\n      <head>\n      <title>Redirecting...</title>\n      <link rel=\"canonical\" href=\"http://jekyllrb.com/2014/01/03/moving-to-jekyll.md\"/>\n      <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n      <meta http-equiv=\"refresh\" content=\"0; url=http://jekyllrb.com/2014/01/03/moving-to-jekyll.md\" />\n      </head>\n      <body>\n        <p><strong>Redirecting...</strong></p>\n        <p><a href='http://jekyllrb.com/2014/01/03/moving-to-jekyll.md'>Click here if you are not redirected.</a></p>\n        <script>\n          document.location.href = \"http://jekyllrb.com/2014/01/03/moving-to-jekyll.md\";\n        </script>\n      </body>\n      </html>\n")
+    end
+
+    it "contains the meta refresh tag" do
+      expect(page_content).to include("<meta http-equiv=\"refresh\" content=\"0; url=#{item_url}\" />")
+    end
+
+    it "contains JavaScript redirect" do
+      expect(page_content).to include("document.location.href = \"http://jekyllrb.com/2014/01/03/moving-to-jekyll.md\";")
+    end
+
+    it "contains canonical link in header" do
+      expect(page_content).to include("<link rel=\"canonical\" href=\"http://jekyllrb.com/2014/01/03/moving-to-jekyll.md\"/>")
+    end
+
+    it "contains a clickable link to redirect" do
+      expect(page_content).to include("<a href='http://jekyllrb.com/2014/01/03/moving-to-jekyll.md'>Click here if you are not redirected.</a>")
+    end
+  end
+
+  context "when writing to disk" do
+    let(:redirect_page_full_path) { redirect_page.destination(@site.dest) }
+
+    before(:each) do
+      redirect_page.generate_redirect_content(item_url)
+      redirect_page.write(@site.dest)
+    end
+
+    it "fetches the path properly" do
+      expect(redirect_page_full_path).to match /\/spec\/fixtures\/\_site\/posts\/12435151125\/larry-had-a-little-lamb/
+    end
+
+    it "is written to the proper location" do
+      expect(File.exist?(redirect_page_full_path)).to be_true
+    end
+
+    it "writes the context we expect" do
+      expect(File.read(redirect_page_full_path)).to eql(page_content)
+    end
+  end
+end
