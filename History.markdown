@@ -14,6 +14,7 @@
 
   * Add history file
   * Add specs (#3)
+  * Add TravisCI badge (#4)
 
 ## 0.1.0 / 2013-12-15
 
