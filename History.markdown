@@ -4,11 +4,17 @@
 
 ### Minor Enhancements
 
+### Bug Fixes
+
+### Development Fixes
+
+## 0.2.0 / 2014-01-04
+
+### Minor Enhancements
+
   * Allow user to set one or many `redirect_from` URLs
   * Rename from `jekyll-alt-urls` to `jekyll-redirect-from` (props to @benbalter)
   * Namespace now its own module: `JekyllRedirectFrom` (#3)
-
-### Bug Fixes
 
 ### Development Fixes
 
