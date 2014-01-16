@@ -8,6 +8,8 @@
 
 ### Development Fixes
 
+  * Add forgotten `s` to `gems` in README.md (#7)
+
 ## 0.2.0 / 2014-01-04
 
 ### Minor Enhancements
