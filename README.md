@@ -49,14 +49,13 @@ redirect_from:
 This will generate the following pages in the destination:
 
 ```text
-/post/123456789/index.html
-/post/123456789/my-amazing-post/index.html
+/post/123456789
+/post/123456789/my-amazing-post
 ```
 
 These pages will contain an HTTP-REFRESH meta tag which redirect to your URL.
 
-You can also specify just one url like this:
-
+You can also specify just **one url** like this:
 
 ```text
 title: My other awesome post
