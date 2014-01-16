@@ -2,11 +2,17 @@
 
 ### Major Enhancements
 
-  * `redirect_from` items are now proper permalinks rooted in site source (#8)
-
 ### Minor Enhancements
 
 ### Bug Fixes
+
+### Development Fixes
+
+## 0.3.0 / 2014-01-15
+
+### Major Enhancements
+
+  * `redirect_from` items are now proper permalinks rooted in site source (#8)
 
 ### Development Fixes
 
