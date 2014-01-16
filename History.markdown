@@ -2,6 +2,8 @@
 
 ### Major Enhancements
 
+  * `redirect_from` items are now proper permalinks rooted in site source (#8)
+
 ### Minor Enhancements
 
 ### Bug Fixes
