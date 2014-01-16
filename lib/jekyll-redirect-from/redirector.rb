@@ -10,7 +10,8 @@ module JekyllRedirectFrom
       list.each do |item|
         if has_alt_urls?(item)
           alt_urls(item).flatten.each do |alt_url|
-            redirect_page = RedirectPage.new(site, site.source, File.dirname(alt_url), File.basename(alt_url))
+            redirect_page = RedirectPage.new(site, site.source, "", "")
+            redirect_page.data['permalink'] = alt_url
             redirect_page.generate_redirect_content(item.url)
             site.pages << redirect_page
           end

@@ -1,7 +1,8 @@
 require "spec_helper"
 
 describe JekyllRedirectFrom::RedirectPage do
-  let(:redirect_page) { described_class.new(@site, @site.source, "posts/12435151125", "larry-had-a-little-lamb") }
+  let(:permalink)     { "/posts/12435151125/larry-had-a-little-lamb" }
+  let(:redirect_page) { new_redirect_page(permalink) }
   let(:item_url)      { File.join(@site.config["url"], "2014", "01", "03", "moving-to-jekyll.md") }
   let(:page_content)  { redirect_page.generate_redirect_content(item_url) }
 
@@ -27,6 +28,23 @@ describe JekyllRedirectFrom::RedirectPage do
     end
   end
 
+  context "when determining the write destination" do
+    context "of a redirect page meant to be a dir" do
+      let(:permalink_dir) { "/posts/1914798137981389/larry-had-a-little-lamb/" }
+      let(:redirect_page) { new_redirect_page(permalink_dir) }
+
+      it "knows to add the index.html if it's a folder" do
+        expect(redirect_page.destination("/")).to eql("/posts/1914798137981389/larry-had-a-little-lamb/index.html")
+      end
+    end
+
+    context "of a redirect page meant to be a file" do
+      it "knows not to add the index.html if it's not a folder" do
+        expect(redirect_page.destination("/")).to eql("/posts/12435151125/larry-had-a-little-lamb")
+      end
+    end
+  end
+
   context "when writing to disk" do
     let(:redirect_page_full_path) { redirect_page.destination(@site.dest) }
 
@@ -36,7 +54,7 @@ describe JekyllRedirectFrom::RedirectPage do
     end
 
     it "fetches the path properly" do
-      expect(redirect_page_full_path).to match /\/spec\/fixtures\/\_site\/posts\/12435151125\/larry-had-a-little-lamb/
+      expect(redirect_page_full_path).to match /\/spec\/fixtures\/\_site\/posts\/12435151125\/larry-had-a-little-lamb$/
     end
 
     it "is written to the proper location" do
