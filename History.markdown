@@ -6,9 +6,13 @@
 
 ### Bug Fixes
 
-  * Add `safe true` to the `Jekyll::Generator` so it can be run in safe mode (#12)
-
 ### Development Fixes
+
+## 0.3.1 / 2014-01-22
+
+### Bug Fixes
+
+  * Add `safe true` to the `Jekyll::Generator` so it can be run in safe mode (#12)
 
 ## 0.3.0 / 2014-01-15
 
