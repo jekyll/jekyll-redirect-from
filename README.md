@@ -62,7 +62,7 @@ You can also specify just one url like this:
 
 ```text
 title: My other awesome post
-redirect_from: /post/123456798
+redirect_from: /post/123456798/
 ```
 
 ## Contributing
