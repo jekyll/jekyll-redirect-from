@@ -1,5 +1,7 @@
 module JekyllRedirectFrom
   class Redirector < Jekyll::Generator
+    safe true
+
     def generate(site)
       original_pages = site.pages.dup
       generate_alt_urls(site, site.posts)
