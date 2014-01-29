@@ -42,9 +42,11 @@ To use it, simply add the array to the YAML front-matter of your page or post:
 ```yaml
 title: My amazing post
 redirect_from:
-  - /post/123456789
-  - /post/123456789/my-amazing-post
+  - /post/123456789/
+  - /post/123456789/my-amazing-post/
 ```
+
+(*Note: be sure to include the trailing slash at the end of your URL so the plugin correctly generates a subdirectory path*)
 
 This will generate the following pages in the destination:
 
@@ -59,7 +61,7 @@ You can also specify just **one url** like this:
 
 ```text
 title: My other awesome post
-redirect_from: /post/123456798
+redirect_from: /post/123456798/
 ```
 
 ## Contributing
