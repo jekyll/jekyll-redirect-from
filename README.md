@@ -3,7 +3,7 @@
 Give your Jekyll posts and pages multiple URLs.
 
 When importing your posts and pages from, say, Tumblr, it's annoying and
-impractical to create new pages in the proper subdirectories so they, e.g. 
+impractical to create new pages in the proper subdirectories so they, e.g.
 `/post/123456789/my-slug-that-is-often-incompl`, redirect to the new post URL.
 
 Instead of dealing with maintaining those pages for redirection, let
@@ -35,7 +35,7 @@ gem:
 ## Usage
 
 The object of this gem is to allow an author to specify multiple URLs for a
-page, such that the alternative URLs redirect to the new Jekyll URL. This is 
+page, such that the alternative URLs redirect to the new Jekyll URL. This is
 
 To use it, simply add the array to the YAML front-matter of your page or post:
 
@@ -46,12 +46,31 @@ redirect_from:
   - /post/123456789/my-amazing-post/
 ```
 
-(*Note: be sure to include the trailing slash at the end of your URL so the plugin correctly generates a subdirectory path*)
+Redirects including a trailing slash will generate a corresponding subdirectory containing an `index.html`, while redirects without a trailing slash will generate a corresponding `filename.html` without a subdirectory.
 
-This will generate the following pages in the destination:
+For example...
 
 ```text
-/post/123456789/index.html
+redirect_from:
+  - /post/123456789/my-amazing-post
+```
+
+...will generate the following page in the destination:
+
+```text
+/post/123456789/my-amazing-post.html
+```
+
+While...
+
+```text
+redirect_from:
+  - /post/123456789/my-amazing-post/
+```
+
+...will generate the following page in the destination:
+
+```text
 /post/123456789/my-amazing-post/index.html
 ```
 
