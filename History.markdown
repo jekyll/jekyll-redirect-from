@@ -4,6 +4,8 @@
 
 ### Minor Enhancements
 
+  * Shorten resulting HTML to make redirects quicker (#20)
+
 ### Bug Fixes
 
 ### Development Fixes
