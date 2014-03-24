@@ -8,6 +8,8 @@
 
 ### Development Fixes
 
+  * Use SVG Travis badge in README (#21)
+
 ## 0.3.1 / 2014-01-22
 
 ### Bug Fixes
