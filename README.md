@@ -46,7 +46,7 @@ redirect_from:
   - /post/123456789/my-amazing-post/
 ```
 
-Redirects including a trailing slash will generate a corresponding subdirectory containing an `index.html`, while redirects without a trailing slash will generate a corresponding `filename.html` without a subdirectory.
+Redirects including a trailing slash will generate a corresponding subdirectory containing an `index.html`, while redirects without a trailing slash will generate a corresponding `filename` without an extension, and without a subdirectory.
 
 For example...
 
@@ -58,7 +58,7 @@ redirect_from:
 ...will generate the following page in the destination:
 
 ```text
-/post/123456789/my-amazing-post.html
+/post/123456789/my-amazing-post
 ```
 
 While...
