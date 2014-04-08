@@ -14,7 +14,7 @@ module JekyllRedirectFrom
           alt_urls(item).flatten.each do |alt_url|
             redirect_page = RedirectPage.new(site, site.source, "", "")
             redirect_page.data['permalink'] = alt_url
-            redirect_page.generate_redirect_content(item.url)
+            redirect_page.generate_redirect_content(strip_out_index_html(item.url))
             site.pages << redirect_page
           end
         end
@@ -29,6 +29,10 @@ module JekyllRedirectFrom
 
     def alt_urls(page_or_post)
       Array[page_or_post.data['redirect_from']].flatten
+    end
+
+    def strip_out_index_html(url)
+      url.sub(/\/index\.html?$/, '')
     end
   end
 end
