@@ -58,4 +58,26 @@ describe JekyllRedirectFrom::Redirector do
       expect(destination_file_contents("multiple_redirect_tos.html")).to include(%|<meta http-equiv=refresh content="0; url=https://www.jekyllrb.com">|)
     end
   end
+
+  context "prefix" do
+    it "uses site.github.url as the redirect prefix" do
+      @site.config['github'] = { "url" => "http://example.github.io/test" }
+      expect(redirector.redirect_url(@site, page_with_one)).to start_with("http://example.github.io/test")
+    end
+
+    it "uses site.baseurl as the redirect prefix when site.github.url is not set" do
+      @site.config['baseurl'] = "/fancy/prefix"
+      expect(redirector.redirect_url(@site, page_with_one)).to start_with("/fancy/prefix")
+    end
+
+    it "prefers site.github.url over site.baseurl" do
+      @site.config['github'] = { "url" => "http://example.github.io/test" }
+      @site.config['baseurl'] = "/fancy/baseurl"
+      expect(redirector.redirect_url(@site, page_with_one)).to start_with("http://example.github.io/test")
+    end
+    
+    it "no-ops when site.github.url and site.baseurl are not set" do
+      expect(redirector.redirect_url(@site, page_with_one)).to eql("/one_redirect_url.html")
+    end
+  end
 end
