@@ -10,7 +10,7 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.before(:all) do
+  config.before(:each) do
     Jekyll.logger.log_level = :error
 
     @fixtures_path = Pathname.new(__FILE__).parent.join("fixtures")
@@ -29,7 +29,7 @@ RSpec.configure do |config|
     @site.process
   end
 
-  config.after(:all) do
+  config.after(:each) do
     @dest.rmtree if @dest.exist?
   end
 

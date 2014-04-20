@@ -29,7 +29,7 @@ describe JekyllRedirectFrom::Redirector do
   end
 
   context "refresh page generation" do
-    before(:all) do
+    before(:each) do
       described_class.new.generate(@site)
     end
 
