@@ -2,13 +2,21 @@
 
 ### Major Enhancements
 
+### Minor Enhancements
+
+### Bug Fixes
+
+### Development Fixes
+
+## 0.4.0 / 2014-05-06
+
+### Major Enhancements
+
   * Upgrade to Jekyll 2.0 (#27)
 
 ### Minor Enhancements
 
   * Shorten resulting HTML to make redirects quicker (#20)
-
-### Bug Fixes
 
 ### Development Fixes
 
