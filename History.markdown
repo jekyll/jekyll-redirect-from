@@ -2,6 +2,8 @@
 
 ### Major Enhancements
 
+  * Upgrade to Jekyll 2.0 (#27)
+
 ### Minor Enhancements
 
   * Shorten resulting HTML to make redirects quicker (#20)
