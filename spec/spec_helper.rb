@@ -12,7 +12,7 @@ RSpec.configure do |config|
   end
 
   config.before(:all) do
-    Jekyll.logger.log_level = Jekyll::Stevenson::ERROR
+    Jekyll.logger.log_level = :error
 
     @fixtures_path = Pathname.new(__FILE__).parent.join("fixtures")
     @dest = @fixtures_path.join("_site")
