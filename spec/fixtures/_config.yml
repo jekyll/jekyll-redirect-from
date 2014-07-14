@@ -1,3 +1,4 @@
 url: http://jekyllrb.com
 gems:
   - jekyll-redirect-from
+baseurl: /pages/help

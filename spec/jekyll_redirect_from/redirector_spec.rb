@@ -1,10 +1,11 @@
 require "spec_helper"
 
 describe JekyllRedirectFrom::Redirector do
-  let(:redirector)       { described_class.new }
-  let(:post_to_redirect) { setup_post("2014-01-03-redirect-me-plz.md") }
-  let(:page_with_one)    { setup_page("one_redirect_url.md") }
-  let(:page_with_many)   { setup_page("multiple_redirect_urls.md") }
+  let(:redirector)           { described_class.new }
+  let(:post_to_redirect)     { setup_post("2014-01-03-redirect-me-plz.md") }
+  let(:page_with_one)        { setup_page("one_redirect_url.md") }
+  let(:page_with_many)       { setup_page("multiple_redirect_urls.md") }
+  let(:page_with_variable)   { setup_page("baseurl_substitution.md") }
 
   it "knows if a page or post is requesting a redirect page" do
     expect(redirector.has_alt_urls?(post_to_redirect)).to be_true
@@ -16,6 +17,10 @@ describe JekyllRedirectFrom::Redirector do
 
   it "handles many redirect paths" do
     expect(redirector.alt_urls(page_with_many)).to eql(["help", "contact", "let-there/be/light-he-said", "/geepers/mccreepin"])
+  end
+
+  it "handles a baseurl variable" do
+    expect(redirector.alt_urls(page_with_variable)).to eql(["{{ site.baseurl }}/somewhere/else/"])
   end
 
   context "refresh page generation" do
@@ -36,6 +41,10 @@ describe JekyllRedirectFrom::Redirector do
 
     it "generates the refresh page for the page with one redirect_from url" do
       expect(destination_file_exists?("mencius/was/my/father")).to be_true
+    end
+
+    it "generates the refresh page for a baseurl substitution" do
+      expect(destination_file_exists?("/pages/help/somewhere/else")).to be_true
     end
   end
 end
