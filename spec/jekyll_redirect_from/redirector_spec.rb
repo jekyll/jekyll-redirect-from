@@ -8,7 +8,7 @@ describe JekyllRedirectFrom::Redirector do
   let(:page_with_variable)   { setup_page("baseurl_substitution.md") }
 
   it "knows if a page or post is requesting a redirect page" do
-    expect(redirector.has_alt_urls?(post_to_redirect)).to be_true
+    expect(redirector.has_alt_urls?(post_to_redirect)).to be_truthy
   end
 
   it "handles one redirect path" do
@@ -29,18 +29,18 @@ describe JekyllRedirectFrom::Redirector do
     end
 
     it "generates the refresh page for the post properly" do
-      expect(destination_file_exists?("posts/23128432159832/mary-had-a-little-lamb")).to be_true
+      expect(destination_file_exists?("posts/23128432159832/mary-had-a-little-lamb")).to be_truthy
     end
 
     it "generates the refresh pages for the page with multiple redirect_from urls" do
-      expect(destination_file_exists?("help")).to be_true
-      expect(destination_file_exists?("contact")).to be_true
-      expect(destination_file_exists?("let-there/be/light-he-said")).to be_true
-      expect(destination_file_exists?("/geepers/mccreepin")).to be_true
+      expect(destination_file_exists?("help")).to be_truthy
+      expect(destination_file_exists?("contact")).to be_truthy
+      expect(destination_file_exists?("let-there/be/light-he-said")).to be_truthy
+      expect(destination_file_exists?("/geepers/mccreepin")).to be_truthy
     end
 
     it "generates the refresh page for the page with one redirect_from url" do
-      expect(destination_file_exists?("mencius/was/my/father")).to be_true
+      expect(destination_file_exists?("mencius/was/my/father")).to be_truthy
     end
 
     it "generates the refresh page for a baseurl substitution" do
