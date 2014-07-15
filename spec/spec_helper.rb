@@ -45,6 +45,10 @@ RSpec.configure do |config|
     File.exists?(File.join(@dest.to_s, file))
   end
 
+  def destination_file_contents(file)
+    File.read(File.join(@dest.to_s, file))
+  end
+
   def new_redirect_page(permalink)
     page = JekyllRedirectFrom::RedirectPage.new(@site, @site.source, "", "")
     page.data['permalink'] = permalink
