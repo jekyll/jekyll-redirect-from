@@ -49,12 +49,12 @@ describe JekyllRedirectFrom::Redirector do
     end
 
     it "generates the refresh page for the page with one redirect_to url" do
-      expect(destination_file_exists?("one_redirect_to.html")).to be_true
+      expect(destination_file_exists?("one_redirect_to.html")).to be_truthy
       expect(destination_file_contents("one_redirect_to.html")).to include(%|<meta http-equiv=refresh content="0; url=https://www.github.com">|)
     end
 
     it "generates the refresh page for the page with multiple redirect_to urls" do
-      expect(destination_file_exists?("multiple_redirect_tos.html")).to be_true
+      expect(destination_file_exists?("multiple_redirect_tos.html")).to be_truthy
       expect(destination_file_contents("multiple_redirect_tos.html")).to include(%|<meta http-equiv=refresh content="0; url=https://www.jekyllrb.com">|)
     end
   end
