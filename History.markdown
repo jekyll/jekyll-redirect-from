@@ -4,6 +4,8 @@
 
 ### Minor Enhancements
 
+  * Support `redirect_to` property (#32)
+
 ### Bug Fixes
 
 ### Development Fixes
