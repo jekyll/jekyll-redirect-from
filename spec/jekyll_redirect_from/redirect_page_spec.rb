@@ -58,7 +58,7 @@ describe JekyllRedirectFrom::RedirectPage do
     end
 
     it "is written to the proper location" do
-      expect(File.exist?(redirect_page_full_path)).to be_true
+      expect(File.exist?(redirect_page_full_path)).to be_truthy
     end
 
     it "writes the context we expect" do
