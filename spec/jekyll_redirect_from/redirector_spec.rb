@@ -44,7 +44,7 @@ describe JekyllRedirectFrom::Redirector do
     end
 
     it "generates the refresh page for a baseurl substitution" do
-      expect(destination_file_exists?("/pages/help/somewhere/else")).to be_true
+      expect(destination_file_exists?("/pages/help/somewhere/else")).to be_truthy
     end
   end
 end
