@@ -8,6 +8,8 @@
 
 ### Development Fixes
 
+  * Use `be_truthy` instead of `be_true`. (#33)
+
 ## 0.4.0 / 2014-05-06
 
 ### Major Enhancements
