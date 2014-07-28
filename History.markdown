@@ -8,6 +8,8 @@
 
 ### Bug Fixes
 
+  * Remove unnecessary `Array#flatten` (#34)
+
 ### Development Fixes
 
   * Use `be_truthy` instead of `be_true`. (#33)
