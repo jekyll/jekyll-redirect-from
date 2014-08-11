@@ -14,7 +14,7 @@ module JekyllRedirectFrom
           alt_urls(item).each do |alt_url|
             redirect_page = RedirectPage.new(site, site.source, "", "")
             redirect_page.data['permalink'] = alt_url
-            redirect_page.generate_redirect_content(item.url)
+            redirect_page.generate_redirect_content(redirect_url(site, item))
             site.pages << redirect_page
           end
         end
@@ -47,6 +47,22 @@ module JekyllRedirectFrom
 
     def redirect_to_url(page_or_post)
       [Array[page_or_post.data['redirect_to']].flatten.first]
+    end
+
+    def redirect_url(site, item)
+      File.join redirect_prefix(site), item.url
+    end
+
+    def redirect_prefix(site)
+      config_github_url(site) || config_baseurl(site) || ""
+    end
+
+    def config_github_url(site)
+      site.config.fetch('github', Hash.new).fetch('url', nil)
+    end
+
+    def config_baseurl(site)
+      site.config.fetch('baseurl', nil)
     end
   end
 end
