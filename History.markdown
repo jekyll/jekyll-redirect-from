@@ -5,6 +5,7 @@
 ### Minor Enhancements
 
   * Support `redirect_to` property (#32)
+  * Automatically prefix redirects with the `baseurl` or GitHub URL. (#26)
 
 ### Bug Fixes
 
