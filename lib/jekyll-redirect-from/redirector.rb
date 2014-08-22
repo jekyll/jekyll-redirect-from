@@ -6,6 +6,9 @@ module JekyllRedirectFrom
       original_pages = site.pages.dup
       generate_alt_urls(site, site.posts)
       generate_alt_urls(site, original_pages)
+      site.collections.each do |name, collection|
+        generate_alt_urls(site, collection.docs)
+      end
     end
 
     def generate_alt_urls(site, list)
