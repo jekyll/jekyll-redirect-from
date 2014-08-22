@@ -3,6 +3,7 @@ require "spec_helper"
 describe JekyllRedirectFrom::Redirector do
   let(:redirector)                  { described_class.new }
   let(:post_to_redirect)            { setup_post("2014-01-03-redirect-me-plz.md") }
+  let(:doc_to_redirect)             { setup_doc }
   let(:page_with_one)               { setup_page("one_redirect_url.md") }
   let(:page_with_many)              { setup_page("multiple_redirect_urls.md") }
   let(:page_with_one_redirect_to)   { setup_page("one_redirect_to.md") }
@@ -10,6 +11,10 @@ describe JekyllRedirectFrom::Redirector do
 
   it "knows if a page or post is requesting a redirect page" do
     expect(redirector.has_alt_urls?(post_to_redirect)).to be_truthy
+  end
+
+  it "knows if a document is requesting a redirect page" do
+    expect(redirector.has_alt_urls?(doc_to_redirect)).to be_truthy
   end
 
   it "handles one redirect path" do

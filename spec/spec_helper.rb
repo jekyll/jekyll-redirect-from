@@ -14,15 +14,19 @@ RSpec.configure do |config|
     Jekyll.logger.log_level = :error
 
     @fixtures_path = Pathname.new(__FILE__).parent.join("fixtures")
-    @dest = @fixtures_path.join("_site")
-    @posts_src = File.join(@fixtures_path, "_posts")
-    @layouts_src = File.join(@fixtures_path, "_layouts")
-    @plugins_src = File.join(@fixtures_path, "_plugins")
+    @dest        = @fixtures_path.join("_site")
+    @posts_src   = @fixtures_path.join("_posts")
+    @layouts_src = @fixtures_path.join("_layouts")
+    @plugins_src = @fixtures_path.join("_plugins")
 
     @site = Jekyll::Site.new(Jekyll.configuration({
       "source"      => @fixtures_path.to_s,
       "destination" => @dest.to_s,
-      "plugins"     => @plugins_src
+      "plugins"     => @plugins_src.to_s,
+      "collections" => {
+        "articles" => {"output" => true},
+        "authors"  => {}
+      }
     }))
 
     @dest.rmtree if @dest.exist?
@@ -33,12 +37,20 @@ RSpec.configure do |config|
     @dest.rmtree if @dest.exist?
   end
 
+  def unpublished_doc
+    @site.collections["authors"].docs.first
+  end
+
+  def setup_doc
+    @site.collections["articles"].docs.first
+  end
+
   def setup_post(file)
-    Jekyll::Post.new(@site, @fixtures_path, '', file)
+    Jekyll::Post.new(@site, @fixtures_path.to_s, '', file)
   end
 
   def setup_page(file)
-    Jekyll::Page.new(@site, @fixtures_path, File.dirname(file), File.basename(file))
+    Jekyll::Page.new(@site, @fixtures_path.to_s, File.dirname(file), File.basename(file))
   end
 
   def destination_file_exists?(file)
