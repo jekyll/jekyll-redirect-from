@@ -22,7 +22,8 @@ RSpec.configure do |config|
     @site = Jekyll::Site.new(Jekyll.configuration({
       "source"      => @fixtures_path.to_s,
       "destination" => @dest.to_s,
-      "plugins"     => @plugins_src
+      "plugins"     => @plugins_src,
+      "collections" => ["articles"]
     }))
 
     @dest.rmtree if @dest.exist?
@@ -31,6 +32,10 @@ RSpec.configure do |config|
 
   config.after(:each) do
     @dest.rmtree if @dest.exist?
+  end
+
+  def setup_doc
+    @site.collections["articles"].docs.first
   end
 
   def setup_post(file)
