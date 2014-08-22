@@ -1,5 +1,7 @@
 ## HEAD
 
+  * Support redirecting to/from collection documents (#40)
+
 ## 0.5.0 / 2014-08-10
 
 ### Minor Enhancements
