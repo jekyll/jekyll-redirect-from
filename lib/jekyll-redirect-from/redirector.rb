@@ -37,7 +37,7 @@ module JekyllRedirectFrom
     end
 
     def alt_urls(page_or_post)
-      Array[page_or_post.data['redirect_from']].flatten
+      Array[page_or_post.data['redirect_from']].flatten.map { |url| slugify(url) }
     end
 
     def has_redirect_to_url?(page_or_post)
@@ -64,6 +64,13 @@ module JekyllRedirectFrom
 
     def config_baseurl(site)
       site.config.fetch('baseurl', nil)
+    end
+
+    def slugify(url)
+      return if url.nil?
+      slug = url.gsub(/[^a-z0-9\/]+/i, '-')
+      slug.gsub!(/^\-|\-$/i, '')
+      slug.downcase
     end
   end
 end
