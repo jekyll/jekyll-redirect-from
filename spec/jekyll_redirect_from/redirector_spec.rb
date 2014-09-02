@@ -1,13 +1,14 @@
 require "spec_helper"
 
 describe JekyllRedirectFrom::Redirector do
-  let(:redirector)                  { described_class.new }
-  let(:post_to_redirect)            { setup_post("2014-01-03-redirect-me-plz.md") }
-  let(:doc_to_redirect)             { setup_doc }
-  let(:page_with_one)               { setup_page("one_redirect_url.md") }
-  let(:page_with_many)              { setup_page("multiple_redirect_urls.md") }
-  let(:page_with_one_redirect_to)   { setup_page("one_redirect_to.md") }
-  let(:page_with_many_redirect_to)  { setup_page("multiple_redirect_tos.md") }
+  let(:redirector)                          { described_class.new }
+  let(:post_to_redirect)                    { setup_post("2014-01-03-redirect-me-plz.md") }
+  let(:doc_to_redirect)                     { setup_doc }
+  let(:page_with_one)                       { setup_page("one_redirect_url.md") }
+  let(:page_with_many)                      { setup_page("multiple_redirect_urls.md") }
+  let(:page_with_one_redirect_to)           { setup_page("one_redirect_to.md") }
+  let(:page_with_many_redirect_to)          { setup_page("multiple_redirect_tos.md") }
+  let(:redirect_from_non_slugged_paths)     { setup_page("redirect_from_non_slugged_paths.md") }
 
   it "knows if a page or post is requesting a redirect page" do
     expect(redirector.has_alt_urls?(post_to_redirect)).to be_truthy
@@ -33,6 +34,10 @@ describe JekyllRedirectFrom::Redirector do
     expect(redirector.redirect_to_url(page_with_many_redirect_to)).to eql(["https://www.jekyllrb.com"])
   end
 
+  it "handles non-slugged redirect_from paths" do
+    expect(redirector.alt_urls(redirect_from_non_slugged_paths)).to eql(["well-hello-there", "/articles/how-to-apply-transistors"])
+  end
+
   context "refresh page generation" do
     before(:each) do
       described_class.new.generate(@site)
@@ -51,6 +56,11 @@ describe JekyllRedirectFrom::Redirector do
 
     it "generates the refresh page for the page with one redirect_from url" do
       expect(destination_file_exists?("mencius/was/my/father")).to be_truthy
+    end
+
+    it "generates the refresh pages for a page with unslugged multiple redirect_from urls" do
+      expect(destination_file_exists?("well-hello-there")).to be_truthy
+      expect(destination_file_exists?("/articles/how-to-apply-transistors")).to be_truthy
     end
 
     it "generates the refresh page for the page with one redirect_to url" do
@@ -80,7 +90,7 @@ describe JekyllRedirectFrom::Redirector do
       @site.config['baseurl'] = "/fancy/baseurl"
       expect(redirector.redirect_url(@site, page_with_one)).to start_with("http://example.github.io/test")
     end
-    
+
     it "no-ops when site.github.url and site.baseurl are not set" do
       expect(redirector.redirect_url(@site, page_with_one)).to eql("/one_redirect_url.html")
     end
