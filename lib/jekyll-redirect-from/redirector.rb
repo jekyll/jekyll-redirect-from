@@ -59,7 +59,8 @@ module JekyllRedirectFrom
     end
 
     def config_github_url(site)
-      site.config.fetch('github', Hash.new).fetch('url', nil)
+      github_config = site.config['github']
+      github_config['url'] if github_config.is_a?(Hash)
     end
 
     def config_baseurl(site)

@@ -84,5 +84,10 @@ describe JekyllRedirectFrom::Redirector do
     it "no-ops when site.github.url and site.baseurl are not set" do
       expect(redirector.redirect_url(@site, page_with_one)).to eql("/one_redirect_url.html")
     end
+
+    it "no-ops when site.github is set but site.github.url is not" do
+      @site.config['github'] = "username"
+      expect(redirector.redirect_url(@site, page_with_one)).to eql("/one_redirect_url.html")
+    end
   end
 end
