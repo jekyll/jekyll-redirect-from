@@ -1,5 +1,7 @@
 ## HEAD
 
+  * Fixed error when the `site.github` config key is not a `Hash` (#43)
+
 ## 0.6.0 / 2014-08-22
 
   * Support redirecting to/from collection documents (#40)
