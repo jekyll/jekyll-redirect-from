@@ -41,8 +41,8 @@ RSpec.configure do |config|
     @site.collections["authors"].docs.first
   end
 
-  def setup_doc
-    @site.collections["articles"].docs.first
+  def setup_doc(doc_filename)
+    @site.collections["articles"].docs.find { |d| d.path.match(doc_filename) }
   end
 
   def setup_post(file)

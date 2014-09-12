@@ -3,7 +3,8 @@ require "spec_helper"
 describe JekyllRedirectFrom::Redirector do
   let(:redirector)                  { described_class.new }
   let(:post_to_redirect)            { setup_post("2014-01-03-redirect-me-plz.md") }
-  let(:doc_to_redirect)             { setup_doc }
+  let(:doc_to_redirect_from)        { setup_doc("redirect-me-plz.md") }
+  let(:doc_to_redirect_to)          { setup_doc("redirect-somewhere-else-plz.md") }
   let(:page_with_one)               { setup_page("one_redirect_url.md") }
   let(:page_with_many)              { setup_page("multiple_redirect_urls.md") }
   let(:page_with_one_redirect_to)   { setup_page("one_redirect_to.md") }
@@ -14,7 +15,11 @@ describe JekyllRedirectFrom::Redirector do
   end
 
   it "knows if a document is requesting a redirect page" do
-    expect(redirector.has_alt_urls?(doc_to_redirect)).to be_truthy
+    expect(redirector.has_alt_urls?(doc_to_redirect_from)).to be_truthy
+  end
+
+  it "knows if a document is requesting a redirect away" do
+    expect(redirector.redirect_to_url(doc_to_redirect_to)).to eql(["http://www.jekyllrb.com"])
   end
 
   it "handles one redirect path" do
@@ -53,6 +58,11 @@ describe JekyllRedirectFrom::Redirector do
       expect(destination_file_exists?("mencius/was/my/father")).to be_truthy
     end
 
+    it "generates the refresh page for the collection with one redirect_to url" do
+      expect(destination_file_exists?("redirect-somewhere-else-plz.html")).to be_truthy
+      expect(destination_file_contents("redirect-somewhere-else-plz.html")).to include(%|<meta http-equiv=refresh content="0; url=https://www.jekyllrb.com">|)
+    end
+
     it "generates the refresh page for the page with one redirect_to url" do
       expect(destination_file_exists?("one_redirect_to.html")).to be_truthy
       expect(destination_file_contents("one_redirect_to.html")).to include(%|<meta http-equiv=refresh content="0; url=https://www.github.com">|)
@@ -80,7 +90,7 @@ describe JekyllRedirectFrom::Redirector do
       @site.config['baseurl'] = "/fancy/baseurl"
       expect(redirector.redirect_url(@site, page_with_one)).to start_with("http://example.github.io/test")
     end
-    
+
     it "no-ops when site.github.url and site.baseurl are not set" do
       expect(redirector.redirect_url(@site, page_with_one)).to eql("/one_redirect_url.html")
     end
