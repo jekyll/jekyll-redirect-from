@@ -89,6 +89,18 @@ This is useful for scenarios where a site isn't available from the domain root, 
 
 **_Note_**: If you are hosting your Jekyll site on [GitHub Pages](https://pages.github.com/), the prefix is set to the pages domain name i.e. `http://example.github.io/project` or a custom `CNAME`.
 
+### Redirect To
+
+Sometimes, you may want to redirect a site page to a totally different website. This plugin also supports that with the `redirect_to` key:
+
+```yaml
+title: My amazing post
+redirect_to:
+  - www.github.com
+```
+
+If you have multiple `redirect_to`s set, only the first one will be respected. 
+
 ## Contributing
 
 1. Fork it
