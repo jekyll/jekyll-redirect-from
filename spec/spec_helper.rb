@@ -42,7 +42,7 @@ RSpec.configure do |config|
   end
 
   def setup_doc(doc_filename)
-    @site.collections["articles"].docs.find { |d| d.path.match(doc_filename) }
+    @site.collections["articles"].docs.find { |d| d.relative_path.match(doc_filename) }
   end
 
   def setup_post(file)
