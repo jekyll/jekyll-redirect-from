@@ -1,5 +1,7 @@
 ## HEAD
 
+  * Fixed error where `redirect_to` `Document`s were not being output properly (#46)
+
 ## 0.6.1 / 2014-09-08
 
   * Fixed error when the `site.github` config key is not a `Hash` (#43)
