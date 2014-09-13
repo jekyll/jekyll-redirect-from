@@ -19,7 +19,7 @@ describe JekyllRedirectFrom::Redirector do
   end
 
   it "knows if a document is requesting a redirect away" do
-    expect(redirector.redirect_to_url(doc_to_redirect_to)).to eql(["http://www.jekyllrb.com"])
+    expect(redirector.redirect_to_url(doc_to_redirect_to)).to eql(["http://www.zombo.com"])
   end
 
   it "handles one redirect path" do
@@ -59,8 +59,8 @@ describe JekyllRedirectFrom::Redirector do
     end
 
     it "generates the refresh page for the collection with one redirect_to url" do
-      expect(destination_file_exists?("redirect-somewhere-else-plz.html")).to be_truthy
-      expect(destination_file_contents("redirect-somewhere-else-plz.html")).to include(%|<meta http-equiv=refresh content="0; url=https://www.jekyllrb.com">|)
+      expect(@dest.join("articles", "redirect-somewhere-else-plz.html")).to exist
+      expect(destination_doc_contents("articles", "redirect-somewhere-else-plz.html")).to include(%|meta http-equiv=refresh content=”0; url=http://www.zombo.com|)
     end
 
     it "generates the refresh page for the page with one redirect_to url" do
