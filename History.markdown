@@ -1,5 +1,7 @@
 ## HEAD
 
+## 0.6.2 / 2014-09-12
+
   * Fixed error where `redirect_to` `Document`s were not being output properly (#46)
 
 ## 0.6.1 / 2014-09-08
