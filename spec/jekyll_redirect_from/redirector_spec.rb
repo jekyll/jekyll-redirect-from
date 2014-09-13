@@ -4,7 +4,7 @@ describe JekyllRedirectFrom::Redirector do
   let(:redirector)                  { described_class.new }
   let(:post_to_redirect)            { setup_post("2014-01-03-redirect-me-plz.md") }
   let(:doc_to_redirect_from)        { setup_doc("redirect-me-plz.md") }
-  let(:doc_to_redirect_to)          { setup_doc("redirect-somewhere-else-plz.md") }
+  let(:doc_to_redirect_to)          { setup_doc("redirect-somewhere-else-plz.html") }
   let(:page_with_one)               { setup_page("one_redirect_url.md") }
   let(:page_with_many)              { setup_page("multiple_redirect_urls.md") }
   let(:page_with_one_redirect_to)   { setup_page("one_redirect_to.md") }
@@ -60,7 +60,7 @@ describe JekyllRedirectFrom::Redirector do
 
     it "generates the refresh page for the collection with one redirect_to url" do
       expect(@dest.join("articles", "redirect-somewhere-else-plz.html")).to exist
-      expect(destination_doc_contents("articles", "redirect-somewhere-else-plz.html")).to include(%|meta http-equiv=refresh content=”0; url=http://www.zombo.com|)
+      expect(destination_doc_contents("articles", "redirect-somewhere-else-plz.html")).to include(%|<meta http-equiv=refresh content="0; url=http://www.zombo.com">|)
     end
 
     it "generates the refresh page for the page with one redirect_to url" do
