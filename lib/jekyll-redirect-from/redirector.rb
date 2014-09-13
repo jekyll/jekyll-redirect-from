@@ -25,7 +25,7 @@ module JekyllRedirectFrom
             redirect_page.data['permalink'] = item.url
             redirect_page.generate_redirect_content(alt_url)
             if item.is_a?(Jekyll::Document)
-              item.content = item.output = redirect_page.to_s
+              item.content = item.output = redirect_page.content
             else
               site.pages << redirect_page
             end
