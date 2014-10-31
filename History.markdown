@@ -1,5 +1,7 @@
 ## HEAD
 
+  * Simplified `has_alt_urls?` and `has_redirect_to_url?` conditions (#52)
+
 ## 0.6.2 / 2014-09-12
 
   * Fixed error where `redirect_to` `Document`s were not being output properly (#46)
