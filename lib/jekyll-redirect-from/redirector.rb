@@ -35,23 +35,19 @@ module JekyllRedirectFrom
     end
 
     def has_alt_urls?(page_or_post)
-      page_or_post.data.has_key?('redirect_from') &&
-        !alt_urls(page_or_post).nil? &&
-        !alt_urls(page_or_post).empty?
+      page_or_post.data.has_key?('redirect_from') && !alt_urls(page_or_post).empty?
     end
 
     def alt_urls(page_or_post)
-      Array[page_or_post.data['redirect_from']].flatten
+      Array[page_or_post.data['redirect_from']].flatten.compact
     end
 
     def has_redirect_to_url?(page_or_post)
-      page_or_post.data.has_key?('redirect_to') &&
-        !alt_urls(page_or_post).nil? &&
-        !alt_urls(page_or_post).empty?
+      page_or_post.data.has_key?('redirect_to') && !redirect_to_url(page_or_post).empty?
     end
 
     def redirect_to_url(page_or_post)
-      [Array[page_or_post.data['redirect_to']].flatten.first]
+      [Array[page_or_post.data['redirect_to']].flatten.first].compact
     end
 
     def redirect_url(site, item)
