@@ -1,4 +1,2 @@
 #! /bin/bash
-
-script/bootstrap > /dev/null
 script/test $@
