@@ -34,8 +34,16 @@ module JekyllRedirectFrom
       end
     end
 
+    def is_dynamic_document?(page_or_post)
+      page_or_post.is_a?(Jekyll::Post) ||
+        page_or_post.is_a?(Jekyll::Page) ||
+        page_or_post.is_a?(Jekyll::Document)
+    end
+
     def has_alt_urls?(page_or_post)
-      page_or_post.data.has_key?('redirect_from') && !alt_urls(page_or_post).empty?
+      is_dynamic_document?(page_or_post) &&
+        page_or_post.data.has_key?('redirect_from') &&
+        !alt_urls(page_or_post).empty?
     end
 
     def alt_urls(page_or_post)
