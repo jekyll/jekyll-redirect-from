@@ -37,6 +37,10 @@ RSpec.configure do |config|
     @dest.rmtree if @dest.exist?
   end
 
+  def dest_dir(*paths)
+    File.join(@dest.to_s, *paths)
+  end
+
   def unpublished_doc
     @site.collections["authors"].docs.first
   end
