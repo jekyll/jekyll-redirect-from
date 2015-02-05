@@ -101,7 +101,7 @@ redirect_to:
 
 If you have multiple `redirect_to`s set, only the first one will be respected.
 
-**Note**: if using `redirect_to` with collections, your collection's extension ***must** end in *.html* in order for `redirect_to` to properly process.
+**Note**: if using `redirect_to` with collections, your collection's extension **must** end in *.html* in order for `redirect_to` to properly process.
 
 ## Contributing
 
