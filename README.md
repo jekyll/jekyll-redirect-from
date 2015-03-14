@@ -96,7 +96,7 @@ Sometimes, you may want to redirect a site page to a totally different website. 
 ```yaml
 title: My amazing post
 redirect_to:
-  - www.github.com
+  - http://www.github.com
 ```
 
 If you have multiple `redirect_to`s set, only the first one will be respected.
