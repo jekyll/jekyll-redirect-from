@@ -34,14 +34,14 @@ describe JekyllRedirectFrom::RedirectPage do
       let(:redirect_page) { new_redirect_page(permalink_dir) }
 
       it "knows to add the index.html if it's a folder" do
-        dest = @dest.join("posts/1914798137981389/larry-had-a-little-lamb/index.html").to_s
+        dest = dest_dir("/posts/1914798137981389/larry-had-a-little-lamb/index.html")
         expect(redirect_page.destination("/")).to eql(dest)
       end
     end
 
     context "of a redirect page meant to be a file" do
       it "knows not to add the index.html if it's not a folder" do
-        dest = @dest.join("posts/12435151125/larry-had-a-little-lamb").to_s
+        dest = dest_dir("/posts/12435151125/larry-had-a-little-lamb")
         expect(redirect_page.destination("/")).to eql(dest)
       end
     end
