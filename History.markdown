@@ -1,4 +1,4 @@
-## HEAD
+## 0.7.0 / 2015-03-16
 
   * Remove spaces in redirect page (#62)
   * Only parse through documents/pages/posts (#56)
