@@ -8,7 +8,7 @@ describe JekyllRedirectFrom::RedirectPage do
 
   context "#generate_redirect_content" do
     it "sets the #content to the generated refresh page" do
-      expect(page_content).to eq("      <!DOCTYPE html>\n      <meta charset=utf-8>\n      <title>Redirecting...</title>\n      <link rel=canonical href=\"#{item_url}\">\n      <meta http-equiv=refresh content=\"0; url=#{item_url}\">\n      <h1>Redirecting...</h1>\n      <a href=\"#{item_url}\">Click here if you are not redirected.</a>\n      <script>location='#{item_url}'</script>\n")
+      expect(page_content).to eq("<!DOCTYPE html>\n<meta charset=utf-8>\n<title>Redirecting...</title>\n<link rel=canonical href=\"#{item_url}\">\n<meta http-equiv=refresh content=\"0; url=#{item_url}\">\n<h1>Redirecting...</h1>\n<a href=\"#{item_url}\">Click here if you are not redirected.</a>\n<script>location='#{item_url}'</script>\n")
     end
 
     it "contains the meta refresh tag" do
