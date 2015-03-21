@@ -7,3 +7,4 @@ rvm:
   - 1.9.3
 before_script: bundle update
 script: "script/cibuild"
+redirect_from: "/website"
