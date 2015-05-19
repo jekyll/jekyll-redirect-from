@@ -74,4 +74,8 @@ RSpec.configure do |config|
     page.data['permalink'] = permalink
     page
   end
+
+  def destination_sitemap
+    File.read(File.join(@dest.to_s, 'sitemap.xml'))
+  end
 end
