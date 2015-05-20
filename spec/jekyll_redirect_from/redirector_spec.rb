@@ -38,6 +38,10 @@ describe JekyllRedirectFrom::Redirector do
     expect(redirector.redirect_to_url(page_with_many_redirect_to)).to eql(["https://www.jekyllrb.com"])
   end
 
+  it "does not include pages with a redirect in sitemap" do
+    expect(destination_sitemap).not_to include(%|one_redirect_to.html|)
+  end
+
   context "refresh page generation" do
     before(:each) do
       described_class.new.generate(@site)

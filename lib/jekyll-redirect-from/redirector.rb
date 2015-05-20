@@ -15,14 +15,17 @@ module JekyllRedirectFrom
           alt_urls(item).each do |alt_url|
             redirect_page = RedirectPage.new(site, site.source, "", "")
             redirect_page.data['permalink'] = alt_url
+            redirect_page.data['sitemap'] = false
             redirect_page.generate_redirect_content(redirect_url(site, item))
             site.pages << redirect_page
           end
         end
         if has_redirect_to_url?(item)
           redirect_to_url(item).flatten.each do |alt_url|
+            item.data['sitemap'] = false
             redirect_page = RedirectPage.new(site, site.source, File.dirname(item.url), File.basename(item.url))
             redirect_page.data['permalink'] = item.url
+            redirect_page.data['sitemap'] = false
             redirect_page.generate_redirect_content(alt_url)
             if item.is_a?(Jekyll::Document)
               item.content = item.output = redirect_page.content
