@@ -1,3 +1,7 @@
+## HEAD
+
+  * Exclude redirect pages from sitemap (#69)
+
 ## 0.7.0 / 2015-03-16
 
   * Remove spaces in redirect page (#62)
