@@ -1,4 +1,4 @@
-## HEAD
+## 0.8.0 / 2015-05-20
 
   * Exclude redirect pages from sitemap (#69)
 
