@@ -12,6 +12,9 @@ matrix:
     - # Ruby 1.9
       rvm: 1.9
       env: JEKYLL_VERSION=2.0
+  allow_failures:
+    - env: GH_PAGES=true # Jekyll 2.4 will fail tests
+  fast_finish: true
 
 rvm:
   - 2.2
