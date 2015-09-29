@@ -11,6 +11,12 @@ Instead of dealing with maintaining those pages for redirection, let
 
 [![Build Status](https://travis-ci.org/jekyll/jekyll-redirect-from.svg?branch=master)](https://travis-ci.org/jekyll/jekyll-redirect-from)
 
+## How it Works
+
+Redirects are performed by serving an HTML file with an HTTP-REFRESH meta
+tag which points to your destination. No `.htaccess` file, nginx conf, xml
+file, or anything else will be generated. It simply creates HTML files.
+
 ## Installation
 
 Add this line to your application's Gemfile:
