@@ -11,7 +11,11 @@ describe JekyllRedirectFrom::Redirector do
   let(:page_with_many_redirect_to)  { setup_page("multiple_redirect_tos.md") }
 
   it "knows if a page or post is requesting a redirect page" do
-    expect(redirector.has_alt_urls?(post_to_redirect)).to be_truthy
+    if Jekyll::VERSION < '3.0.0'
+      expect(redirector.has_alt_urls?(post_to_redirect)).to be_truthy
+    else
+      skip "Don't need to test posts in Jekyll 3"
+    end
   end
 
   it "knows if a document is requesting a redirect page" do
