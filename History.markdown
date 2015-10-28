@@ -1,4 +1,4 @@
-## HEAD
+## 0.9.0 / 2015-10-28
 
   * Support Jekyll 3 stable (#76)
   * Test against Jekyll 3, 2, and GitHub Pages (#72)
