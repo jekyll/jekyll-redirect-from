@@ -1,5 +1,6 @@
 ## HEAD
 
+  * Support Jekyll 3 stable (#76)
   * Test against Jekyll 3, 2, and GitHub Pages (#72)
 
 ## 0.8.0 / 2015-05-20
