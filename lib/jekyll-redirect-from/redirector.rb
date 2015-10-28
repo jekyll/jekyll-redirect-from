@@ -4,7 +4,7 @@ module JekyllRedirectFrom
 
     def generate(site)
       original_pages = site.pages.dup
-      generate_alt_urls(site, site.posts)
+      generate_alt_urls(site, site.posts) if Jekyll::VERSION < '3.0.0'
       generate_alt_urls(site, original_pages)
       generate_alt_urls(site, site.docs_to_write)
     end
@@ -38,9 +38,10 @@ module JekyllRedirectFrom
     end
 
     def is_dynamic_document?(page_or_post)
-      page_or_post.is_a?(Jekyll::Post) ||
-        page_or_post.is_a?(Jekyll::Page) ||
-        page_or_post.is_a?(Jekyll::Document)
+      page_or_post.is_a?(Jekyll::Page) ||
+        page_or_post.is_a?(Jekyll::Document) ||
+        (Jekyll::VERSION < '3.0.0' &&
+          page_or_post.is_a?(Jekyll::Post))
     end
 
     def has_alt_urls?(page_or_post)
