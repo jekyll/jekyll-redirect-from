@@ -41,7 +41,7 @@ gems:
 ## Usage
 
 The object of this gem is to allow an author to specify multiple URLs for a
-page, such that the alternative URLs redirect to the new Jekyll URL. This is
+page, such that the alternative URLs redirect to the new Jekyll URL.
 
 To use it, simply add the array to the YAML front-matter of your page or post:
 
