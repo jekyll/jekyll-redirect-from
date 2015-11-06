@@ -8,19 +8,19 @@ describe JekyllRedirectFrom::RedirectPage do
 
   context "#generate_redirect_content" do
     it "sets the #content to the generated refresh page" do
-      expect(page_content).to eq("<!DOCTYPE html>\n<meta charset=utf-8>\n<title>Redirecting...</title>\n<link rel=canonical href=\"#{item_url}\">\n<meta http-equiv=refresh content=\"0; url=#{item_url}\">\n<h1>Redirecting...</h1>\n<a href=\"#{item_url}\">Click here if you are not redirected.</a>\n<script>location='#{item_url}'</script>\n")
+      expect(page_content).to eq("<!DOCTYPE html>\n<meta charset=\"utf-8\">\n<title>Redirecting...</title>\n<link rel=\"canonical\" href=\"#{item_url}\">\n<meta http-equiv=\"refresh\" content=\"0; url=#{item_url}\">\n<h1>Redirecting...</h1>\n<a href=\"#{item_url}\">Click here if you are not redirected.</a>\n<script>location=\"#{item_url}\"</script>\n")
     end
 
     it "contains the meta refresh tag" do
-      expect(page_content).to include("<meta http-equiv=refresh content=\"0; url=#{item_url}\">")
+      expect(page_content).to include("<meta http-equiv=\"refresh\" content=\"0; url=#{item_url}\">")
     end
 
     it "contains JavaScript redirect" do
-      expect(page_content).to include("location='http://jekyllrb.com/2014/01/03/moving-to-jekyll.md'")
+      expect(page_content).to include("location=\"http://jekyllrb.com/2014/01/03/moving-to-jekyll.md\"")
     end
 
     it "contains canonical link in header" do
-      expect(page_content).to include("<link rel=canonical href=\"http://jekyllrb.com/2014/01/03/moving-to-jekyll.md\">")
+      expect(page_content).to include("<link rel=\"canonical\" href=\"http://jekyllrb.com/2014/01/03/moving-to-jekyll.md\">")
     end
 
     it "contains a clickable link to redirect" do

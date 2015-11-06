@@ -68,17 +68,17 @@ describe JekyllRedirectFrom::Redirector do
 
     it "generates the refresh page for the collection with one redirect_to url" do
       expect(@dest.join("articles", "redirect-somewhere-else-plz.html")).to exist
-      expect(destination_doc_contents("articles", "redirect-somewhere-else-plz.html")).to include(%|<meta http-equiv=refresh content="0; url=http://www.zombo.com">|)
+      expect(destination_doc_contents("articles", "redirect-somewhere-else-plz.html")).to include(%|<meta http-equiv="refresh" content="0; url=http://www.zombo.com">|)
     end
 
     it "generates the refresh page for the page with one redirect_to url" do
       expect(destination_file_exists?("one_redirect_to.html")).to be_truthy
-      expect(destination_file_contents("one_redirect_to.html")).to include(%|<meta http-equiv=refresh content="0; url=https://www.github.com">|)
+      expect(destination_file_contents("one_redirect_to.html")).to include(%|<meta http-equiv="refresh" content="0; url=https://www.github.com">|)
     end
 
     it "generates the refresh page for the page with multiple redirect_to urls" do
       expect(destination_file_exists?("multiple_redirect_tos.html")).to be_truthy
-      expect(destination_file_contents("multiple_redirect_tos.html")).to include(%|<meta http-equiv=refresh content="0; url=https://www.jekyllrb.com">|)
+      expect(destination_file_contents("multiple_redirect_tos.html")).to include(%|<meta http-equiv="refresh" content="0; url=https://www.jekyllrb.com">|)
     end
   end
 
