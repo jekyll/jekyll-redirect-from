@@ -1,3 +1,7 @@
+## HEAD
+
+  * Enforce double-quote strings to pass htmlhint (#83)
+
 ## 0.9.0 / 2015-10-28
 
   * Support Jekyll 3 stable (#76)
