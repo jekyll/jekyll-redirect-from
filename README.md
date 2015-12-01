@@ -38,6 +38,16 @@ gems:
   - jekyll-redirect-from
 ```
 
+If you're using Jekyll in `safe` mode to mimic GitHub Pages, make sure to
+add jekyll-redirect-from to your whitelist:
+
+```yaml
+whitelist:
+  - jekyll-redirect-from
+```
+
+Then run `jekyll <cmd> --safe` like normal.
+
 ## Usage
 
 The object of this gem is to allow an author to specify multiple URLs for a
