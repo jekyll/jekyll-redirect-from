@@ -74,7 +74,9 @@ module JekyllRedirectFrom
 
     def config_github_url(site)
       github_config = site.config['github']
-      github_config['url'] if github_config.is_a?(Hash)
+      if github_config.is_a?(Hash) && github_config['url']
+        github_config['url'].to_s
+      end
     end
 
     def config_baseurl(site)
