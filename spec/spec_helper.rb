@@ -79,3 +79,13 @@ RSpec.configure do |config|
     File.read(File.join(@dest.to_s, 'sitemap.xml'))
   end
 end
+
+class TestStringContainer
+  def initialize(strValue)
+    @val = strValue
+  end
+
+  def to_s
+    @val
+  end
+end
