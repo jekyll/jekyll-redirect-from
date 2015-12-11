@@ -1,6 +1,7 @@
 ## HEAD
 
   * Enforce double-quote strings to pass htmlhint (#83)
+  * Stringify all values coming from `site.github` (#89)
 
 ## 0.9.0 / 2015-10-28
 
