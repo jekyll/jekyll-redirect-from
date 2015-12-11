@@ -88,6 +88,11 @@ describe JekyllRedirectFrom::Redirector do
       expect(redirector.redirect_url(@site, page_with_one)).to start_with("http://example.github.io/test")
     end
 
+    it "converts non-string values in site.github.url to strings" do
+      @site.config['github'] = { "url" => TestStringContainer.new("http://example.github.io/test") }
+      expect(redirector.redirect_url(@site, page_with_one)).to start_with("http://example.github.io/test")
+    end
+
     it "uses site.baseurl as the redirect prefix when site.github.url is not set" do
       @site.config['baseurl'] = "/fancy/prefix"
       expect(redirector.redirect_url(@site, page_with_one)).to start_with("/fancy/prefix")
