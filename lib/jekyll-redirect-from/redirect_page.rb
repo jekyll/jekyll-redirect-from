@@ -19,13 +19,17 @@ module JekyllRedirectFrom
     def generate_redirect_content(item_url)
       self.output = self.content = <<-EOF
 <!DOCTYPE html>
+<head>
 <meta charset="utf-8">
-<title>Redirecting...</title>
+<title>Redirecting …</title>
 <link rel="canonical" href="#{item_url}">
 <meta http-equiv="refresh" content="0; url=#{item_url}">
-<h1>Redirecting...</h1>
+</head>
+<body style="font-family: sans-serif">
+<h3>Redirecting …</h3>
 <a href="#{item_url}">Click here if you are not redirected.</a>
 <script>location="#{item_url}"</script>
+</body>
 EOF
     end
   end
