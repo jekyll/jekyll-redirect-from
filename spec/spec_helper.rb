@@ -67,6 +67,10 @@ RSpec.configure do |config|
   def destination_sitemap
     @dest.join("sitemap.xml").read
   end
+
+  def forced_output_ext
+    JekyllRedirectFrom.jekyll_3? ? ".html" : ""
+  end
 end
 
 class TestStringContainer

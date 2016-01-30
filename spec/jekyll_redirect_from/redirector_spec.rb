@@ -11,10 +11,10 @@ describe JekyllRedirectFrom::Redirector do
   let(:page_with_many_redirect_to)  { setup_page("multiple_redirect_tos.md") }
 
   it "knows if a page or post is requesting a redirect page" do
-    if Jekyll::VERSION < '3.0.0'
-      expect(redirector.has_alt_urls?(post_to_redirect)).to be_truthy
-    else
+    if JekyllRedirectFrom.jekyll_3?
       skip "Don't need to test posts in Jekyll 3"
+    else
+      expect(redirector.has_alt_urls?(post_to_redirect)).to be_truthy
     end
   end
 
@@ -52,7 +52,7 @@ describe JekyllRedirectFrom::Redirector do
     end
 
     it "generates the refresh page for the post properly" do
-      expect(dest_dir("posts/23128432159832/mary-had-a-little-lamb.html")).to exist
+      expect(dest_dir("posts/23128432159832/mary-had-a-little-lamb#{forced_output_ext}")).to exist
     end
 
     it "generates the refresh pages for the page with multiple redirect_from urls" do
@@ -63,7 +63,7 @@ describe JekyllRedirectFrom::Redirector do
     end
 
     it "generates the refresh page for the page with one redirect_from url" do
-      expect(dest_dir("mencius/was/my/father.html")).to exist
+      expect(dest_dir("mencius/was/my/father#{forced_output_ext}")).to exist
     end
 
     it "generates the refresh page for the collection with one redirect_to url" do
