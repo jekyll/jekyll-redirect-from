@@ -21,7 +21,7 @@ module JekyllRedirectFrom
         site.frontmatter_defaults.find(File.join(dir, name), type, key)
       end
 
-      Jekyll::Hooks.trigger :pages, :post_init, self
+      Jekyll::Hooks.trigger :pages, :post_init, self if defined?(Jekyll::Hooks)
     end
 
     def generate_redirect_content(item_url)
