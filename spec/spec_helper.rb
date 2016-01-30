@@ -38,7 +38,7 @@ RSpec.configure do |config|
   end
 
   def dest_dir(*paths)
-    File.join(@dest.to_s, *paths)
+    @dest.join(*paths)
   end
 
   def unpublished_doc
@@ -57,26 +57,15 @@ RSpec.configure do |config|
     Jekyll::Page.new(@site, @fixtures_path.to_s, File.dirname(file), File.basename(file))
   end
 
-  def destination_file_exists?(file)
-    File.exists?(File.join(@dest.to_s, file))
-  end
-
-  def destination_file_contents(file)
-    File.read(File.join(@dest.to_s, file))
-  end
-
-  def destination_doc_contents(collection, file)
-    File.read(File.join(@dest.to_s, collection, file))
-  end
-
   def new_redirect_page(permalink)
-    page = JekyllRedirectFrom::RedirectPage.new(@site, @site.source, "", "")
+    page = JekyllRedirectFrom::RedirectPage.new(@site, @site.source, "", "index.html")
     page.data['permalink'] = permalink
+    page.data['sitemap'] = false
     page
   end
 
   def destination_sitemap
-    File.read(File.join(@dest.to_s, 'sitemap.xml'))
+    @dest.join("sitemap.xml").read
   end
 end
 

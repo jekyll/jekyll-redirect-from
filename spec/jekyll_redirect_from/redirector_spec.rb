@@ -52,33 +52,33 @@ describe JekyllRedirectFrom::Redirector do
     end
 
     it "generates the refresh page for the post properly" do
-      expect(destination_file_exists?("posts/23128432159832/mary-had-a-little-lamb")).to be_truthy
+      expect(dest_dir("posts/23128432159832/mary-had-a-little-lamb.html")).to exist
     end
 
     it "generates the refresh pages for the page with multiple redirect_from urls" do
-      expect(destination_file_exists?("help")).to be_truthy
-      expect(destination_file_exists?("contact")).to be_truthy
-      expect(destination_file_exists?("let-there/be/light-he-said")).to be_truthy
-      expect(destination_file_exists?("/geepers/mccreepin")).to be_truthy
+      expect(dest_dir("help")).to be_truthy
+      expect(dest_dir("contact")).to be_truthy
+      expect(dest_dir("let-there/be/light-he-said")).to be_truthy
+      expect(dest_dir("/geepers/mccreepin")).to be_truthy
     end
 
     it "generates the refresh page for the page with one redirect_from url" do
-      expect(destination_file_exists?("mencius/was/my/father")).to be_truthy
+      expect(dest_dir("mencius/was/my/father.html")).to exist
     end
 
     it "generates the refresh page for the collection with one redirect_to url" do
-      expect(@dest.join("articles", "redirect-somewhere-else-plz.html")).to exist
-      expect(destination_doc_contents("articles", "redirect-somewhere-else-plz.html")).to include(%|<meta http-equiv="refresh" content="0; url=http://www.zombo.com">|)
+      expect(dest_dir("articles", "redirect-somewhere-else-plz.html")).to exist
+      expect(dest_dir("articles", "redirect-somewhere-else-plz.html").read).to include(%|<meta http-equiv="refresh" content="0; url=http://www.zombo.com">|)
     end
 
     it "generates the refresh page for the page with one redirect_to url" do
-      expect(destination_file_exists?("one_redirect_to.html")).to be_truthy
-      expect(destination_file_contents("one_redirect_to.html")).to include(%|<meta http-equiv="refresh" content="0; url=https://www.github.com">|)
+      expect(dest_dir("one_redirect_to.html")).to exist
+      expect(dest_dir("one_redirect_to.html").read).to include(%|<meta http-equiv="refresh" content="0; url=https://www.github.com">|)
     end
 
     it "generates the refresh page for the page with multiple redirect_to urls" do
-      expect(destination_file_exists?("multiple_redirect_tos.html")).to be_truthy
-      expect(destination_file_contents("multiple_redirect_tos.html")).to include(%|<meta http-equiv="refresh" content="0; url=https://www.jekyllrb.com">|)
+      expect(dest_dir("multiple_redirect_tos.html")).to exist
+      expect(dest_dir("multiple_redirect_tos.html").read).to include(%|<meta http-equiv="refresh" content="0; url=https://www.jekyllrb.com">|)
     end
   end
 
