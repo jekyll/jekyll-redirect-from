@@ -13,7 +13,7 @@ module JekyllRedirectFrom
       list.each do |item|
         if has_alt_urls?(item)
           alt_urls(item).each do |alt_url|
-            redirect_page = RedirectPage.new(site, site.source, "", "index.html")
+            redirect_page = RedirectPage.new(site, site.source, "", "redirect.html")
             redirect_page.data['permalink'] = alt_url
             redirect_page.data['sitemap'] = false
             redirect_page.generate_redirect_content(redirect_url(site, item))
