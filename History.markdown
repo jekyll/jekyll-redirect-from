@@ -1,3 +1,7 @@
+## HEAD
+
+  * Ensure output extension is assigned (#96)
+
 ## 0.9.1 / 2015-12-11
 
   * Enforce double-quote strings to pass htmlhint (#83)
@@ -92,4 +96,4 @@
 
 ## 0.1.0 / 2013-12-15
 
-* Birthday!
+  * Birthday!
