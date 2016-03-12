@@ -16,6 +16,12 @@ module JekyllRedirectFrom
 
       self.process(name)
       self.data = {}
+
+      data.default_proc = proc do |_, key|
+        site.frontmatter_defaults.find(File.join(dir, name), type, key)
+      end
+
+      Jekyll::Hooks.trigger :pages, :post_init, self if JekyllRedirectFrom.jekyll_3?
     end
 
     def generate_redirect_content(item_url)

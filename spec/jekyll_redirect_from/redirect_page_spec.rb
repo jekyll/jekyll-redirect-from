@@ -36,15 +36,19 @@ describe JekyllRedirectFrom::RedirectPage do
       let(:redirect_page) { new_redirect_page(permalink_dir) }
 
       it "knows to add the index.html if it's a folder" do
-        dest = dest_dir("/posts/1914798137981389/larry-had-a-little-lamb/index.html")
-        expect(redirect_page.destination("/")).to eql(dest)
+        expected = dest_dir("posts", "1914798137981389", "larry-had-a-little-lamb", "index.html").to_s
+        dest = redirect_page.destination("/")
+        dest = "#{@site.dest}#{dest}" unless dest.start_with? @site.dest
+        expect(dest).to eql(expected)
       end
     end
 
     context "of a redirect page meant to be a file" do
       it "knows not to add the index.html if it's not a folder" do
-        dest = dest_dir("/posts/12435151125/larry-had-a-little-lamb")
-        expect(redirect_page.destination("/")).to eql(dest)
+        expected = dest_dir("posts", "12435151125", "larry-had-a-little-lamb#{forced_output_ext}").to_s
+        dest = redirect_page.destination("/")
+        dest = "#{@site.dest}#{dest}" unless dest.start_with? @site.dest
+        expect(dest).to eql(expected)
       end
     end
   end
@@ -58,7 +62,7 @@ describe JekyllRedirectFrom::RedirectPage do
     end
 
     it "fetches the path properly" do
-      expect(redirect_page_full_path).to match /\/spec\/fixtures\/\_site\/posts\/12435151125\/larry-had-a-little-lamb$/
+      expect(redirect_page_full_path).to match /\/spec\/fixtures\/\_site\/posts\/12435151125\/larry-had-a-little-lamb#{forced_output_ext}$/
     end
 
     it "is written to the proper location" do
