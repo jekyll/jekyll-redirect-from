@@ -1,4 +1,4 @@
-## HEAD
+## 0.10.0 / 2016-03-16
 
   * Ensure output extension is assigned (#96)
 
