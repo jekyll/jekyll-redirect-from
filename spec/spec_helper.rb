@@ -26,7 +26,11 @@ RSpec.configure do |config|
       "collections" => {
         "articles" => {"output" => true},
         "authors"  => {}
-      }
+      },
+      "defaults"    => [{
+        "scope" => { "path" => "" },
+        "values" => { "layout" => "layout" }
+      }]
     }))
 
     @dest.rmtree if @dest.exist?

@@ -80,6 +80,11 @@ describe JekyllRedirectFrom::Redirector do
       expect(dest_dir("multiple_redirect_tos.html")).to exist
       expect(dest_dir("multiple_redirect_tos.html").read).to include(%|<meta http-equiv="refresh" content="0; url=https://www.jekyllrb.com">|)
     end
+
+    it "does not include any default layout" do
+      expect(dest_dir("multiple_redirect_tos.html")).to exist
+      expect(dest_dir("multiple_redirect_tos.html").read).not_to include('LAYOUT INCLUDED')
+    end
   end
 
   context "prefix" do
