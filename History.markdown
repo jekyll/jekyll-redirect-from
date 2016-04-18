@@ -1,3 +1,7 @@
+## HEAD
+
+  * Redirect page should not have any layout (#106)
+
 ## 0.10.0 / 2016-03-16
 
   * Ensure output extension is assigned (#96)
