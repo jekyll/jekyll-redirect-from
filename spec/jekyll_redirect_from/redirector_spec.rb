@@ -88,33 +88,43 @@ describe JekyllRedirectFrom::Redirector do
   end
 
   context "prefix" do
-    it "uses site.github.url as the redirect prefix" do
+    it "uses site.url as the redirect prefix when site.github.url is not set" do
+      @site.config['url'] = "http://notgithub.io"
+      @site.config['baseurl'] = nil
+      expect(redirector.redirect_url(@site, page_with_one)).to eql("http://notgithub.io/one_redirect_url.html")
+    end
+
+    it "uses site.baseurl as the redirect prefix when site.github.url is not set" do
+      @site.config['url'] = nil
+      @site.config['baseurl'] = "/fancy/prefix"
+      expect(redirector.redirect_url(@site, page_with_one)).to eql("/fancy/prefix/one_redirect_url.html")
+    end
+
+    it "uses site.url + site.baseurl as the redirect prefix when site.github.url is not set" do
+      @site.config['url'] = "http://notgithub.io"
+      @site.config['baseurl'] = "/fancy/prefix"
+      expect(redirector.redirect_url(@site, page_with_one)).to eql("http://notgithub.io/fancy/prefix/one_redirect_url.html")
+    end
+
+    it "prefers site.github.url over site.url or site.baseurl" do
+      @site.config['url'] = "http://notgithub.io"
+      @site.config['baseurl'] = "/fancy/prefix"
       @site.config['github'] = { "url" => "http://example.github.io/test" }
-      expect(redirector.redirect_url(@site, page_with_one)).to start_with("http://example.github.io/test")
+      expect(redirector.redirect_url(@site, page_with_one)).to eql("http://example.github.io/test/one_redirect_url.html")
     end
 
     it "converts non-string values in site.github.url to strings" do
       @site.config['github'] = { "url" => TestStringContainer.new("http://example.github.io/test") }
-      expect(redirector.redirect_url(@site, page_with_one)).to start_with("http://example.github.io/test")
+      expect(redirector.redirect_url(@site, page_with_one)).to eql("http://example.github.io/test/one_redirect_url.html")
     end
 
-    it "uses site.baseurl as the redirect prefix when site.github.url is not set" do
-      @site.config['baseurl'] = "/fancy/prefix"
-      expect(redirector.redirect_url(@site, page_with_one)).to start_with("/fancy/prefix")
-    end
-
-    it "prefers site.github.url over site.baseurl" do
-      @site.config['github'] = { "url" => "http://example.github.io/test" }
-      @site.config['baseurl'] = "/fancy/baseurl"
-      expect(redirector.redirect_url(@site, page_with_one)).to start_with("http://example.github.io/test")
-    end
-
-    it "no-ops when site.github.url and site.baseurl are not set" do
-      expect(redirector.redirect_url(@site, page_with_one)).to eql("/one_redirect_url.html")
-    end
-
-    it "no-ops when site.github is set but site.github.url is not" do
+    it "uses site.url when site.github is set but site.github.url is not" do
       @site.config['github'] = "username"
+      expect(redirector.redirect_url(@site, page_with_one)).to eql("http://jekyllrb.com/one_redirect_url.html")
+    end
+
+    it "no-ops when site.github.url and site.baseurl and site.url are not set" do
+      @site.config['url'] = nil
       expect(redirector.redirect_url(@site, page_with_one)).to eql("/one_redirect_url.html")
     end
   end
