@@ -5,10 +5,12 @@ describe JekyllRedirectFrom::Redirector do
   let(:post_to_redirect)            { setup_post("2014-01-03-redirect-me-plz.md") }
   let(:doc_to_redirect_from)        { setup_doc("redirect-me-plz.md") }
   let(:doc_to_redirect_to)          { setup_doc("redirect-somewhere-else-plz.html") }
+  let(:doc_to_redirect_to_permalnk) { setup_doc("redirect-somewhere-else-im-a-permalink.html") }
   let(:page_with_one)               { setup_page("one_redirect_url.md") }
   let(:page_with_many)              { setup_page("multiple_redirect_urls.md") }
   let(:page_with_one_redirect_to)   { setup_page("one_redirect_to.md") }
   let(:page_with_many_redirect_to)  { setup_page("multiple_redirect_tos.md") }
+  let(:page_to_redirect_to_permlnk) { setup_page("tags/how we work.md") }
 
   it "knows if a page or post is requesting a redirect page" do
     if JekyllRedirectFrom.jekyll_3?
@@ -24,6 +26,10 @@ describe JekyllRedirectFrom::Redirector do
 
   it "knows if a document is requesting a redirect away" do
     expect(redirector.redirect_to_url(doc_to_redirect_to)).to eql(["http://www.zombo.com"])
+  end
+
+  it "knows if a document is requesting a redirect away" do
+    expect(redirector.redirect_to_url(doc_to_redirect_to_permalnk)).to eql(["/tags/our-projects/"])
   end
 
   it "handles one redirect path" do
@@ -71,6 +77,12 @@ describe JekyllRedirectFrom::Redirector do
       expect(dest_dir("articles", "redirect-somewhere-else-plz.html").read).to include(%|<meta http-equiv="refresh" content="0; url=http://www.zombo.com">|)
     end
 
+    it "generates the refresh page for the collection with one redirect_to url and a permalink" do
+      expect(dest_dir("tags", "our projects", "index")).not_to exist
+      expect(dest_dir("tags", "our projects", "index.html")).to exist
+      expect(dest_dir("tags", "our projects", "index.html").read).to include(%|<meta http-equiv="refresh" content="0; url=/tags/our-projects/">|)
+    end
+
     it "generates the refresh page for the page with one redirect_to url" do
       expect(dest_dir("one_redirect_to.html")).to exist
       expect(dest_dir("one_redirect_to.html").read).to include(%|<meta http-equiv="refresh" content="0; url=https://www.github.com">|)
@@ -84,6 +96,12 @@ describe JekyllRedirectFrom::Redirector do
     it "does not include any default layout" do
       expect(dest_dir("multiple_redirect_tos.html")).to exist
       expect(dest_dir("multiple_redirect_tos.html").read).not_to include('LAYOUT INCLUDED')
+    end
+
+    it "generates the refresh page for the page with one redirect_to url and a permalink" do
+      expect(dest_dir("tags", "how we work", "index")).not_to exist
+      expect(dest_dir("tags", "how we work", "index.html")).to exist
+      expect(dest_dir("tags", "how we work", "index.html").read).to include(%|<meta http-equiv="refresh" content="0; url=/tags/how-we-work/">|)
     end
   end
 
