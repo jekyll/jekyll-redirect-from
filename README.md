@@ -120,6 +120,10 @@ If you have multiple `redirect_to`s set, only the first one will be respected.
 
 **Note**: Using `redirect_to` or `redirect_from` with collections will only work with files which are output to HTML, such as `.md`, `.textile`, `.html` etc.
 
+### Custom Layout
+
+Jekyll Redirect is designed to implement best practices by default and to be the right fit for most sites right out of the box. If for some reason, you need more control over the output, you may provide a custom layout to be used for the redirect pages. If there is a layout called `redirect` (eg: a file called `_layouts/redirect.html`), then it will be used to generate redirect pages. Note that, unlike regular Jekyll pages, the _only_ data passed to this template is `page.url`, which represents the URL that is being redirected to.
+
 ## Contributing
 
 1. Fork it
