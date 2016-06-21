@@ -25,16 +25,36 @@ module JekyllRedirectFrom
     end
 
     def generate_redirect_content(item_url)
-      self.output = self.content = <<-EOF
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>Redirecting…</title>
-<link rel="canonical" href="#{item_url}">
-<meta http-equiv="refresh" content="0; url=#{item_url}">
-<h1>Redirecting…</h1>
-<a href="#{item_url}">Click here if you are not redirected.</a>
-<script>location="#{item_url}"</script>
-EOF
+      self.output = self.content = template.render!(payload(item_url), info)
+    end
+
+    private
+    def payload(item_url)
+      {
+        'page' => { 'url' => item_url },
+      }
+    end
+
+    def info
+      {
+        :filters   => [Jekyll::Filters]
+      }
+    end
+
+    def template
+      @template ||= Liquid::Template.parse(template_contents)
+    end
+
+    def template_contents
+      if @site.layouts.key? 'redirect'
+        @site.layouts['redirect'].content
+      else
+        File.read(template_path)
+      end
+    end
+
+    def template_path
+      @template_path ||= File.expand_path '../jekyll-redirect-from.html', File.dirname(__FILE__)
     end
   end
 end
