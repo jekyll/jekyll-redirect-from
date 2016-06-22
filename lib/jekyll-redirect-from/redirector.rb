@@ -23,7 +23,8 @@ module JekyllRedirectFrom
         if has_redirect_to_url?(item)
           redirect_to_url(item).flatten.each do |alt_url|
             item.data['sitemap'] = false
-            redirect_page = RedirectPage.new(site, site.source, File.dirname(item.url), File.basename(item.url))
+            dest = item.destination(site.dest)
+            redirect_page = RedirectPage.new(site, site.source, File.dirname(dest), File.basename(dest))
             redirect_page.data['permalink'] = item.url
             redirect_page.data['sitemap'] = false
             redirect_page.generate_redirect_content(alt_url)
