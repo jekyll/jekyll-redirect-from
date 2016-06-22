@@ -2,6 +2,7 @@
 
   * Redirect page should not have any layout (#106)
   * Include absolute path in canonical url (#109)
+  * Add <html> tag and language (#100)
 
 ## 0.10.0 / 2016-03-16
 
