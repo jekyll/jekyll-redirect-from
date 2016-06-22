@@ -69,7 +69,7 @@ module JekyllRedirectFrom
     end
 
     def redirect_prefix(site)
-      config_github_url(site) || config_baseurl(site) || ""
+      config_github_url(site) || config_url(site)
     end
 
     def config_github_url(site)
@@ -79,8 +79,10 @@ module JekyllRedirectFrom
       end
     end
 
-    def config_baseurl(site)
-      site.config.fetch('baseurl', nil)
+    def config_url(site)
+      url = site.config.fetch('url', nil) || ""
+      baseurl = site.config.fetch('baseurl', nil) || ""
+      File.join url, baseurl
     end
   end
 end
