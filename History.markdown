@@ -1,4 +1,4 @@
-## HEAD
+## 0.11.0 / 2016-07-06
 
   * Redirect page should not have any layout (#106)
   * Include absolute path in canonical url (#109)
