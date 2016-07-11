@@ -1,3 +1,7 @@
+## HEAD
+
+  * redirect_to Pages should not have a layout. (#115)
+
 ## 0.11.0 / 2016-07-06
 
   * Redirect page should not have any layout (#106)
