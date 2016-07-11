@@ -22,6 +22,7 @@ module JekyllRedirectFrom
         if has_redirect_to_url?(item)
           redirect_to_url(item).flatten.each do |alt_url|
             item.data['sitemap'] = false
+            item.data['layout'] = nil
 
             item.url << "index.html" if item.url.end_with?("/")
             redirect_page = RedirectPage.new(site, site.source, File.dirname(item.url), File.basename(item.url))
