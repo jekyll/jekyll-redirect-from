@@ -15,7 +15,7 @@ module JekyllRedirectFrom
       @name = name
 
       self.process(name)
-      self.data = { "layout" => nil }
+      self.data = { "layout" => nil, "sitemap" => false }
 
       data.default_proc = proc do |_, key|
         site.frontmatter_defaults.find(File.join(dir, name), type, key)
