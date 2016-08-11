@@ -16,12 +16,12 @@ describe JekyllRedirectFrom::Redirector do
     if JekyllRedirectFrom.jekyll_3?
       skip "Don't need to test posts in Jekyll 3"
     else
-      expect(redirector.has_alt_urls?(post_to_redirect)).to be_truthy
+      expect(redirector.alt_urls?(post_to_redirect)).to be_truthy
     end
   end
 
   it "knows if a document is requesting a redirect page" do
-    expect(redirector.has_alt_urls?(doc_to_redirect_from)).to be_truthy
+    expect(redirector.alt_urls?(doc_to_redirect_from)).to be_truthy
   end
 
   it "knows if a document is requesting a redirect away" do
@@ -49,7 +49,7 @@ describe JekyllRedirectFrom::Redirector do
   end
 
   it "does not include pages with a redirect in sitemap" do
-    expect(destination_sitemap).not_to include(%|one_redirect_to.html|)
+    expect(destination_sitemap).not_to include(%(one_redirect_to.html))
   end
 
   context "refresh page generation" do
@@ -74,75 +74,75 @@ describe JekyllRedirectFrom::Redirector do
 
     it "generates the refresh page for the collection with one redirect_to url" do
       expect(dest_dir("articles", "redirect-somewhere-else-plz.html")).to exist
-      expect(dest_dir("articles", "redirect-somewhere-else-plz.html").read).to include(%|<meta http-equiv="refresh" content="0; url=http://www.zombo.com">|)
+      expect(dest_dir("articles", "redirect-somewhere-else-plz.html").read).to include(%(<meta http-equiv="refresh" content="0; url=http://www.zombo.com">))
     end
 
     it "generates the refresh page for the collection with one redirect_to url and a permalink" do
       expect(dest_dir("tags", "our projects", "index")).not_to exist
       expect(dest_dir("tags", "our projects", "index.html")).to exist
-      expect(dest_dir("tags", "our projects", "index.html").read).to include(%|<meta http-equiv="refresh" content="0; url=/tags/our-projects/">|)
+      expect(dest_dir("tags", "our projects", "index.html").read).to include(%(<meta http-equiv="refresh" content="0; url=/tags/our-projects/">))
     end
 
     it "generates the refresh page for the page with one redirect_to url" do
       expect(dest_dir("one_redirect_to.html")).to exist
-      expect(dest_dir("one_redirect_to.html").read).to include(%|<meta http-equiv="refresh" content="0; url=https://www.github.com">|)
+      expect(dest_dir("one_redirect_to.html").read).to include(%(<meta http-equiv="refresh" content="0; url=https://www.github.com">))
     end
 
     it "generates the refresh page for the page with multiple redirect_to urls" do
       expect(dest_dir("multiple_redirect_tos.html")).to exist
-      expect(dest_dir("multiple_redirect_tos.html").read).to include(%|<meta http-equiv="refresh" content="0; url=https://www.jekyllrb.com">|)
+      expect(dest_dir("multiple_redirect_tos.html").read).to include(%(<meta http-equiv="refresh" content="0; url=https://www.jekyllrb.com">))
     end
 
     it "does not include any default layout" do
       expect(dest_dir("multiple_redirect_tos.html")).to exist
-      expect(dest_dir("multiple_redirect_tos.html").read).not_to include('LAYOUT INCLUDED')
+      expect(dest_dir("multiple_redirect_tos.html").read).not_to include("LAYOUT INCLUDED")
     end
 
     it "generates the refresh page for the page with one redirect_to url and a permalink" do
       expect(dest_dir("tags", "how we work", "index")).not_to exist
       expect(dest_dir("tags", "how we work", "index.html")).to exist
-      expect(dest_dir("tags", "how we work", "index.html").read).to include(%|<meta http-equiv="refresh" content="0; url=/tags/how-we-work/">|)
+      expect(dest_dir("tags", "how we work", "index.html").read).to include(%(<meta http-equiv="refresh" content="0; url=/tags/how-we-work/">))
     end
   end
 
   context "prefix" do
     it "uses site.url as the redirect prefix when site.github.url is not set" do
-      @site.config['url'] = "http://notgithub.io"
-      @site.config['baseurl'] = nil
+      @site.config["url"] = "http://notgithub.io"
+      @site.config["baseurl"] = nil
       expect(redirector.redirect_url(@site, page_with_one)).to eql("http://notgithub.io/one_redirect_url.html")
     end
 
     it "uses site.baseurl as the redirect prefix when site.github.url is not set" do
-      @site.config['url'] = nil
-      @site.config['baseurl'] = "/fancy/prefix"
+      @site.config["url"] = nil
+      @site.config["baseurl"] = "/fancy/prefix"
       expect(redirector.redirect_url(@site, page_with_one)).to eql("/fancy/prefix/one_redirect_url.html")
     end
 
     it "uses site.url + site.baseurl as the redirect prefix when site.github.url is not set" do
-      @site.config['url'] = "http://notgithub.io"
-      @site.config['baseurl'] = "/fancy/prefix"
+      @site.config["url"] = "http://notgithub.io"
+      @site.config["baseurl"] = "/fancy/prefix"
       expect(redirector.redirect_url(@site, page_with_one)).to eql("http://notgithub.io/fancy/prefix/one_redirect_url.html")
     end
 
     it "prefers site.github.url over site.url or site.baseurl" do
-      @site.config['url'] = "http://notgithub.io"
-      @site.config['baseurl'] = "/fancy/prefix"
-      @site.config['github'] = { "url" => "http://example.github.io/test" }
+      @site.config["url"] = "http://notgithub.io"
+      @site.config["baseurl"] = "/fancy/prefix"
+      @site.config["github"] = { "url" => "http://example.github.io/test" }
       expect(redirector.redirect_url(@site, page_with_one)).to eql("http://example.github.io/test/one_redirect_url.html")
     end
 
     it "converts non-string values in site.github.url to strings" do
-      @site.config['github'] = { "url" => TestStringContainer.new("http://example.github.io/test") }
+      @site.config["github"] = { "url" => TestStringContainer.new("http://example.github.io/test") }
       expect(redirector.redirect_url(@site, page_with_one)).to eql("http://example.github.io/test/one_redirect_url.html")
     end
 
     it "uses site.url when site.github is set but site.github.url is not" do
-      @site.config['github'] = "username"
+      @site.config["github"] = "username"
       expect(redirector.redirect_url(@site, page_with_one)).to eql("http://jekyllrb.com/one_redirect_url.html")
     end
 
     it "no-ops when site.github.url and site.baseurl and site.url are not set" do
-      @site.config['url'] = nil
+      @site.config["url"] = nil
       expect(redirector.redirect_url(@site, page_with_one)).to eql("/one_redirect_url.html")
     end
   end

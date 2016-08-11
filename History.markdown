@@ -31,7 +31,7 @@
 
   * Remove spaces in redirect page (#62)
   * Only parse through documents/pages/posts (#56)
-  * Simplified `has_alt_urls?` and `has_redirect_to_url?` conditions (#52)
+  * Simplified `alt_urls?` and `redirect_to_url?` conditions (#52)
   * Add support for Jekyll 3. (#59)
 
 ## 0.6.2 / 2014-09-12

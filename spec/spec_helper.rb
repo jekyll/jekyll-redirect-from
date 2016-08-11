@@ -4,7 +4,7 @@ require File.expand_path("lib/jekyll-redirect-from.rb")
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
-  config.order = 'random'
+  config.order = "random"
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
@@ -24,11 +24,11 @@ RSpec.configure do |config|
       "destination" => @dest.to_s,
       "plugins"     => @plugins_src.to_s,
       "collections" => {
-        "articles" => {"output" => true},
+        "articles" => { "output" => true },
         "authors"  => {}
       },
       "defaults"    => [{
-        "scope" => { "path" => "" },
+        "scope"  => { "path" => "" },
         "values" => { "layout" => "layout" }
       }]
     }))
@@ -54,7 +54,7 @@ RSpec.configure do |config|
   end
 
   def setup_post(file)
-    Jekyll::Post.new(@site, @fixtures_path.to_s, '', file)
+    Jekyll::Post.new(@site, @fixtures_path.to_s, "", file)
   end
 
   def setup_page(file)
@@ -63,8 +63,8 @@ RSpec.configure do |config|
 
   def new_redirect_page(permalink)
     page = JekyllRedirectFrom::RedirectPage.new(@site, @site.source, "", "index.html")
-    page.data['permalink'] = permalink
-    page.data['sitemap'] = false
+    page.data["permalink"] = permalink
+    page.data["sitemap"] = false
     page
   end
 
@@ -78,8 +78,8 @@ RSpec.configure do |config|
 end
 
 class TestStringContainer
-  def initialize(strValue)
-    @val = strValue
+  def initialize(str_value)
+    @val = str_value
   end
 
   def to_s

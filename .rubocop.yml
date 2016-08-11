@@ -1,0 +1,7 @@
+inherit_gem:
+  jekyll: .rubocop.yml
+
+Metrics/LineLength:
+  Exclude:
+    - spec/**/*
+    - jekyll-redirect-from.gemspec
