@@ -44,12 +44,16 @@ module JekyllRedirectFrom
         page_or_post.is_a?(Jekyll::Document) ||
         (Jekyll::VERSION < "3.0.0" &&
           page_or_post.is_a?(Jekyll::Post))
+
+      alias :is_dynamic_document? :dynamic_document?
     end
 
     def alt_urls?(page_or_post)
       dynamic_document?(page_or_post) &&
         page_or_post.data.key?("redirect_from") &&
         !alt_urls(page_or_post).empty?
+
+      alias :has_alt_urls? :alt_urls?
     end
 
     def alt_urls(page_or_post)
