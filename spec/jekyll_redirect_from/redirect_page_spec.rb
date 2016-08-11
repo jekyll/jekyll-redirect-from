@@ -62,7 +62,7 @@ describe JekyllRedirectFrom::RedirectPage do
     end
 
     it "fetches the path properly" do
-      expect(redirect_page_full_path).to match /\/spec\/fixtures\/\_site\/posts\/12435151125\/larry-had-a-little-lamb#{forced_output_ext}$/
+      expect(redirect_page_full_path).to match %r!/\/spec\/fixtures\/\_site\/posts\/12435151125\/larry-had-a-little-lamb#{forced_output_ext}$/!
     end
 
     it "is written to the proper location" do

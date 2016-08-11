@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe("Integration Tests") do
   it "writes the redirect pages for collection items which are outputted" do

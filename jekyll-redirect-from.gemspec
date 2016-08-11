@@ -1,21 +1,21 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'jekyll-redirect-from/version'
+require "jekyll-redirect-from/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "jekyll-redirect-from"
   spec.version       = JekyllRedirectFrom::VERSION
   spec.authors       = ["Parker Moore"]
   spec.email         = ["parkrmoore@gmail.com"]
-  spec.description   = %q{Seamlessly specify multiple redirection URLs for your pages and posts}
-  spec.summary       = %q{Seamlessly specify multiple redirection URLs for your pages and posts}
+  spec.description   = "Seamlessly specify multiple redirection URLs for your pages and posts"
+  spec.summary       = "Seamlessly specify multiple redirection URLs for your pages and posts"
   spec.homepage      = "https://github.com/jekyll/jekyll-redirect-from"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files`.split($/)
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
+  spec.executables   = spec.files.grep(%r!^bin/!) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r!^(test|spec|features)/!)
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "jekyll", ">= 2.0"
