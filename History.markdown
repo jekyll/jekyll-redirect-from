@@ -1,6 +1,7 @@
 ## HEAD
 
   * redirect_to Pages should not have a layout. (#115)
+  * Default to site.url (#85)
 
 ## 0.11.0 / 2016-07-06
 
