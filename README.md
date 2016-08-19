@@ -100,10 +100,10 @@ redirect_from: /post/123456798/
 ```
 
 ### Prefix
-If `site.baseurl` is set, its value is used as a prefix for the redirect url automatically.
-This is useful for scenarios where a site isn't available from the domain root, so the redirects point to the correct path.
 
-**_Note_**: If you are hosting your Jekyll site on [GitHub Pages](https://pages.github.com/), the prefix is set to the pages domain name i.e. `http://example.github.io/project` or a custom `CNAME`.
+If `site.url` is set, its value, together with `site.baseurl`, is used as a prefix for the redirect url automatically. This is useful for scenarios where a site isn't available from the domain root, so the redirects point to the correct path. If `site.url` is not set, only `site.baseurl` is used, if set.
+
+**_Note_**: If you are hosting your Jekyll site on [GitHub Pages](https://pages.github.com/), and `site.url` is not set, the prefix is set to the pages domain name i.e. http://example.github.io/project or a custom CNAME.
 
 ### Redirect To
 
