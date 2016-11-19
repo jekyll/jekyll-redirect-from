@@ -31,10 +31,19 @@ module JekyllRedirectFrom
 <meta charset="utf-8">
 <title>Redirecting…</title>
 <link rel="canonical" href="#{item_url}">
-<meta http-equiv="refresh" content="0; url=#{item_url}">
+<meta http-equiv="refresh" content="1; url=#{item_url}">
 <h1>Redirecting…</h1>
 <a href="#{item_url}">Click here if you are not redirected.</a>
-<script>location="#{item_url}"</script>
+<script>
+  var url = '#{item_url}';
+  if (location.search && url.indexOf('?') === -1) {
+    url = url.replace(/($|#)/, location.search + '$1');
+  }
+  if (location.hash && url.indexOf('#') === -1) {
+    url += location.hash; 
+  }
+  location=url;
+</script>
 </html>
 EOF
     end
