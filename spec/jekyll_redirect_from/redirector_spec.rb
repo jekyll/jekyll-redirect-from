@@ -74,23 +74,23 @@ describe JekyllRedirectFrom::Redirector do
 
     it "generates the refresh page for the collection with one redirect_to url" do
       expect(dest_dir("articles", "redirect-somewhere-else-plz.html")).to exist
-      expect(dest_dir("articles", "redirect-somewhere-else-plz.html").read).to include(%|<meta http-equiv="refresh" content="0; url=http://www.zombo.com">|)
+      expect(dest_dir("articles", "redirect-somewhere-else-plz.html").read).to include(%|<meta http-equiv="refresh" content="1; url=http://www.zombo.com">|)
     end
 
     it "generates the refresh page for the collection with one redirect_to url and a permalink" do
       expect(dest_dir("tags", "our projects", "index")).not_to exist
       expect(dest_dir("tags", "our projects", "index.html")).to exist
-      expect(dest_dir("tags", "our projects", "index.html").read).to include(%|<meta http-equiv="refresh" content="0; url=/tags/our-projects/">|)
+      expect(dest_dir("tags", "our projects", "index.html").read).to include(%|<meta http-equiv="refresh" content="1; url=/tags/our-projects/">|)
     end
 
     it "generates the refresh page for the page with one redirect_to url" do
       expect(dest_dir("one_redirect_to.html")).to exist
-      expect(dest_dir("one_redirect_to.html").read).to include(%|<meta http-equiv="refresh" content="0; url=https://www.github.com">|)
+      expect(dest_dir("one_redirect_to.html").read).to include(%|<meta http-equiv="refresh" content="1; url=https://www.github.com">|)
     end
 
     it "generates the refresh page for the page with multiple redirect_to urls" do
       expect(dest_dir("multiple_redirect_tos.html")).to exist
-      expect(dest_dir("multiple_redirect_tos.html").read).to include(%|<meta http-equiv="refresh" content="0; url=https://www.jekyllrb.com">|)
+      expect(dest_dir("multiple_redirect_tos.html").read).to include(%|<meta http-equiv="refresh" content="1; url=https://www.jekyllrb.com">|)
     end
 
     it "does not include any default layout" do
@@ -101,7 +101,7 @@ describe JekyllRedirectFrom::Redirector do
     it "generates the refresh page for the page with one redirect_to url and a permalink" do
       expect(dest_dir("tags", "how we work", "index")).not_to exist
       expect(dest_dir("tags", "how we work", "index.html")).to exist
-      expect(dest_dir("tags", "how we work", "index.html").read).to include(%|<meta http-equiv="refresh" content="0; url=/tags/how-we-work/">|)
+      expect(dest_dir("tags", "how we work", "index.html").read).to include(%|<meta http-equiv="refresh" content="1; url=/tags/how-we-work/">|)
     end
   end
 
