@@ -14,9 +14,6 @@ matrix:
   fast_finish: true
 
 rvm:
+  - 2.3
   - 2.2
   - 2.1
-  - 2.0
-env:
-  - ""
-  - JEKYLL_VERSION=3.0
