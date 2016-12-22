@@ -1,76 +1,207 @@
 # Encoding: utf-8
 
-require "spec_helper"
-
 describe JekyllRedirectFrom::RedirectPage do
-  let(:permalink)     { "/posts/12435151125/larry-had-a-little-lamb" }
-  let(:redirect_page) { new_redirect_page(permalink) }
-  let(:item_url)      { File.join(@site.config["url"], "2014", "01", "03", "moving-to-jekyll.md") }
-  let(:page_content)  { redirect_page.generate_redirect_content(item_url) }
+  let(:from) { "/foo" }
+  let(:to) { "/bar" }
+  let(:site_url) { site.config["url"] }
+  subject { described_class.from_paths(site, from, to) }
+  before { site.read }
 
-  context "#generate_redirect_content" do
-    it "sets the #content to the generated refresh page" do
-      expect(page_content).to eq("<!DOCTYPE html>\n<html lang=\"en-US\">\n<meta charset=\"utf-8\">\n<title>Redirecting…</title>\n<link rel=\"canonical\" href=\"#{item_url}\">\n<meta http-equiv=\"refresh\" content=\"0; url=#{item_url}\">\n<h1>Redirecting…</h1>\n<a href=\"#{item_url}\">Click here if you are not redirected.</a>\n<script>location=\"#{item_url}\"</script>\n</html>\n")
+  context "being a page" do
+    before { subject.read_yaml(nil, nil, nil) }
+
+    it "returns no content" do
+      expect(subject.content).to eql("")
+    end
+
+    it "sets default data" do
+      expect(subject.to_liquid["layout"]).to eql("redirect")
+      expect(subject.to_liquid["sitemap"]).to be_falsey
+    end
+  end
+
+  context "creating a page from paths" do
+    it "sets the permalink" do
+      expect(subject.to_liquid["permalink"]).to eql(from)
+    end
+
+    it "sets redirect metadata" do
+      expect(subject.to_liquid).to have_key("redirect")
+      expect(subject.to_liquid["redirect"]["from"]).to eql(from)
+      expect(subject.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
+    end
+
+    context "with a document" do
+      let(:doc) { site.documents.first }
+
+      context "redirect from" do
+        let(:page) { described_class.redirect_from(doc, from) }
+
+        it "creates with redirect_from" do
+          expect(page.to_liquid["permalink"]).to eql(from)
+          expect(page.to_liquid).to have_key("redirect")
+          expect(page.to_liquid["redirect"]["from"]).to eql(from)
+          expected = "http://jekyllrb.com/2014/01/03/redirect-me-plz.html"
+          expect(page.to_liquid["redirect"]["to"]).to eql(expected)
+        end
+      end
+
+      context "redirect to" do
+        let(:page) { described_class.redirect_to(doc, to) }
+
+        context "redirecting to a path" do
+          let(:to) { "/bar" }
+
+          it "redirects" do
+            expect(page.to_liquid["permalink"]).to eql("/2014/01/03/redirect-me-plz.html")
+            expect(page.to_liquid).to have_key("redirect")
+            expect(page.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
+            expect(page.to_liquid["redirect"]["from"]).to eql("/2014/01/03/redirect-me-plz.html")
+          end
+
+          context "with no leading slash" do
+            let(:to) { "bar" }
+
+            it "redirects" do
+              expect(page.to_liquid).to have_key("redirect")
+              expect(page.to_liquid["redirect"]["to"]).to eql("#{site_url}/#{to}")
+            end
+          end
+
+          context "with a trailing slash" do
+            let(:to) { "/bar/" }
+
+            it "redirects" do
+              expect(page.to_liquid).to have_key("redirect")
+              expect(page.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
+            end
+          end
+        end
+
+        context "redirecting to a URL" do
+          let(:to) { "https://foo.invalid" }
+
+          it "redirects" do
+            expect(page.to_liquid["permalink"]).to eql("/2014/01/03/redirect-me-plz.html")
+            expect(page.to_liquid).to have_key("redirect")
+            expect(page.to_liquid["redirect"]["to"]).to eql("https://foo.invalid")
+            expect(page.to_liquid["redirect"]["from"]).to eql("/2014/01/03/redirect-me-plz.html")
+          end
+        end
+      end
+    end
+  end
+
+  context "setting the paths" do
+    let(:from) { "/foo2" }
+    let(:to) { "/bar2" }
+
+    before { subject.set_paths(from, to) }
+
+    it "sets the paths" do
+      expect(subject.to_liquid["permalink"]).to eql(from)
+      expect(subject.to_liquid).to have_key("redirect")
+      expect(subject.to_liquid["redirect"]["from"]).to eql(from)
+      expect(subject.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
+    end
+  end
+
+  context "generating" do
+    before { site.generate }
+    let(:output) { Jekyll::Renderer.new(site, subject, site.site_payload).run }
+
+    it "renders the template" do
+      expect(output).to_not be_nil
+      expect(output.to_s).to_not be_empty
     end
 
     it "contains the meta refresh tag" do
-      expect(page_content).to include("<meta http-equiv=\"refresh\" content=\"0; url=#{item_url}\">")
+      expect(output).to match("<meta http-equiv=\"refresh\" content=\"0; url=#{site_url}#{to}\">")
     end
 
-    it "contains JavaScript redirect" do
-      expect(page_content).to include("location=\"http://jekyllrb.com/2014/01/03/moving-to-jekyll.md\"")
+    it "contains the javascript redirect" do
+      expect(output).to match("<script>location=\"#{site_url}#{to}\"</script>")
     end
 
     it "contains canonical link in header" do
-      expect(page_content).to include("<link rel=\"canonical\" href=\"http://jekyllrb.com/2014/01/03/moving-to-jekyll.md\">")
+      expect(output).to match("<link rel=\"canonical\" href=\"#{site_url}#{to}\">")
     end
 
-    it "contains a clickable link to redirect" do
-      expect(page_content).to include("<a href=\"http://jekyllrb.com/2014/01/03/moving-to-jekyll.md\">Click here if you are not redirected.</a>")
-    end
-  end
-
-  context "when determining the write destination" do
-    context "of a redirect page meant to be a dir" do
-      let(:permalink_dir) { "/posts/1914798137981389/larry-had-a-little-lamb/" }
-      let(:redirect_page) { new_redirect_page(permalink_dir) }
-
-      it "knows to add the index.html if it's a folder" do
-        expected = dest_dir("posts", "1914798137981389", "larry-had-a-little-lamb", "index.html").to_s
-        dest = redirect_page.destination("/")
-        dest = "#{@site.dest}#{dest}" unless dest.start_with? @site.dest
-        expect(dest).to eql(expected)
-      end
-    end
-
-    context "of a redirect page meant to be a file" do
-      it "knows not to add the index.html if it's not a folder" do
-        expected = dest_dir("posts", "12435151125", "larry-had-a-little-lamb#{forced_output_ext}").to_s
-        dest = redirect_page.destination("/")
-        dest = "#{@site.dest}#{dest}" unless dest.start_with? @site.dest
-        expect(dest).to eql(expected)
-      end
+    it "contains the clickable link" do
+      expect(output).to match("<a href=\"#{site_url}#{to}\">Click here if you are not redirected.</a>")
     end
   end
 
-  context "when writing to disk" do
-    let(:redirect_page_full_path) { redirect_page.destination(@site.dest) }
+  context "redirect from destination" do
+    context "when redirect from has no extension" do
+      let(:from) { "/foo" }
 
-    before(:each) do
-      redirect_page.generate_redirect_content(item_url)
-      redirect_page.write(@site.dest)
+      it "adds .html" do
+        expected = File.expand_path "foo", site.dest
+        expect(subject.destination("/")).to eql(expected)
+      end
     end
 
-    it "fetches the path properly" do
-      expect(redirect_page_full_path).to match /\/spec\/fixtures\/\_site\/posts\/12435151125\/larry-had-a-little-lamb#{forced_output_ext}$/
+    context "when redirect from is a directory" do
+      let(:from) { "/foo/" }
+
+      it "knows to add the index.html" do
+        expected = File.expand_path "foo/index.html", site.dest
+        expect(subject.destination("/")).to eql(expected)
+      end
     end
 
-    it "is written to the proper location" do
-      expect(File.exist?(redirect_page_full_path)).to be_truthy
+    context "when redirect from is an HTML file" do
+      let(:from) { "/foo.html" }
+
+      it "doesn't add .html" do
+        expected = File.expand_path "foo.html", site.dest
+        expect(subject.destination("/")).to eql(expected)
+      end
     end
 
-    it "writes the context we expect" do
-      expect(File.read(redirect_page_full_path)).to eql(page_content)
+    context "when redirect from is another extension" do
+      let(:from) { "/foo.htm" }
+
+      it "doesn't add .html" do
+        expected = File.expand_path "foo.htm", site.dest
+        expect(subject.destination("/")).to eql(expected)
+      end
+    end
+
+    context "when redirect from has no leading slash" do
+      let(:from) { "foo" }
+
+      it "adds the slash" do
+        expected = File.expand_path "foo", site.dest
+        expect(subject.destination("/")).to eql(expected)
+      end
+    end
+  end
+
+  context "output extension" do
+    context "with an extension" do
+      let(:from) { "foo.htm" }
+
+      it "honors the extension" do
+        expect(subject.output_ext).to eql(".htm")
+      end
+    end
+
+    context "with a trailing slash" do
+      let(:from) { "foo/" }
+
+      it "uses HTML" do
+        expect(subject.output_ext).to eql(".html")
+      end
+    end
+
+    context "with no slash" do
+      let(:from) { "foo" }
+
+      it "uses no extension" do
+        expect(subject.output_ext).to eql("")
+      end
     end
   end
 end
