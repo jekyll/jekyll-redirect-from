@@ -14,6 +14,6 @@ matrix:
   fast_finish: true
 
 rvm:
-  - 2.3
+  - 2.3.0
   - 2.2
   - 2.1
