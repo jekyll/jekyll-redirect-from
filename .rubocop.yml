@@ -6,8 +6,9 @@ AllCops:
     - vendor/**/*
 
 Metrics/BlockLength:
-    Exclude:
-      - spec/**/*
+  Exclude:
+    - spec/**/*
 
 Metrics/LineLength:
-  Enabled: false
+  Exclude:
+    - spec/**/*
