@@ -7,7 +7,7 @@ cache: bundler
 matrix:
   include:
     - # GitHub Pages
-      rvm: 2.1.1
+      rvm: 2.3.3
       env: GH_PAGES=true
     - # Ruby 1.9
       rvm: 1.9
