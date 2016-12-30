@@ -1,42 +1,61 @@
 # Encoding: utf-8
-
 module JekyllRedirectFrom
+  # Specialty page which implements the redirect path logic
   class RedirectPage < Jekyll::Page
-    # Initialize a new RedirectPage.
+    # Use Jekyll's native absolute_url filter
+    include Jekyll::Filters::URLFilters
+
+    DEFAULT_DATA = {
+      "sitemap" => false,
+      "layout"  => "redirect"
+    }.freeze
+
+    # Creates a new RedirectPage instance from a source path and redirect path
     #
-    # site - The Site object.
-    # base - The String path to the source.
-    # dir  - The String path between the source and the file.
-    # name - The String filename of the file.
-    def initialize(site, base, dir, name)
-      @site = site
-      @base = base
-      @dir  = dir
-      @name = name
-
-      self.process(name)
-      self.data = { "layout" => nil, "sitemap" => false }
-
-      data.default_proc = proc do |_, key|
-        site.frontmatter_defaults.find(File.join(dir, name), type, key)
-      end
-
-      Jekyll::Hooks.trigger :pages, :post_init, self if JekyllRedirectFrom.jekyll_3?
+    # site - The Site object
+    # from - the (URL) path, relative to the site root to redirect from
+    # to   - the relative path or URL which the page should redirect to
+    def self.from_paths(site, from, to)
+      page = RedirectPage.new(site, site.source, "", "redirect.html")
+      page.set_paths(from, to)
+      page
     end
 
-    def generate_redirect_content(item_url)
-      self.output = self.content = <<-EOF
-<!DOCTYPE html>
-<html lang="en-US">
-<meta charset="utf-8">
-<title>Redirecting…</title>
-<link rel="canonical" href="#{item_url}">
-<meta http-equiv="refresh" content="0; url=#{item_url}">
-<h1>Redirecting…</h1>
-<a href="#{item_url}">Click here if you are not redirected.</a>
-<script>location="#{item_url}"</script>
-</html>
-EOF
+    # Creates a new RedirectPage instance from the path to the given doc
+    def self.redirect_from(doc, path)
+      RedirectPage.from_paths(doc.site, path, doc.url)
+    end
+
+    # Creates a new RedirectPage instance from the doc to the given path
+    def self.redirect_to(doc, path)
+      RedirectPage.from_paths(doc.site, doc.url, path)
+    end
+
+    # Overwrite the default read_yaml method since the file doesn't exist
+    def read_yaml(_base, _name, _opts = {})
+      self.content = ""
+      self.data ||= DEFAULT_DATA.dup
+    end
+
+    # Helper function to set the appropriate path metadata
+    #
+    # from - the relative path to the redirect page
+    # to   - the relative path or absolute URL to the redirect target
+    def set_paths(from, to)
+      @context ||= context
+      data.merge!({
+        "permalink" => from,
+        "redirect"  => {
+          "from" => from,
+          "to"   => to =~ %r!^https?://! ? to : absolute_url(to)
+        }
+      })
+    end
+
+    private
+
+    def context
+      JekyllRedirectFrom::Context.new(site)
     end
   end
 end

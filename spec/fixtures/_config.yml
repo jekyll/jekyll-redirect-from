@@ -1,7 +1,0 @@
-url: http://jekyllrb.com
-gems:
-  - jekyll-redirect-from
-  - jekyll-sitemap
-collections:
-  articles:
-    output: true

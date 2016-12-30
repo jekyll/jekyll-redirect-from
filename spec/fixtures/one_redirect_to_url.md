@@ -1,5 +1,5 @@
 ---
-title: I am going somewhere else.
+title: I am going somewhere external
 redirect_to: https://www.github.com
 ---
 
