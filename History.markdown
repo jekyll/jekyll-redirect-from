@@ -3,6 +3,10 @@
   * redirect_to Pages should not have a layout. (#115)
   * Default to site.url (#85)
 
+### Major Enhancements
+
+  * Push redirect logic to the redirect page model (#131)
+
 ## 0.11.0 / 2016-07-06
 
   * Redirect page should not have any layout (#106)
