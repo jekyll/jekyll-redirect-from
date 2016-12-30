@@ -6,7 +6,7 @@ RSpec.describe "JekyllRedirectFrom integration tests" do
 
   context "pages" do
     context "single redirect from" do
-      let(:relative_path) { "some/other/path" }
+      let(:relative_path) { "some/other/path.html" }
 
       it "exists in the built site" do
         expect(path).to exist
@@ -17,7 +17,7 @@ RSpec.describe "JekyllRedirectFrom integration tests" do
     context "multiple redirect froms" do
       %w(help contact let-there/be/light-he-said geepers/mccreepin).each do |redirect|
         context "the #{redirect} redirect" do
-          let(:relative_path) { redirect }
+          let(:relative_path) { "#{redirect}.html" }
 
           it "exists in the built site" do
             expect(path).to exist
@@ -48,7 +48,7 @@ RSpec.describe "JekyllRedirectFrom integration tests" do
 
   context "documents" do
     context "a single redirect from" do
-      let(:relative_path) { "articles/23128432159832/mary-had-a-little-lamb" }
+      let(:relative_path) { "articles/23128432159832/mary-had-a-little-lamb.html" }
 
       it "exists in the built site" do
         expect(path).to exist

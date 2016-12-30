@@ -52,15 +52,6 @@ module JekyllRedirectFrom
       })
     end
 
-    # Redirects without a trailing slash should produce extentionless files
-    def output_ext
-      if File.extname(permalink).empty? && !permalink.end_with?("/")
-        ""
-      else
-        _renderer.output_ext
-      end
-    end
-
     private
 
     def context
