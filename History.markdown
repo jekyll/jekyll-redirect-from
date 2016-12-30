@@ -1,12 +1,23 @@
 ## HEAD
 
-  * redirect_to Pages should not have a layout. (#115)
-  * Default to site.url (#85)
-
 ### Major Enhancements
 
-  * Push redirect logic to the redirect page model (#131)
+  * Support for custom redirect templates
+  * Use Jekyll's `absolute_url` filter to generate canonical URLs (now respecting `baseurl`)
+  * Rely more heavily on Jekyll's native Page, permalink, and extension handling logic
+  
+### Minor Enhancementse
 
+  * redirect_to Pages should not have a layout. (#115)
+  * Require Jekyll >= 3.3
+  
+### Development Enhancements
+
+  * Push redirect logic to the redirect page model (#131)
+  * Add Rubocop and enforce Jekyll coding standards
+  * Tests no longer build and write the entire site between each example
+  * Removed all the `is_*`? and `has_*`? helpers from the generator
+  
 ## 0.11.0 / 2016-07-06
 
   * Redirect page should not have any layout (#106)
