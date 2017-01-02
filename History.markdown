@@ -1,5 +1,7 @@
 ## HEAD
 
+## 0.12.0 / 2017-01-02
+
 ### Major Enhancements
 
   * Support for custom redirect templates
