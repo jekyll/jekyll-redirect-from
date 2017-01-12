@@ -13,5 +13,5 @@ module JekyllRedirectFrom
 end
 
 JekyllRedirectFrom::CLASSES.each do |klass|
-  klass.include JekyllRedirectFrom::Redirectable
+  klass.send :include, JekyllRedirectFrom::Redirectable
 end
