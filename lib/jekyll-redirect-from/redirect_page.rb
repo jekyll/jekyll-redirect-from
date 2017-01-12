@@ -33,7 +33,7 @@ module JekyllRedirectFrom
 
     # Overwrite the default read_yaml method since the file doesn't exist
     def read_yaml(_base, _name, _opts = {})
-      self.content = ""
+      self.content = self.output = ""
       self.data ||= DEFAULT_DATA.dup
     end
 

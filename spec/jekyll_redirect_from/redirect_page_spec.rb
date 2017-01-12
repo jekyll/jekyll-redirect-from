@@ -14,6 +14,10 @@ describe JekyllRedirectFrom::RedirectPage do
       expect(subject.content).to eql("")
     end
 
+    it "returns no output" do
+      expect(subject.output).to eql("")
+    end
+
     it "sets default data" do
       expect(subject.to_liquid["layout"]).to eql("redirect")
       expect(subject.to_liquid["sitemap"]).to be_falsey
