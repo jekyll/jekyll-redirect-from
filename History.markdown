@@ -7,6 +7,7 @@
 ### Minor Enhancements
 
   * Use send to monkey patch to support Ruby < 2.2.0 (#136)
+  * set `page.output` to empty string instead of nil (#137)
 
 ## 0.12.0 / 2017-01-02
 
