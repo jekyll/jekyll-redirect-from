@@ -4,6 +4,10 @@
 
   * Stop testing Ruby 1.9 (#133)
 
+### Minor Enhancements
+
+  * Use send to monkey patch to support Ruby < 2.2.0 (#136)
+
 ## 0.12.0 / 2017-01-02
 
 ### Major Enhancements
