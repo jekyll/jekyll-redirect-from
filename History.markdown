@@ -1,5 +1,7 @@
 ## HEAD
 
+## 0.12.1 / 2017-01-12
+
 ### Development Fixes
 
   * Stop testing Ruby 1.9 (#133)
