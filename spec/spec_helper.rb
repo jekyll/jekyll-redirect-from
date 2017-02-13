@@ -37,17 +37,17 @@ RSpec.configure do |config|
       "destination" => fixtures_path.join("_site").to_s,
       "collections" => {
         "articles" => { "output" => true },
-        "authors"  => {}
+        "authors"  => {},
       },
       "url"         => "http://jekyllrb.com",
       "gems"        => [
         "jekyll-redirect-from",
-        "jekyll-sitemap"
+        "jekyll-sitemap",
       ],
       "defaults"    => [{
         "scope"  => { "path" => "" },
-        "values" => { "layout" => "layout" }
-      }]
+        "values" => { "layout" => "layout" },
+      },],
     })
   end
 
