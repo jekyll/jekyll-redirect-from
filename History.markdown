@@ -1,5 +1,9 @@
 ## HEAD
 
+### Development Fixes
+
+  * Rubocop (#141)
+
 ## 0.12.1 / 2017-01-12
 
 ### Development Fixes

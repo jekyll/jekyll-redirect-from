@@ -7,7 +7,7 @@ module JekyllRedirectFrom
 
     DEFAULT_DATA = {
       "sitemap" => false,
-      "layout"  => "redirect"
+      "layout"  => "redirect",
     }.freeze
 
     # Creates a new RedirectPage instance from a source path and redirect path
@@ -47,8 +47,8 @@ module JekyllRedirectFrom
         "permalink" => from,
         "redirect"  => {
           "from" => from,
-          "to"   => to =~ %r!^https?://! ? to : absolute_url(to)
-        }
+          "to"   => to =~ %r!^https?://! ? to : absolute_url(to),
+        },
       })
     end
 
