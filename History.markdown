@@ -4,6 +4,10 @@
 
   * Rubocop (#141)
 
+### Minor Enhancements
+
+  * HTML encode ellipsis (#142)
+
 ## 0.12.1 / 2017-01-12
 
 ### Development Fixes
