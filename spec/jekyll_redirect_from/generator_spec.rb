@@ -111,16 +111,16 @@ RSpec.describe JekyllRedirectFrom::Generator do
     end
 
     it "contains single redirect froms" do
-      expect(redirects.keys).to include "some/other/path"
-      expect(redirects["some/other/path"]).to eql("#{domain}/one_redirect_from.html")
+      expect(redirects.keys).to include "/some/other/path"
+      expect(redirects["/some/other/path"]).to eql("#{domain}/one_redirect_from.html")
     end
 
     it "contains multiple redirect froms" do
-      expect(redirects.keys).to include "help"
-      expect(redirects["help"]).to eql("#{domain}/multiple_redirect_froms.html")
+      expect(redirects.keys).to include "/help"
+      expect(redirects["/help"]).to eql("#{domain}/multiple_redirect_froms.html")
 
-      expect(redirects.keys).to include "contact"
-      expect(redirects["contact"]).to eql("#{domain}/multiple_redirect_froms.html")
+      expect(redirects.keys).to include "/contact"
+      expect(redirects["/contact"]).to eql("#{domain}/multiple_redirect_froms.html")
     end
 
     context "with a user-supplied redirects.json" do
