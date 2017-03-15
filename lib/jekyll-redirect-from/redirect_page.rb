@@ -43,6 +43,7 @@ module JekyllRedirectFrom
     # to   - the relative path or absolute URL to the redirect target
     def set_paths(from, to)
       @context ||= context
+      from = ensure_leading_slash(from)
       data.merge!({
         "permalink" => from,
         "redirect"  => {
@@ -50,6 +51,14 @@ module JekyllRedirectFrom
           "to"   => to =~ %r!^https?://! ? to : absolute_url(to),
         },
       })
+    end
+
+    def redirect_from
+      data["redirect"]["from"] if data["redirect"]
+    end
+
+    def redirect_to
+      data["redirect"]["to"] if data["redirect"]
     end
 
     private
