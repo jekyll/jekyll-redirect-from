@@ -52,6 +52,14 @@ module JekyllRedirectFrom
       })
     end
 
+    def redirect_from
+      data["redirect"]["from"] if data["redirect"]
+    end
+
+    def redirect_to
+      data["redirect"]["to"] if data["redirect"]
+    end
+
     private
 
     def context
