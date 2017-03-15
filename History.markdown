@@ -8,6 +8,10 @@
 
   * HTML encode ellipsis (#142)
 
+### Major Enhancements
+
+  * Create redirects.json file (#147)
+
 ## 0.12.1 / 2017-01-12
 
 ### Development Fixes
