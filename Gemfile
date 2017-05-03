@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 gemspec
 
 if ENV["GH_PAGES"]

@@ -1,4 +1,5 @@
 # Encoding: utf-8
+
 module JekyllRedirectFrom
   # Specialty page which implements the redirect path logic
   class RedirectPage < Jekyll::Page
