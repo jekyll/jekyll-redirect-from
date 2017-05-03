@@ -28,4 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "jekyll-sitemap", "~> 0.8.1"
   spec.add_development_dependency "rubocop", "~> 0.43"
+  spec.add_development_dependency "english", "~> 0.6"
 end
