@@ -4,6 +4,9 @@ lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "jekyll-redirect-from/version"
 
+# See https://github.com/bbatsov/rubocop/issues/75
+require "english"
+
 Gem::Specification.new do |spec|
   spec.name          = "jekyll-redirect-from"
   spec.version       = JekyllRedirectFrom::VERSION
@@ -20,10 +23,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "jekyll", "~> 3.3"
-
   spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "rspec", "~> 3.5"
+  spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "jekyll-sitemap", "~> 0.8.1"
   spec.add_development_dependency "rubocop", "~> 0.43"
 end
