@@ -7,6 +7,7 @@
 ### Minor Enhancements
 
   * HTML encode ellipsis (#142)
+  * Added no-index to template (#152)
 
 ### Major Enhancements
 
