@@ -34,6 +34,7 @@ Or install it yourself as:
 Once it's installed into your evironment, add it to your `_config.yml`:
 
 ```yaml
+safe: false
 gems:
   - jekyll-redirect-from
 ```
