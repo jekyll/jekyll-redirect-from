@@ -1,7 +1,48 @@
 ## HEAD
 
+### Development Fixes
+
+  * Rubocop (#141)
+
+### Minor Enhancements
+
+  * HTML encode ellipsis (#142)
+  * Added no-index to template (#152)
+
+### Major Enhancements
+
+  * Create redirects.json file (#147)
+
+## 0.12.1 / 2017-01-12
+
+### Development Fixes
+
+  * Stop testing Ruby 1.9 (#133)
+
+### Minor Enhancements
+
+  * Use send to monkey patch to support Ruby < 2.2.0 (#136)
+  * set `page.output` to empty string instead of nil (#137)
+
+## 0.12.0 / 2017-01-02
+
+### Major Enhancements
+
+  * Support for custom redirect templates
+  * Use Jekyll's `absolute_url` filter to generate canonical URLs (now respecting `baseurl`)
+  * Rely more heavily on Jekyll's native Page, permalink, and extension handling logic
+
+### Minor Enhancementse
+
   * redirect_to Pages should not have a layout. (#115)
-  * Default to site.url (#85)
+  * Require Jekyll >= 3.3
+
+### Development Enhancements
+
+  * Push redirect logic to the redirect page model (#131)
+  * Add Rubocop and enforce Jekyll coding standards
+  * Tests no longer build and write the entire site between each example
+  * Removed all the `is_*`? and `has_*`? helpers from the generator
 
 ## 0.11.0 / 2016-07-06
 

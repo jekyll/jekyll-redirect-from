@@ -120,6 +120,15 @@ If you have multiple `redirect_to`s set, only the first one will be respected.
 
 **Note**: Using `redirect_to` or `redirect_from` with collections will only work with files which are output to HTML, such as `.md`, `.textile`, `.html` etc.
 
+## Customizing the redirect template
+
+If you want to customize the redirect template, you can. Simply create a layout in your site's `_layouts` directory called `redirect.html`.
+
+Your layout will get the following variables:
+
+* `page.redirect.from` - the relative path to the redirect page
+* `page.redirect.to` - the absolute URL (where available) to the target page
+
 ## Contributing
 
 1. Fork it
