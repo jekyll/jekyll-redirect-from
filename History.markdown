@@ -1,5 +1,7 @@
 ## HEAD
 
+  * Test against same version of Ruby that GitHub Pages uses (#132)
+
 ### Development Fixes
 
   * Rubocop (#141)
