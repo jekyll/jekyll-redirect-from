@@ -44,7 +44,8 @@ module JekyllRedirectFrom
     # to   - the relative path or absolute URL to the redirect target
     def set_paths(from, to)
       @context ||= context
-      from = ensure_leading_slash(from)
+      from = ensure_leading_slash(correct_double_slash(from))
+      to = correct_double_slash(to)
       data.merge!({
         "permalink" => from,
         "redirect"  => {
@@ -66,6 +67,10 @@ module JekyllRedirectFrom
 
     def context
       JekyllRedirectFrom::Context.new(site)
+    end
+
+    def correct_double_slash(path_or_url)
+      path_or_url.gsub(%r{(?<!:)/{2,}}){'/'}
     end
   end
 end

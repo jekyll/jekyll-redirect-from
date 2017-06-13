@@ -5,6 +5,7 @@ redirect_from:
 - contact
 - let-there/be/light-he-said
 - /geepers/mccreepin
+- //I/have///multiple/slashes
 ---
 
 Lots of redirect urls
