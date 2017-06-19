@@ -6,9 +6,14 @@ cache: bundler
 
 matrix:
   include:
-    - JEKYLL_VERSION="~> 3.5"
-    - JEKYLL_VERSION=""
-
+    - rvm: 2.4.0
+      env: JEKYLL_VERSION="~> 3.5"
+    - rvm: 2.4.0
+      env: GH_PAGES=true
+  allow_failures:
+    - env: GH_PAGES=true # Jekyll 2.4 will fail tests
+  fast_finish: true
+  
 rvm:
   - 2.3.0
   - 2.2
