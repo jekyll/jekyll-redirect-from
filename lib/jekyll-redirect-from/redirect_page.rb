@@ -65,7 +65,7 @@ module JekyllRedirectFrom
     private
 
     def context
-      JekyllRedirectFrom::Context.new(site)
+      JekyllRedirectFrom::Context.new(@site)
     end
   end
 end
