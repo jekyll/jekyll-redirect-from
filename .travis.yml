@@ -6,8 +6,9 @@ cache: bundler
 
 matrix:
   include:
-    - # GitHub Pages
-      rvm: 2.4.0
+    - rvm: 2.4.0
+      env: JEKYLL_VERSION="~> 3.5"
+    - rvm: 2.4.0
       env: GH_PAGES=true
   allow_failures:
     - env: GH_PAGES=true # Jekyll 2.4 will fail tests
