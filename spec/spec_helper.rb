@@ -48,7 +48,7 @@ RSpec.configure do |config|
         "scope"  => { "path" => "" },
         "values" => { "layout" => "layout" },
       },],
-    })
+    }).backwards_compatibilize
   end
 
   def site
