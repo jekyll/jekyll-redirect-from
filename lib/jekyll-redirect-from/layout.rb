@@ -4,7 +4,7 @@ module JekyllRedirectFrom
   class Layout < Jekyll::Layout
     def initialize(site)
       @site = site
-      @base = File.dirname(__FILE__)
+      @base = __dir__
       @name = "redirect.html"
       @path = File.expand_path(@name, @base)
       @relative_path = "_layouts/redirect.html"
