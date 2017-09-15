@@ -92,6 +92,15 @@ describe JekyllRedirectFrom::RedirectPage do
             expect(page.to_liquid["redirect"]["from"]).to eql("/2014/01/03/redirect-me-plz.html")
           end
         end
+
+        context "redirecting to a URL with liquid tags" do
+          let(:to) { "https://{{site.remote_app}}/login" }
+          let(:site) { Jekyll::Site.new(config.merge("remote_app" => "example.org")) }
+
+          it "redirects with liquid tags rendered" do
+            expect(page.to_liquid["redirect"]["to"]).to eql("https://example.org/login")
+          end
+        end
       end
     end
   end

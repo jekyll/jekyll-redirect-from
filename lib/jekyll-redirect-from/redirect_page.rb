@@ -17,6 +17,8 @@ module JekyllRedirectFrom
     # from - the (URL) path, relative to the site root to redirect from
     # to   - the relative path or URL which the page should redirect to
     def self.from_paths(site, from, to)
+      from = Liquid::Template.parse(from).render("site" => site.config)
+      to = Liquid::Template.parse(to).render("site" => site.config)
       page = RedirectPage.new(site, site.source, "", "redirect.html")
       page.set_paths(from, to)
       page
