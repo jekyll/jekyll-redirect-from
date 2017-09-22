@@ -11,6 +11,7 @@
 
   * HTML encode ellipsis (#142)
   * Added no-index to template (#152)
+  * Define path with __dir__ (#161)
 
 ### Major Enhancements
 
