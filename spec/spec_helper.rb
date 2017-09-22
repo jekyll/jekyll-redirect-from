@@ -20,7 +20,7 @@ RSpec.configure do |config|
   end
 
   def fixtures_path
-    Pathname.new(__FILE__).parent.join("fixtures")
+    Pathname.new(__dir__).join("fixtures")
   end
 
   def dest_path
