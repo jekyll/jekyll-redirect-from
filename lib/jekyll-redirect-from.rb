@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "jekyll"
 require "jekyll-redirect-from/version"
 require "jekyll-redirect-from/generator"
