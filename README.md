@@ -34,7 +34,7 @@ Or install it yourself as:
 Once it's installed into your evironment, add it to your `_config.yml`:
 
 ```yaml
-gems:
+plugins:
   - jekyll-redirect-from
 ```
 
