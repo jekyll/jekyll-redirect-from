@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllRedirectFrom
   # Module which can be mixed in to documents (and pages) to provide
   # redirect_to and redirect_from helpers

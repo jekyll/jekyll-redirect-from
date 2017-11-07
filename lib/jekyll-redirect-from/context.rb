@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllRedirectFrom
   # Stubbed LiquidContext to support relative_url and absolute_url helpers
   class Context

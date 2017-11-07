@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllRedirectFrom
   # A stubbed layout for our default redirect template
   # We cannot use the standard Layout class because of site.in_source_dir

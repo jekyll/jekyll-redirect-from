@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllRedirectFrom
   class Generator < Jekyll::Generator
     safe true

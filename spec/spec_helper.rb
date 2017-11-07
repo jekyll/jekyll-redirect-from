@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "jekyll"
 require File.expand_path("lib/jekyll-redirect-from.rb")
 

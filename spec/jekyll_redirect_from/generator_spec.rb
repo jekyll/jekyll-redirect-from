@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe JekyllRedirectFrom::Generator do
   before(:each) do
     site.read
