@@ -6,6 +6,7 @@
 
   * Rubocop (#141)
   * Fix tests for jekyll 3.5.x (#160)
+  * Rubocop: autocorrect (#165)
 
 ### Minor Enhancements
 
