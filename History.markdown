@@ -17,6 +17,10 @@
 
   * Create redirects.json file (#147)
 
+### Documentation
+
+  * Update README.md (#167)
+
 ## 0.12.1 / 2017-01-12
 
 ### Development Fixes
