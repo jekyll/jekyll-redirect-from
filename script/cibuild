@@ -1,6 +1,6 @@
 #! /bin/bash
 set -e
 
-bundle exec rake spec
-bundle exec rubocop -S -D
-gem build jekyll-redirect-from.gemspec
+script/test
+script/fmt
+bundle exec rake build
