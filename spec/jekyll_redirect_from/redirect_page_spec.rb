@@ -1,4 +1,4 @@
-# Encoding: utf-8
+# frozen_string_literal: true
 
 describe JekyllRedirectFrom::RedirectPage do
   let(:from) { "/foo" }

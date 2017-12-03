@@ -34,9 +34,11 @@ Or install it yourself as:
 Once it's installed into your evironment, add it to your `_config.yml`:
 
 ```yaml
-gems:
+plugins:
   - jekyll-redirect-from
 ```
+
+💡 If you are using a Jekyll version less than 3.5.0, use the `gems` key instead of `plugins`.
 
 If you're using Jekyll in `safe` mode to mimic GitHub Pages, make sure to
 add jekyll-redirect-from to your whitelist:

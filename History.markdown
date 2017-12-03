@@ -6,15 +6,21 @@
 
   * Rubocop (#141)
   * Fix tests for jekyll 3.5.x (#160)
+  * Rubocop: autocorrect (#165)
 
 ### Minor Enhancements
 
   * HTML encode ellipsis (#142)
   * Added no-index to template (#152)
+  * Define path with __dir__ (#161)
 
 ### Major Enhancements
 
   * Create redirects.json file (#147)
+
+### Documentation
+
+  * Update README.md (#167)
 
 ## 0.12.1 / 2017-01-12
 
