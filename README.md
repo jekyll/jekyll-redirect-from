@@ -38,6 +38,8 @@ plugins:
   - jekyll-redirect-from
 ```
 
+💡 If you are using a Jekyll version less than 3.5.0, use the `gems` key instead of `plugins`.
+
 If you're using Jekyll in `safe` mode to mimic GitHub Pages, make sure to
 add jekyll-redirect-from to your whitelist:
 
