@@ -1,4 +1,4 @@
-Copyright (c) 2017 Parker Moore
+Copyright (c) 2013-2017 Parker Moore and contributors
 
 MIT License
 
