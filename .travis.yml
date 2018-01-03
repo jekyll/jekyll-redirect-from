@@ -11,6 +11,7 @@ matrix:
       env: GH_PAGES=true
 
 rvm:
+  - 2.5
   - 2.4
   - 2.3
   - 2.2
