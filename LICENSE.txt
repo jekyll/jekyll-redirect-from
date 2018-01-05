@@ -1,4 +1,4 @@
-Copyright (c) 2013-2017 Parker Moore and contributors
+Copyright (c) 2013-present Parker Moore and jekyll-redirect-from contributors
 
 MIT License
 
