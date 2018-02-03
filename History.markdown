@@ -1,5 +1,9 @@
 ## HEAD
 
+### Development Fixes
+
+  * Test against Ruby 2.5 (#173)
+
 ## 0.13.0 / 2017-12-03
 
   * Test against same version of Ruby that GitHub Pages uses (#132)
