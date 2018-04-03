@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe "JekyllRedirectFrom integration tests" do
   before { site.process }
   let(:relative_path) { "" }

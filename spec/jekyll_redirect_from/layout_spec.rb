@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe JekyllRedirectFrom::Layout do
   subject { described_class.new(@site) }
 
@@ -10,7 +12,7 @@ RSpec.describe JekyllRedirectFrom::Layout do
   end
 
   it "exposes the path" do
-    expected = File.expand_path "../../lib/jekyll-redirect-from/redirect.html", File.dirname(__FILE__)
+    expected = File.expand_path "../../lib/jekyll-redirect-from/redirect.html", __dir__
     expect(subject.path).to eql(expected)
   end
 

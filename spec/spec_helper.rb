@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "jekyll"
 require File.expand_path("lib/jekyll-redirect-from.rb")
 
@@ -20,7 +22,7 @@ RSpec.configure do |config|
   end
 
   def fixtures_path
-    Pathname.new(__FILE__).parent.join("fixtures")
+    Pathname.new(__dir__).join("fixtures")
   end
 
   def dest_path
@@ -48,7 +50,7 @@ RSpec.configure do |config|
         "scope"  => { "path" => "" },
         "values" => { "layout" => "layout" },
       },],
-    })
+    }).backwards_compatibilize
   end
 
   def site
