@@ -13,3 +13,11 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Exclude:
     - spec/**/*
+
+Naming/MemoizedInstanceVariableName:
+  Exclude:
+    - lib/jekyll-redirect-from/page_without_a_file.rb
+
+Naming/UncommunicativeMethodParamName:
+  Exclude:
+    - lib/jekyll-redirect-from/redirect_page.rb
