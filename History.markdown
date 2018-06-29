@@ -1,12 +1,14 @@
-## HEAD
-
-### Development Fixes
-
-  * Test against Ruby 2.5 (#173)
+## 0.14.0 / 2018-06-29
 
 ### Minor Enhancements
 
-  * run javascript at first to avoid splash (#158)
+  * Run javascript at first to avoid splash (#158)
+
+### Development Fixes
+
+  * Use Rubocop 0.57
+  * Target Ruby 2.3
+  * Test against Ruby 2.5 (#173)
 
 ## 0.13.0 / 2017-12-03
 
