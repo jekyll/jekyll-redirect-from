@@ -4,6 +4,10 @@
 
   * Test against Ruby 2.5 (#173)
 
+### Minor Enhancements
+
+  * run javascript at first to avoid splash (#158)
+
 ## 0.13.0 / 2017-12-03
 
   * Test against same version of Ruby that GitHub Pages uses (#132)
