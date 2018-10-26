@@ -17,6 +17,7 @@ module JekyllRedirectFrom
       # Must duplicate pages to modify while in loop
       (site.docs_to_write + site.pages.dup).each do |doc|
         next unless JekyllRedirectFrom::CLASSES.include?(doc.class)
+
         generate_redirect_from(doc)
         generate_redirect_to(doc)
       end
@@ -37,6 +38,7 @@ module JekyllRedirectFrom
 
     def generate_redirect_to(doc)
       return unless doc.redirect_to
+
       page = RedirectPage.redirect_to(doc, doc.redirect_to)
       doc.data.merge!(page.data)
       doc.content = doc.output = page.output
@@ -45,6 +47,7 @@ module JekyllRedirectFrom
 
     def generate_redirects_json
       return if File.exist? site.in_source_dir("redirects.json")
+
       page = PageWithoutAFile.new(site, "", "", "redirects.json")
       page.content = redirects.to_json
       page.data["layout"] = nil
