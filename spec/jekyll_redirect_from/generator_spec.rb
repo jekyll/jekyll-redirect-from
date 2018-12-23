@@ -142,7 +142,7 @@ RSpec.describe JekyllRedirectFrom::Generator do
 
       it "doesn't overwrite redirets.json" do
         expect(path).to exist
-        expect(redirects).to eql({ "foo" => "bar" })
+        expect(redirects).to eql("foo" => "bar")
       end
     end
   end
