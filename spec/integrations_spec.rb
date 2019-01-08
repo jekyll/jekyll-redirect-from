@@ -84,5 +84,10 @@ RSpec.describe "JekyllRedirectFrom integration tests" do
       expect(contents).to_not be_nil
       expect(contents).to_not match("redirect_to")
     end
+
+    it "doesn't contain redirects.json" do
+      expect(contents).to_not be_nil
+      expect(contents).to_not match("redirects.json")
+    end
   end
 end
