@@ -4,6 +4,10 @@
 
   * chore(deps): rubocop-jekyll 0.3 (#187)
 
+### Bug Fixes
+
+  * Allow testing and using with Jekyll 4.x (#196)
+
 ## 0.14.0 / 2018-06-29
 
 ### Minor Enhancements
