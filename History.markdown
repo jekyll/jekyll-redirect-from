@@ -1,3 +1,9 @@
+## HEAD
+
+### Documentation
+
+  * Simplifies YAML for redirect_to (#185)
+
 ## 0.15.0 / 2019-03-23
 
 ### Development Fixes
