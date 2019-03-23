@@ -113,12 +113,8 @@ Sometimes, you may want to redirect a site page to a totally different website. 
 
 ```yaml
 title: My amazing post
-redirect_to:
-  - http://www.github.com
+redirect_to: http://www.github.com
 ```
-
-If you have multiple `redirect_to`s set, only the first one will be respected.
-
 
 **Note**: Using `redirect_to` or `redirect_from` with collections will only work with files which are output to HTML, such as `.md`, `.textile`, `.html` etc.
 
