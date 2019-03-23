@@ -1,14 +1,19 @@
 language: ruby
-sudo: false
 cache: bundler
+rvm:
+  - &latest_ruby 2.6
+  - 2.4
+  - 2.3
+env:
+  - JEKYLL_VERSION="~> 3.8"
 matrix:
   include:
     - # GitHub Pages
-      rvm: 2.5.1
+      rvm: 2.5.3
       env: GH_PAGES=true
-rvm:
-  - 2.5
-  - 2.3
+    - rvm: *latest_ruby
+      env: JEKYLL_VERSION=">= 4.0.0.pre.alpha1"
+
 before_install:
 - gem update --system
 before_script: bundle update
