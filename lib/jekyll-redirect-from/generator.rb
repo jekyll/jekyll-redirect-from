@@ -10,7 +10,7 @@ module JekyllRedirectFrom
       @redirects = {}
 
       # Inject our layout, unless the user has already specified a redirect layout'
-      unless site.layouts.keys.any? { |name| name == "redirect" }
+      unless site.layouts.key?("redirect")
         site.layouts["redirect"] = JekyllRedirectFrom::Layout.new(site)
       end
 
