@@ -4,6 +4,10 @@
 
   * Simplifies YAML for redirect_to (#185)
 
+### Bug Fixes
+
+  * Use `Hash#key?` instead of `Hash#keys.any?` (#201)
+
 ## 0.15.0 / 2019-03-23
 
 ### Development Fixes
