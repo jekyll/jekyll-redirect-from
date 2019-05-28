@@ -16,7 +16,7 @@ module JekyllRedirectFrom
 
       # Must duplicate pages to modify while in loop
       (site.docs_to_write + site.pages.dup).each do |doc|
-        next unless JekyllRedirectFrom::CLASSES.include?(doc.class)
+        next unless JekyllRedirectFrom::CLASSES.any? { |klass| doc.is_a? klass }
 
         generate_redirect_from(doc)
         generate_redirect_to(doc)
