@@ -5,6 +5,9 @@ module JekyllRedirectFrom
     safe true
     attr_reader :site, :redirects
 
+    CONFIG_KEY = "redirect_from".freeze
+    JSON_KEY = "json".freeze
+
     def generate(site)
       @site = site
       @redirects = {}
@@ -22,10 +25,16 @@ module JekyllRedirectFrom
         generate_redirect_to(doc)
       end
 
-      generate_redirects_json
+      if generate_redirects_json?
+        generate_redirects_json 
+      end
     end
 
     private
+
+    def option(key)
+      site.config[CONFIG_KEY] && site.config[CONFIG_KEY][key]
+    end
 
     # For every `redirect_from` entry, generate a redirect page
     def generate_redirect_from(doc)
@@ -52,6 +61,10 @@ module JekyllRedirectFrom
       page.content = redirects.to_json
       page.data["layout"] = nil
       site.pages << page
+    end
+
+    def generate_redirects_json?
+      option(JSON_KEY) != false 
     end
   end
 end
