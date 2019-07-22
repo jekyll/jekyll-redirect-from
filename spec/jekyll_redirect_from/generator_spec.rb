@@ -95,9 +95,7 @@ RSpec.describe JekyllRedirectFrom::Generator do
     let(:domain) { "http://jekyllrb.com" }
 
     context "when explicitly disabled" do
-      let(:site) do
-        fixture_site("site", "redirect_from" => { "json" => false })
-      end
+      let(:site) { Jekyll::Site.new(Jekyll.configuration("redirect_from" => { "json" => false })) }
       it "does not create the redirects file" do
         expect(path).to_not exist
       end
