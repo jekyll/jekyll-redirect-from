@@ -59,7 +59,7 @@ module JekyllRedirectFrom
     end
 
     def generate_redirects_json?
-      option("json") != false
+      site.config.dig("redirect_from", "json") != false
     end
   end
 end
