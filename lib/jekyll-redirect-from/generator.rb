@@ -27,10 +27,6 @@ module JekyllRedirectFrom
 
     private
 
-    def option(key)
-      site.config.dig("redirect_from", key)
-    end
-
     # For every `redirect_from` entry, generate a redirect page
     def generate_redirect_from(doc)
       doc.redirect_from.each do |path|
