@@ -94,64 +94,63 @@ RSpec.describe JekyllRedirectFrom::Generator do
     let(:redirects) { JSON.parse(contents) }
     let(:domain) { "http://jekyllrb.com" }
 
-    context "when explicitly disabled" do
-      let(:site) { Jekyll::Site.new(config.merge("redirect_from" => { "json" => false })) }
-      it "does not create the redirects file" do
-        expect(path).to_not exist
+    it "creates the redirects file" do
+      expect(path).to exist
+    end
+
+    it "contains redirects" do
+      expect(redirects.count).to eql(13)
+    end
+
+    it "contains single redirects tos" do
+      expect(redirects.keys).to include "/one_redirect_to_path.html"
+      expect(redirects["/one_redirect_to_path.html"]).to eql("#{domain}/foo")
+    end
+
+    it "contains multiple redirect tos" do
+      expect(redirects.keys).to include "/multiple_redirect_tos.html"
+      expect(redirects["/multiple_redirect_tos.html"]).to eql("https://www.jekyllrb.com")
+    end
+
+    it "contains single redirect froms" do
+      expect(redirects.keys).to include "/some/other/path"
+      expect(redirects["/some/other/path"]).to eql("#{domain}/one_redirect_from.html")
+    end
+
+    it "contains multiple redirect froms" do
+      expect(redirects.keys).to include "/help"
+      expect(redirects["/help"]).to eql("#{domain}/multiple_redirect_froms.html")
+
+      expect(redirects.keys).to include "/contact"
+      expect(redirects["/contact"]).to eql("#{domain}/multiple_redirect_froms.html")
+    end
+
+    context "with a user-supplied redirects.json" do
+      let(:source_path) { File.join fixtures_path, "redirects.json" }
+      before do
+        File.write source_path, { "foo" => "bar" }.to_json
+        site.reset
+        site.read
+        site.generate
+        site.render
+        site.write
+      end
+
+      after do
+        FileUtils.rm_f source_path
+      end
+
+      it "doesn't overwrite redirects.json" do
+        expect(path).to exist
+        expect(redirects).to eql("foo" => "bar")
       end
     end
 
-    context "when enabled" do
-      it "creates the redirects file" do
-        expect(path).to exist
-      end
+    context "when explicitly disabled" do
+      let(:site) { Jekyll::Site.new(config.merge("redirect_from" => { "json" => false })) }
 
-      it "contains redirects" do
-        expect(redirects.count).to eql(13)
-      end
-
-      it "contains single redirects tos" do
-        expect(redirects.keys).to include "/one_redirect_to_path.html"
-        expect(redirects["/one_redirect_to_path.html"]).to eql("#{domain}/foo")
-      end
-
-      it "contains multiple redirect tos" do
-        expect(redirects.keys).to include "/multiple_redirect_tos.html"
-        expect(redirects["/multiple_redirect_tos.html"]).to eql("https://www.jekyllrb.com")
-      end
-
-      it "contains single redirect froms" do
-        expect(redirects.keys).to include "/some/other/path"
-        expect(redirects["/some/other/path"]).to eql("#{domain}/one_redirect_from.html")
-      end
-
-      it "contains multiple redirect froms" do
-        expect(redirects.keys).to include "/help"
-        expect(redirects["/help"]).to eql("#{domain}/multiple_redirect_froms.html")
-
-        expect(redirects.keys).to include "/contact"
-        expect(redirects["/contact"]).to eql("#{domain}/multiple_redirect_froms.html")
-      end
-
-      context "with a user-supplied redirects.json" do
-        let(:source_path) { File.join fixtures_path, "redirects.json" }
-        before do
-          File.write source_path, { "foo" => "bar" }.to_json
-          site.reset
-          site.read
-          site.generate
-          site.render
-          site.write
-        end
-
-        after do
-          FileUtils.rm_f source_path
-        end
-
-        it "doesn't overwrite redirects.json" do
-          expect(path).to exist
-          expect(redirects).to eql("foo" => "bar")
-        end
+      it "does not create the redirects file" do
+        expect(path).to_not exist
       end
     end
   end
