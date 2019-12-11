@@ -42,7 +42,7 @@ RSpec.configure do |config|
         "authors"  => {},
       },
       "url"         => "http://jekyllrb.com",
-      "gems"        => [
+      "plugins"     => [
         "jekyll-redirect-from",
         "jekyll-sitemap",
       ],
