@@ -8,6 +8,10 @@
 
   * Use `Hash#key?` instead of `Hash#keys.any?` (#201)
 
+### Development Fixes
+
+  * Stop testing with backwards-compatible site config (#211)
+
 ## 0.15.0 / 2019-03-23
 
 ### Development Fixes
