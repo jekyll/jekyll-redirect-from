@@ -127,6 +127,19 @@ Your layout will get the following variables:
 * `page.redirect.from` - the relative path to the redirect page
 * `page.redirect.to` - the absolute URL (where available) to the target page
 
+## Configuration
+
+You can configure this plugin in `_config.yml` by adding to the `redirect_from` key.
+
+### Disabling `redirects.json`
+
+By default, a file called `redirects.json`, which can be used for automated testing or to implement server-side redirects, will be included in the output. To exclude it from the output, set the `json` key to `false`:
+
+```yml
+redirect_from:
+  json: false
+```
+
 ## Contributing
 
 1. Fork it
