@@ -57,7 +57,7 @@ module JekyllRedirectFrom
     def redirectable_document?(doc)
       doc.is_a?(Jekyll::Document) || doc.is_a?(Jekyll::Page)
     end
-      
+
     def generate_redirects_json?
       site.config.dig("redirect_from", "json") != false
     end
