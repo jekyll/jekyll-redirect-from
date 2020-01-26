@@ -94,7 +94,7 @@ RSpec.describe JekyllRedirectFrom::Generator do
     let(:redirects) { JSON.parse(contents) }
     let(:domain) { "http://jekyllrb.com" }
 
-    it "creates the redirets file" do
+    it "creates the redirects file" do
       expect(path).to exist
     end
 
@@ -140,9 +140,17 @@ RSpec.describe JekyllRedirectFrom::Generator do
         FileUtils.rm_f source_path
       end
 
-      it "doesn't overwrite redirets.json" do
+      it "doesn't overwrite redirects.json" do
         expect(path).to exist
         expect(redirects).to eql("foo" => "bar")
+      end
+    end
+
+    context "when explicitly disabled" do
+      let(:site) { Jekyll::Site.new(config.merge("redirect_from" => { "json" => false })) }
+
+      it "does not create the redirects file" do
+        expect(path).to_not exist
       end
     end
   end

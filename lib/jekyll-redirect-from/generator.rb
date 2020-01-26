@@ -22,7 +22,7 @@ module JekyllRedirectFrom
         generate_redirect_to(doc)
       end
 
-      generate_redirects_json
+      generate_redirects_json if generate_redirects_json?
     end
 
     private
@@ -52,6 +52,10 @@ module JekyllRedirectFrom
       page.content = redirects.to_json
       page.data["layout"] = nil
       site.pages << page
+    end
+
+    def generate_redirects_json?
+      site.config.dig("redirect_from", "json") != false
     end
   end
 end
