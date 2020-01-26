@@ -49,7 +49,7 @@ module JekyllRedirectFrom
         "permalink" => from,
         "redirect"  => {
           "from" => from,
-          "to"   => to =~ %r!^https?://! ? to : absolute_url(to),
+          "to"   => %r!^https?://!.match?(to) ? to : absolute_url(to),
         }
       )
     end
