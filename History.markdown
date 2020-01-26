@@ -12,6 +12,10 @@
 
   * Stop testing with backwards-compatible site config (#211)
 
+### Minor Enhancements
+
+  * Allows generation of redirects.json to be disabled (#207)
+
 ## 0.15.0 / 2019-03-23
 
 ### Development Fixes
