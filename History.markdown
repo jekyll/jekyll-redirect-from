@@ -15,6 +15,7 @@
 ### Minor Enhancements
 
   * Allows generation of redirects.json to be disabled (#207)
+  * Allow redirects from and for subclasses of page and document (#204)
 
 ## 0.15.0 / 2019-03-23
 
