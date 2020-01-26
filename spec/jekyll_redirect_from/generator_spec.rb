@@ -154,4 +154,18 @@ RSpec.describe JekyllRedirectFrom::Generator do
       end
     end
   end
+
+  context "redirectable_document?" do
+    let(:generator) { JekyllRedirectFrom::Generator.new }
+
+    it "accepts subclasses of Jekyll::Document" do
+      SubclassOfJekyllDocument = Class.new(Jekyll::Document) { define_method(:initialize) {} }
+      expect(generator.send(:redirectable_document?, SubclassOfJekyllDocument.new)).to be_truthy
+    end
+
+    it "accepts subclasses of Jekyll::Page" do
+      SubclassOfJekyllPage = Class.new(Jekyll::Page) { define_method(:initialize) {} }
+      expect(generator.send(:redirectable_document?, SubclassOfJekyllPage.new)).to be_truthy
+    end
+  end
 end
