@@ -1,8 +1,9 @@
-## HEAD
+## 0.16.0 / 2020-01-26
 
-### Documentation
+### Minor Enhancements
 
-  * Simplifies YAML for redirect_to (#185)
+  * Allows generation of `redirects.json` to be disabled (#207)
+  * Allow redirects from and for subclasses of page and document (#204)
 
 ### Bug Fixes
 
@@ -10,12 +11,12 @@
 
 ### Development Fixes
 
+  * Target Ruby 2.4
   * Stop testing with backwards-compatible site config (#211)
 
-### Minor Enhancements
+### Documentation
 
-  * Allows generation of redirects.json to be disabled (#207)
-  * Allow redirects from and for subclasses of page and document (#204)
+  * Simplifies YAML for `redirect_to` (#185)
 
 ## 0.15.0 / 2019-03-23
 
