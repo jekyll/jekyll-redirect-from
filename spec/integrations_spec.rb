@@ -17,7 +17,7 @@ RSpec.describe "JekyllRedirectFrom integration tests" do
     end
 
     context "multiple redirect froms" do
-      %w(help contact let-there/be/light-he-said geepers/mccreepin).each do |redirect|
+      ["help", "contact", "let-there/be/light-he-said", "geepers/mccreepin"].each do |redirect|
         context "the #{redirect} redirect" do
           let(:relative_path) { "#{redirect}.html" }
 

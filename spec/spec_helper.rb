@@ -42,10 +42,7 @@ RSpec.configure do |config|
         "authors"  => {},
       },
       "url"         => "http://jekyllrb.com",
-      "plugins"     => [
-        "jekyll-redirect-from",
-        "jekyll-sitemap",
-      ],
+      "plugins"     => %w(jekyll-redirect-from jekyll-sitemap),
       "defaults"    => [{
         "scope"  => { "path" => "" },
         "values" => { "layout" => "layout" },

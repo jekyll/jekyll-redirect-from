@@ -20,7 +20,7 @@ Metrics/BlockLength:
 # Offense count: 3
 # Configuration parameters: Max, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
-Metrics/LineLength:
+Layout/LineLength:
   Exclude:
     - 'spec/jekyll_redirect_from/generator_spec.rb'
     - 'spec/jekyll_redirect_from/redirect_page_spec.rb'
