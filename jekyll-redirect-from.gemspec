@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "English"
 require_relative "lib/jekyll-redirect-from/version"
 
 Gem::Specification.new do |spec|
@@ -12,9 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/jekyll/jekyll-redirect-from"
   spec.license       = "MIT"
 
-  # rubocop:disable Style/SpecialGlobalVars
-  spec.files         = `git ls-files`.split($/)
-  # rubocop:enable Style/SpecialGlobalVars
+  spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
 
   spec.executables   = spec.files.grep(%r!^bin/!) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r!^(test|spec|features)/!)
