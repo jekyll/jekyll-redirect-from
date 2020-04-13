@@ -1,3 +1,9 @@
+## HEAD
+
+### styles
+
+  * style: Style/SpecialGlobalVars (#216)
+
 ## 0.16.0 / 2020-01-26
 
 ### Minor Enhancements
