@@ -63,17 +63,16 @@ shared_examples 'a redirect page' do
 end
 
 describe JekyllRedirectFrom::RedirectPage do
-  let(:from) { "/foo" }
-  let(:to) { "/bar" }
   let(:site_url) { site.config["url"] }
-  subject { described_class.from_paths(site, from, to) }
   before { site.read }
 
-  it_behaves_like 'a redirect page'
-
   describe 'redirecting to' do
+    let(:to) { "/bar" }
     let(:doc) { site.documents.first }
-    let(:page) { described_class.redirect_to(doc, to) }
+    subject(:page) { described_class.redirect_to(doc, to) }
+    let(:from) { doc.url }
+
+    it_behaves_like 'a redirect page'
 
     context "a relative path" do
       let(:to) { "/bar" }
@@ -117,8 +116,12 @@ describe JekyllRedirectFrom::RedirectPage do
   end
 
   describe 'redirecting from' do
+    let(:from) { "/foo" }
     let(:doc) { site.documents.first }
-    let(:page) { described_class.redirect_from(doc, from) }
+    subject(:page) { described_class.redirect_from(doc, from) }
+    let(:to) { doc.url }
+
+    it_behaves_like 'a redirect page'
 
     it "sets liquid data for the page" do
       expect(page.to_liquid["permalink"]).to eql(from)
