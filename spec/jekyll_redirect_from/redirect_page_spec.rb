@@ -71,6 +71,51 @@ describe JekyllRedirectFrom::RedirectPage do
 
   it_behaves_like 'a redirect page'
 
+  describe 'redirecting to' do
+    let(:doc) { site.documents.first }
+    let(:page) { described_class.redirect_to(doc, to) }
+
+    context "a relative path" do
+      let(:to) { "/bar" }
+
+      it "redirects" do
+        expect(page.to_liquid["permalink"]).to eql("/2014/01/03/redirect-me-plz.html")
+        expect(page.to_liquid).to have_key("redirect")
+        expect(page.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
+        expect(page.to_liquid["redirect"]["from"]).to eql("/2014/01/03/redirect-me-plz.html")
+      end
+
+      context "with no leading slash" do
+        let(:to) { "bar" }
+
+        it "redirects" do
+          expect(page.to_liquid).to have_key("redirect")
+          expect(page.to_liquid["redirect"]["to"]).to eql("#{site_url}/#{to}")
+        end
+      end
+
+      context "with a trailing slash" do
+        let(:to) { "/bar/" }
+
+        it "redirects" do
+          expect(page.to_liquid).to have_key("redirect")
+          expect(page.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
+        end
+      end
+    end
+
+    context "an absolute URL" do
+      let(:to) { "https://foo.invalid" }
+
+      it "redirects" do
+        expect(page.to_liquid["permalink"]).to eql("/2014/01/03/redirect-me-plz.html")
+        expect(page.to_liquid).to have_key("redirect")
+        expect(page.to_liquid["redirect"]["to"]).to eql("https://foo.invalid")
+        expect(page.to_liquid["redirect"]["from"]).to eql("/2014/01/03/redirect-me-plz.html")
+      end
+    end
+  end
+
   context "creating a page from paths" do
 
     context "with a document" do
@@ -89,47 +134,6 @@ describe JekyllRedirectFrom::RedirectPage do
       end
 
       context "redirect to" do
-        let(:page) { described_class.redirect_to(doc, to) }
-
-        context "redirecting to a path" do
-          let(:to) { "/bar" }
-
-          it "redirects" do
-            expect(page.to_liquid["permalink"]).to eql("/2014/01/03/redirect-me-plz.html")
-            expect(page.to_liquid).to have_key("redirect")
-            expect(page.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
-            expect(page.to_liquid["redirect"]["from"]).to eql("/2014/01/03/redirect-me-plz.html")
-          end
-
-          context "with no leading slash" do
-            let(:to) { "bar" }
-
-            it "redirects" do
-              expect(page.to_liquid).to have_key("redirect")
-              expect(page.to_liquid["redirect"]["to"]).to eql("#{site_url}/#{to}")
-            end
-          end
-
-          context "with a trailing slash" do
-            let(:to) { "/bar/" }
-
-            it "redirects" do
-              expect(page.to_liquid).to have_key("redirect")
-              expect(page.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
-            end
-          end
-        end
-
-        context "redirecting to a URL" do
-          let(:to) { "https://foo.invalid" }
-
-          it "redirects" do
-            expect(page.to_liquid["permalink"]).to eql("/2014/01/03/redirect-me-plz.html")
-            expect(page.to_liquid).to have_key("redirect")
-            expect(page.to_liquid["redirect"]["to"]).to eql("https://foo.invalid")
-            expect(page.to_liquid["redirect"]["from"]).to eql("/2014/01/03/redirect-me-plz.html")
-          end
-        end
       end
     end
   end
