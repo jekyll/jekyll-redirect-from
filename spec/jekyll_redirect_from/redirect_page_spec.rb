@@ -100,8 +100,6 @@ describe JekyllRedirectFrom::RedirectPage do
     let(:from) { "/foo2" }
     let(:to) { "/bar2" }
 
-    before { subject.set_paths(from, to) }
-
     it "sets the paths" do
       expect(subject.to_liquid["permalink"]).to eql(from)
       expect(subject.to_liquid).to have_key("redirect")
