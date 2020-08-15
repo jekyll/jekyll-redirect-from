@@ -116,35 +116,24 @@ describe JekyllRedirectFrom::RedirectPage do
     end
   end
 
-  context "creating a page from paths" do
+  describe 'redirecting from' do
+    let(:doc) { site.documents.first }
+    let(:page) { described_class.redirect_from(doc, from) }
 
-    context "with a document" do
-      let(:doc) { site.documents.first }
-
-      context "redirect from" do
-        let(:page) { described_class.redirect_from(doc, from) }
-
-        it "creates with redirect_from" do
-          expect(page.to_liquid["permalink"]).to eql(from)
-          expect(page.to_liquid).to have_key("redirect")
-          expect(page.to_liquid["redirect"]["from"]).to eql(from)
-          expected = "http://jekyllrb.com/2014/01/03/redirect-me-plz.html"
-          expect(page.to_liquid["redirect"]["to"]).to eql(expected)
-        end
-      end
-
-      context "redirect to" do
-      end
+    it "sets liquid data for the page" do
+      expect(page.to_liquid["permalink"]).to eql(from)
+      expect(page.to_liquid).to have_key("redirect")
+      expect(page.to_liquid["redirect"]["from"]).to eql(from)
+      expected = "http://jekyllrb.com/2014/01/03/redirect-me-plz.html"
+      expect(page.to_liquid["redirect"]["to"]).to eql(expected)
     end
-  end
 
-  context "redirect from destination" do
     context "when redirect from has no extension" do
       let(:from) { "/foo" }
 
       it "adds .html" do
         expected = File.expand_path "foo.html", site.dest
-        expect(subject.destination("/")).to eql(expected)
+        expect(page.destination("/")).to eql(expected)
       end
     end
 
@@ -153,7 +142,11 @@ describe JekyllRedirectFrom::RedirectPage do
 
       it "knows to add the index.html" do
         expected = File.expand_path "foo/index.html", site.dest
-        expect(subject.destination("/")).to eql(expected)
+        expect(page.destination("/")).to eql(expected)
+      end
+
+      it "uses HTML" do
+        expect(page.output_ext).to eql(".html")
       end
     end
 
@@ -162,7 +155,7 @@ describe JekyllRedirectFrom::RedirectPage do
 
       it "adds .html" do
         expected = File.expand_path "foo.html", site.dest
-        expect(subject.destination("/")).to eql(expected)
+        expect(page.destination("/")).to eql(expected)
       end
     end
 
@@ -171,7 +164,11 @@ describe JekyllRedirectFrom::RedirectPage do
 
       it "doesn't add .html" do
         expected = File.expand_path "foo.htm", site.dest
-        expect(subject.destination("/")).to eql(expected)
+        expect(page.destination("/")).to eql(expected)
+      end
+
+      it "honors the extension" do
+        expect(page.output_ext).to eql(".htm")
       end
     end
 
@@ -180,33 +177,11 @@ describe JekyllRedirectFrom::RedirectPage do
 
       it "adds the slash" do
         expected = File.expand_path "foo.html", site.dest
-        expect(subject.destination("/")).to eql(expected)
+        expect(page.destination("/")).to eql(expected)
       end
-    end
-  end
-
-  context "output extension" do
-    context "with an extension" do
-      let(:from) { "foo.htm" }
-
-      it "honors the extension" do
-        expect(subject.output_ext).to eql(".htm")
-      end
-    end
-
-    context "with a trailing slash" do
-      let(:from) { "foo/" }
 
       it "uses HTML" do
-        expect(subject.output_ext).to eql(".html")
-      end
-    end
-
-    context "with no slash" do
-      let(:from) { "foo" }
-
-      it "uses HTML" do
-        expect(subject.output_ext).to eql(".html")
+        expect(page.output_ext).to eql(".html")
       end
     end
   end
