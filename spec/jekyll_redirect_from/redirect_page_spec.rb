@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
-describe JekyllRedirectFrom::RedirectPage do
-  let(:from) { "/foo" }
-  let(:to) { "/bar" }
-  let(:site_url) { site.config["url"] }
-  subject { described_class.from_paths(site, from, to) }
-  before { site.read }
-
+shared_examples 'a redirect page' do
   context "being a page" do
     before { subject.read_yaml(nil, nil, nil) }
 
@@ -22,9 +16,14 @@ describe JekyllRedirectFrom::RedirectPage do
       expect(subject.to_liquid["layout"]).to eql("redirect")
       expect(subject.to_liquid["sitemap"]).to be_falsey
     end
-  end
 
-  context "creating a page from paths" do
+    it "sets the paths" do
+      expect(subject.to_liquid["permalink"]).to eql(from)
+      expect(subject.to_liquid).to have_key("redirect")
+      expect(subject.to_liquid["redirect"]["from"]).to eql(from)
+      expect(subject.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
+    end
+
     it "sets the permalink" do
       expect(subject.to_liquid["permalink"]).to eql(from)
     end
@@ -34,6 +33,45 @@ describe JekyllRedirectFrom::RedirectPage do
       expect(subject.to_liquid["redirect"]["from"]).to eql(from)
       expect(subject.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
     end
+  end
+
+  context "generating" do
+    before { site.generate }
+    let(:output) { Jekyll::Renderer.new(site, subject, site.site_payload).run }
+
+    it "renders the template" do
+      expect(output).to_not be_nil
+      expect(output.to_s).to_not be_empty
+    end
+
+    it "contains the meta refresh tag" do
+      expect(output).to match("<meta http-equiv=\"refresh\" content=\"0; url=#{site_url}#{to}\">")
+    end
+
+    it "contains the javascript redirect" do
+      expect(output).to match("<script>location=\"#{site_url}#{to}\"</script>")
+    end
+
+    it "contains canonical link in header" do
+      expect(output).to match("<link rel=\"canonical\" href=\"#{site_url}#{to}\">")
+    end
+
+    it "contains the clickable link" do
+      expect(output).to match("<a href=\"#{site_url}#{to}\">Click here if you are not redirected.</a>")
+    end
+  end
+end
+
+describe JekyllRedirectFrom::RedirectPage do
+  let(:from) { "/foo" }
+  let(:to) { "/bar" }
+  let(:site_url) { site.config["url"] }
+  subject { described_class.from_paths(site, from, to) }
+  before { site.read }
+
+  it_behaves_like 'a redirect page'
+
+  context "creating a page from paths" do
 
     context "with a document" do
       let(:doc) { site.documents.first }
@@ -93,44 +131,6 @@ describe JekyllRedirectFrom::RedirectPage do
           end
         end
       end
-    end
-  end
-
-  context "setting the paths" do
-    let(:from) { "/foo2" }
-    let(:to) { "/bar2" }
-
-    it "sets the paths" do
-      expect(subject.to_liquid["permalink"]).to eql(from)
-      expect(subject.to_liquid).to have_key("redirect")
-      expect(subject.to_liquid["redirect"]["from"]).to eql(from)
-      expect(subject.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
-    end
-  end
-
-  context "generating" do
-    before { site.generate }
-    let(:output) { Jekyll::Renderer.new(site, subject, site.site_payload).run }
-
-    it "renders the template" do
-      expect(output).to_not be_nil
-      expect(output.to_s).to_not be_empty
-    end
-
-    it "contains the meta refresh tag" do
-      expect(output).to match("<meta http-equiv=\"refresh\" content=\"0; url=#{site_url}#{to}\">")
-    end
-
-    it "contains the javascript redirect" do
-      expect(output).to match("<script>location=\"#{site_url}#{to}\"</script>")
-    end
-
-    it "contains canonical link in header" do
-      expect(output).to match("<link rel=\"canonical\" href=\"#{site_url}#{to}\">")
-    end
-
-    it "contains the clickable link" do
-      expect(output).to match("<a href=\"#{site_url}#{to}\">Click here if you are not redirected.</a>")
     end
   end
 
