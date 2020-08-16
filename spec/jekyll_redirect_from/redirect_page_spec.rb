@@ -6,42 +6,42 @@ describe JekyllRedirectFrom::RedirectPage do
 
   shared_examples "a redirect page" do
     context "being a page" do
-      before { subject.read_yaml(nil, nil, nil) }
+      before { page.read_yaml(nil, nil, nil) }
 
       it "returns no content" do
-        expect(subject.content).to eql("")
+        expect(page.content).to eql("")
       end
 
       it "returns no output" do
-        expect(subject.output).to eql("")
+        expect(page.output).to eql("")
       end
 
       it "sets default data" do
-        expect(subject.to_liquid["layout"]).to eql("redirect")
-        expect(subject.to_liquid["sitemap"]).to be_falsey
+        expect(page.to_liquid["layout"]).to eql("redirect")
+        expect(page.to_liquid["sitemap"]).to be_falsey
       end
 
       it "sets the paths" do
-        expect(subject.to_liquid["permalink"]).to eql(from)
-        expect(subject.to_liquid).to have_key("redirect")
-        expect(subject.to_liquid["redirect"]["from"]).to eql(from)
-        expect(subject.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
+        expect(page.to_liquid["permalink"]).to eql(from)
+        expect(page.to_liquid).to have_key("redirect")
+        expect(page.to_liquid["redirect"]["from"]).to eql(from)
+        expect(page.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
       end
 
       it "sets the permalink" do
-        expect(subject.to_liquid["permalink"]).to eql(from)
+        expect(page.to_liquid["permalink"]).to eql(from)
       end
 
       it "sets redirect metadata" do
-        expect(subject.to_liquid).to have_key("redirect")
-        expect(subject.to_liquid["redirect"]["from"]).to eql(from)
-        expect(subject.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
+        expect(page.to_liquid).to have_key("redirect")
+        expect(page.to_liquid["redirect"]["from"]).to eql(from)
+        expect(page.to_liquid["redirect"]["to"]).to eql("#{site_url}#{to}")
       end
     end
 
     context "generating" do
       before { site.generate }
-      let(:output) { Jekyll::Renderer.new(site, subject, site.site_payload).run }
+      let(:output) { Jekyll::Renderer.new(site, page, site.site_payload).run }
 
       it "renders the template" do
         expect(output).to_not be_nil
