@@ -4,6 +4,10 @@
 
   * style: Style/SpecialGlobalVars (#216)
 
+### Development Fixes
+
+  * fix Gemfile to correctly install jekyll 3.9 (#224)
+
 ## 0.16.0 / 2020-01-26
 
 ### Minor Enhancements
