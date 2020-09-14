@@ -7,6 +7,7 @@
 ### Development Fixes
 
   * fix Gemfile to correctly install jekyll 3.9 (#224)
+  * Refactor specs for RedirectPage (#222)
 
 ## 0.16.0 / 2020-01-26
 
