@@ -68,7 +68,7 @@ Redirects including a trailing slash will generate a corresponding subdirectory 
 
 For example...
 
-```text
+```yaml
 redirect_from:
   - /post/123456789/my-amazing-post
 ```
@@ -81,7 +81,7 @@ redirect_from:
 
 While...
 
-```text
+```yaml
 redirect_from:
   - /post/123456789/my-amazing-post/
 ```
@@ -96,7 +96,7 @@ These pages will contain an HTTP-REFRESH meta tag which redirect to your URL.
 
 You can also specify just **one url** like this:
 
-```text
+```yaml
 title: My other awesome post
 redirect_from: /post/123456798/
 ```
