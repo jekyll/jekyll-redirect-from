@@ -7,21 +7,15 @@ module JekyllRedirectFrom
     # Returns a string representing the relative path or URL
     # to which the document should be redirected
     def redirect_to
-      if to_liquid["redirect_to"].is_a?(Array)
-        to_liquid["redirect_to"].compact.first
-      else
-        to_liquid["redirect_to"]
-      end
+      meta_data = to_liquid["redirect_to"]
+      meta_data.is_a?(Array) ? meta_data.compact.first : meta_data
     end
 
     # Returns an array representing the relative paths to other
     # documents which should be redirected to this document
     def redirect_from
-      if to_liquid["redirect_from"].is_a?(Array)
-        to_liquid["redirect_from"].compact
-      else
-        [to_liquid["redirect_from"]].compact
-      end
+      meta_data = to_liquid["redirect_from"]
+      meta_data.is_a?(Array) ? meta_data.compact : [meta_data].compact
     end
   end
 end
