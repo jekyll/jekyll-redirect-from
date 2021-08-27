@@ -9,7 +9,7 @@ impractical to create new pages in the proper subdirectories so they, e.g.
 Instead of dealing with maintaining those pages for redirection, let
 `jekyll-redirect-from` handle it for you.
 
-[![Build Status](https://travis-ci.org/jekyll/jekyll-redirect-from.svg?branch=master)](https://travis-ci.org/jekyll/jekyll-redirect-from)
+[![Build Status](https://github.com/jekyll/jekyll-redirect-from/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/jekyll/jekyll-redirect-from/actions/workflows/ci.yml)
 
 ## How it Works
 
