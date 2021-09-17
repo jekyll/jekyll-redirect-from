@@ -8,6 +8,7 @@
 
   * fix Gemfile to correctly install jekyll 3.9 (#224)
   * Refactor specs for RedirectPage (#222)
+  * Lock to RuboCop v1.18.x (#242)
 
 ### Bug Fixes
 
