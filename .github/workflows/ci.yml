@@ -34,8 +34,10 @@ jobs:
         run:  bash script/test
       - name: Check Style Offenses
         run:  bash script/fmt
-      - name: Test Gem build
-        run:  bundle exec rake build
+      - name: Test gem build
+        run:  bundle exec gem build jekyll-redirect-from.gemspec
+      - name: Test gem install
+        run:  bundle exec gem install jekyll-redirect-from --local --verbose
 
   ghp:
     if: "!contains(github.event.commits[0].message, '[ci skip]')"
