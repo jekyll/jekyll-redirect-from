@@ -49,11 +49,7 @@ describe JekyllRedirectFrom::RedirectPage do
       end
 
       it "contains the meta refresh tag" do
-        expect(output).to match("<meta http-equiv=\"refresh\" content=\"0; url=#{site_url}#{to}\">")
-      end
-
-      it "contains the javascript redirect" do
-        expect(output).to match("<script>location=\"#{site_url}#{to}\"</script>")
+        expect(output).to match("<meta id=\"refresh-meta\" http-equiv=\"refresh\" content=\"0; url=#{site_url}#{to}\">")
       end
 
       it "contains canonical link in header" do
@@ -61,7 +57,7 @@ describe JekyllRedirectFrom::RedirectPage do
       end
 
       it "contains the clickable link" do
-        expect(output).to match("<a href=\"#{site_url}#{to}\">Click here if you are not redirected.</a>")
+        expect(output).to match("<a id=\"redirect-link\" href=\"#{site_url}#{to}\">Click here if you are not redirected.</a>")
       end
     end
   end
