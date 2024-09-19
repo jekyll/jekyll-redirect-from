@@ -8,6 +8,12 @@
 
   * fix Gemfile to correctly install jekyll 3.9 (#224)
   * Refactor specs for RedirectPage (#222)
+  * Lock to RuboCop v1.18.x (#242)
+  * Clean up gemspec (#243)
+
+### Bug Fixes
+
+  * Refactor Redirectable mixin to reduce allocations (#241)
 
 ## 0.16.0 / 2020-01-26
 

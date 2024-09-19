@@ -6,6 +6,33 @@ inherit_gem:
   rubocop-jekyll: .rubocop.yml
 
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.5
+  SuggestExtensions: false
   Exclude:
     - vendor/**/*
+
+Layout/LineEndStringConcatenationIndentation:
+  Enabled: true
+
+Lint/EmptyInPattern:
+  Enabled: false
+
+Naming/InclusiveLanguage:
+  Enabled: false
+Naming/MemoizedInstanceVariableName:
+  Exclude:
+    - 'lib/jekyll-redirect-from/page_without_a_file.rb'
+
+Performance/MapCompact:
+  Enabled: true
+Performance/RedundantEqualityComparisonBlock:
+  Enabled: true
+Performance/RedundantSplitRegexpArgument:
+  Enabled: true
+
+Style/InPatternThen:
+  Enabled: false
+Style/MultilineInPatternThen:
+  Enabled: false
+Style/QuotedSymbols:
+  Enabled: true
