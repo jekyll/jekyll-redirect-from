@@ -10,6 +10,7 @@
   * Refactor specs for RedirectPage (#222)
   * Lock to RuboCop v1.18.x (#242)
   * Clean up gemspec (#243)
+  * Bump versions in CI workflow (#273)
 
 ### Bug Fixes
 
