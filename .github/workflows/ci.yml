@@ -18,10 +18,10 @@ jobs:
       fail-fast: false
       matrix:
         ruby_version:
-        - 2.5
-        - 2.7
-        - 3.0
-        - 3.3
+        - "2.5"
+        - "2.7"
+        - "3.0"
+        - "3.3"
     steps:
       - uses: actions/checkout@v4
         with:
