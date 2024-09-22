@@ -30,6 +30,9 @@ Performance/RedundantEqualityComparisonBlock:
 Performance/RedundantSplitRegexpArgument:
   Enabled: true
 
+Style/ConcatArrayLiterals:
+  Exclude:
+    - 'jekyll-redirect-from.gemspec'
 Style/InPatternThen:
   Enabled: false
 Style/MultilineInPatternThen:
