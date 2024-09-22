@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "jekyll-sitemap", "~> 1.0"
-  spec.add_development_dependency "rake", "~> 12.0"
+  spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.5"
-  spec.add_development_dependency "rubocop-jekyll", "~> 0.12.0"
+  spec.add_development_dependency "rubocop-jekyll", "~> 0.13.0"
 end

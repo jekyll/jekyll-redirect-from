@@ -18,11 +18,11 @@ jobs:
       fail-fast: false
       matrix:
         ruby_version:
-        - 2.5
-        - 2.7
-        - 3.0
+        - "2.7"
+        - "3.0"
+        - "3.3"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 5
       - name: "Set up Ruby ${{ matrix.ruby_version }}"
@@ -41,20 +41,20 @@ jobs:
 
   ghp:
     if: "!contains(github.event.commits[0].message, '[ci skip]')"
-    name: Ruby 2.7 with GitHub Pages Gem
+    name: Ruby 3.3 with GitHub Pages Gem
     runs-on: 'ubuntu-latest'
     env:
       GH_PAGES: true
     strategy:
       fail-fast: false
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 5
-      - name: "Set up Ruby 2.7"
+      - name: "Set up Ruby 3.3"
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7
+          ruby-version: 3.3
           bundler-cache: true
       - name: Execute tests
         run:  bash script/test
