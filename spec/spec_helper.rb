@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "jekyll"
 require File.expand_path("lib/jekyll-redirect-from.rb")
 
@@ -32,7 +34,7 @@ RSpec.configure do |config|
   end
 
   def config
-    Jekyll.configuration({
+    Jekyll.configuration(
       "source"      => fixtures_path.to_s,
       "destination" => fixtures_path.join("_site").to_s,
       "collections" => {
@@ -40,15 +42,12 @@ RSpec.configure do |config|
         "authors"  => {},
       },
       "url"         => "http://jekyllrb.com",
-      "gems"        => [
-        "jekyll-redirect-from",
-        "jekyll-sitemap",
-      ],
+      "plugins"     => %w(jekyll-redirect-from jekyll-sitemap),
       "defaults"    => [{
         "scope"  => { "path" => "" },
         "values" => { "layout" => "layout" },
-      },],
-    }).backwards_compatibilize
+      }]
+    )
   end
 
   def site

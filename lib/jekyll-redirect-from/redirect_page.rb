@@ -1,4 +1,4 @@
-# Encoding: utf-8
+# frozen_string_literal: true
 
 module JekyllRedirectFrom
   # Specialty page which implements the redirect path logic
@@ -45,13 +45,13 @@ module JekyllRedirectFrom
     def set_paths(from, to)
       @context ||= context
       from = ensure_leading_slash(from)
-      data.merge!({
+      data.merge!(
         "permalink" => from,
         "redirect"  => {
           "from" => from,
-          "to"   => to =~ %r!^https?://! ? to : absolute_url(to),
-        },
-      })
+          "to"   => %r!^https?://!.match?(to) ? to : absolute_url(to),
+        }
+      )
     end
 
     def redirect_from

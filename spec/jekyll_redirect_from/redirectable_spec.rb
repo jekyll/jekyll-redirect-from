@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RedirectableTestHelper
   include JekyllRedirectFrom::Redirectable
   attr_reader :to_liquid

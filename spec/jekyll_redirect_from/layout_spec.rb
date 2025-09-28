@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe JekyllRedirectFrom::Layout do
   subject { described_class.new(@site) }
 

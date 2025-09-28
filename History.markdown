@@ -1,11 +1,72 @@
 ## HEAD
 
+### styles
+
+  * style: Style/SpecialGlobalVars (#216)
+
+### Development Fixes
+
+  * fix Gemfile to correctly install jekyll 3.9 (#224)
+  * Refactor specs for RedirectPage (#222)
+  * Lock to RuboCop v1.18.x (#242)
+  * Clean up gemspec (#243)
+  * Bump versions in CI workflow (#273)
+
+### Bug Fixes
+
+  * Refactor Redirectable mixin to reduce allocations (#241)
+
+## 0.16.0 / 2020-01-26
+
+### Minor Enhancements
+
+  * Allows generation of `redirects.json` to be disabled (#207)
+  * Allow redirects from and for subclasses of page and document (#204)
+
+### Bug Fixes
+
+  * Use `Hash#key?` instead of `Hash#keys.any?` (#201)
+
+### Development Fixes
+
+  * Target Ruby 2.4
+  * Stop testing with backwards-compatible site config (#211)
+
+### Documentation
+
+  * Simplifies YAML for `redirect_to` (#185)
+
+## 0.15.0 / 2019-03-23
+
+### Development Fixes
+
+  * chore(deps): rubocop-jekyll 0.3 (#187)
+
+### Bug Fixes
+
+  * Allow testing and using with Jekyll 4.x (#196)
+
+## 0.14.0 / 2018-06-29
+
+### Minor Enhancements
+
+  * Run javascript at first to avoid splash (#158)
+
+### Development Fixes
+
+  * Use Rubocop 0.57
+  * Target Ruby 2.3
+  * Test against Ruby 2.5 (#173)
+
+## 0.13.0 / 2017-12-03
+
   * Test against same version of Ruby that GitHub Pages uses (#132)
 
 ### Development Fixes
 
   * Rubocop (#141)
   * Fix tests for jekyll 3.5.x (#160)
+  * Rubocop: autocorrect (#165)
 
 ### Minor Enhancements
 
@@ -16,6 +77,10 @@
 ### Major Enhancements
 
   * Create redirects.json file (#147)
+
+### Documentation
+
+  * Update README.md (#167)
 
 ## 0.12.1 / 2017-01-12
 

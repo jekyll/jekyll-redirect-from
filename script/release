@@ -1,3 +1,4 @@
 #! /bin/bash
 
+script/cibuild
 bundle exec rake release

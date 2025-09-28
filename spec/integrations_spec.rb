@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe "JekyllRedirectFrom integration tests" do
   before { site.process }
   let(:relative_path) { "" }
@@ -15,7 +17,7 @@ RSpec.describe "JekyllRedirectFrom integration tests" do
     end
 
     context "multiple redirect froms" do
-      %w(help contact let-there/be/light-he-said geepers/mccreepin).each do |redirect|
+      ["help", "contact", "let-there/be/light-he-said", "geepers/mccreepin"].each do |redirect|
         context "the #{redirect} redirect" do
           let(:relative_path) { "#{redirect}.html" }
 

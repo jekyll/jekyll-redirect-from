@@ -9,7 +9,7 @@ impractical to create new pages in the proper subdirectories so they, e.g.
 Instead of dealing with maintaining those pages for redirection, let
 `jekyll-redirect-from` handle it for you.
 
-[![Build Status](https://travis-ci.org/jekyll/jekyll-redirect-from.svg?branch=master)](https://travis-ci.org/jekyll/jekyll-redirect-from)
+[![Build Status](https://github.com/jekyll/jekyll-redirect-from/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/jekyll/jekyll-redirect-from/actions/workflows/ci.yml)
 
 ## How it Works
 
@@ -31,13 +31,15 @@ Or install it yourself as:
 
     $ gem install jekyll-redirect-from
 
-Once it's installed into your evironment, add it to your `_config.yml`:
+Once it's installed into your environment, add it to your `_config.yml`:
 
 ```yaml
 plugins:
   - jekyll-redirect-from
 ```
 :bulb: If you are using a Jekyll version less than `3.5.0`, use the `gems` key instead of `plugins`.
+
+💡 If you are using a Jekyll version less than 3.5.0, use the `gems` key instead of `plugins`.
 
 If you're using Jekyll in `safe` mode to mimic GitHub Pages, make sure to
 add jekyll-redirect-from to your whitelist:
@@ -51,7 +53,7 @@ Then run `jekyll <cmd> --safe` like normal.
 
 ## Usage
 
-The object of this gem is to allow an author to specify multiple URLs for a
+The objective of this gem is to allow an author to specify multiple URLs for a
 page, such that the alternative URLs redirect to the new Jekyll URL.
 
 To use it, simply add the array to the YAML front-matter of your page or post:
@@ -67,7 +69,7 @@ Redirects including a trailing slash will generate a corresponding subdirectory 
 
 For example...
 
-```text
+```yaml
 redirect_from:
   - /post/123456789/my-amazing-post
 ```
@@ -80,7 +82,7 @@ redirect_from:
 
 While...
 
-```text
+```yaml
 redirect_from:
   - /post/123456789/my-amazing-post/
 ```
@@ -95,7 +97,7 @@ These pages will contain an HTTP-REFRESH meta tag which redirect to your URL.
 
 You can also specify just **one url** like this:
 
-```text
+```yaml
 title: My other awesome post
 redirect_from: /post/123456798/
 ```
@@ -112,12 +114,8 @@ Sometimes, you may want to redirect a site page to a totally different website. 
 
 ```yaml
 title: My amazing post
-redirect_to:
-  - http://www.github.com
+redirect_to: http://www.github.com
 ```
-
-If you have multiple `redirect_to`s set, only the first one will be respected.
-
 
 **Note**: Using `redirect_to` or `redirect_from` with collections will only work with files which are output to HTML, such as `.md`, `.textile`, `.html` etc.
 
@@ -129,6 +127,19 @@ Your layout will get the following variables:
 
 * `page.redirect.from` - the relative path to the redirect page
 * `page.redirect.to` - the absolute URL (where available) to the target page
+
+## Configuration
+
+You can configure this plugin in `_config.yml` by adding to the `redirect_from` key.
+
+### Disabling `redirects.json`
+
+By default, a file called `redirects.json`, which can be used for automated testing or to implement server-side redirects, will be included in the output. To exclude it from the output, set the `json` key to `false`:
+
+```yml
+redirect_from:
+  json: false
+```
 
 ## Contributing
 
