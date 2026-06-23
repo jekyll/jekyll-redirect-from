@@ -1,5 +1,9 @@
 ## HEAD
 
+### Minor Enhancements
+
+  * Output a Cloudflare Pages-compatible `_redirects` file
+
 ### styles
 
   * style: Style/SpecialGlobalVars (#216)

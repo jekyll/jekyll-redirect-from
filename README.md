@@ -140,6 +140,25 @@ redirect_from:
   json: false
 ```
 
+### Disabling `_redirects`
+
+By default, a [Cloudflare Pages-compatible](https://developers.cloudflare.com/pages/configuration/redirects/) `_redirects` file (also used by Netlify) will be included in the output. Each line maps a source path to its destination with an explicit `301` status code, e.g.:
+
+```text
+/post/123456789 https://example.com/my-amazing-post 301
+```
+
+To exclude it from the output, set the `cloudflare` key to `false`:
+
+```yml
+redirect_from:
+  cloudflare: false
+```
+
+If you maintain your own `_redirects` file in your source, the plugin leaves it untouched and automatically adds it to your site's [`include`](https://jekyllrb.com/docs/configuration/options/) list so it's copied to the output (Jekyll omits underscore-prefixed files by default).
+
+**Note**: Cloudflare Pages [limits](https://developers.cloudflare.com/pages/configuration/redirects/#limits) the number of static redirects, so very large sites may exceed it.
+
 ## Contributing
 
 1. Fork it
