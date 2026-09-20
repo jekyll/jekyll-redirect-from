@@ -60,4 +60,16 @@ RSpec.describe JekyllRedirectFrom::Redirectable do
       expect(subject.redirect_to).to be_nil
     end
   end
+
+  context "with unquoted numeric YAML values" do
+    let(:data) { { "redirect_from" => [2024], "redirect_to" => 2024 } }
+
+    it "coerces redirect_from entries to strings" do
+      expect(subject.redirect_from).to eql(["2024"])
+    end
+
+    it "coerces redirect_to to a string" do
+      expect(subject.redirect_to).to eql("2024")
+    end
+  end
 end
