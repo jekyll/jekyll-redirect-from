@@ -126,6 +126,11 @@ Your layout will get the following variables:
 
 * `page.redirect.from` - the relative path to the redirect page
 * `page.redirect.to` - the absolute URL (where available) to the target page
+* `page.redirect.to_js` - `page.redirect.to` as a quoted JavaScript string literal, safe to use inside a `<script>` element
+
+When outputting `page.redirect.to` in an HTML attribute, use the `escape` filter (e.g. `{{ page.redirect.to | escape }}`).
+
+`redirect_to` must be a relative path or an `http://` or `https://` URL. Other schemes, such as `javascript:`, are ignored and a warning is logged.
 
 ## Configuration
 
