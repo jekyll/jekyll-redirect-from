@@ -39,6 +39,12 @@ module JekyllRedirectFrom
     def generate_redirect_to(doc)
       return unless doc.redirect_to
 
+      unless RedirectPage.valid_target?(doc.redirect_to)
+        Jekyll.logger.warn "Redirect from:", "Ignoring disallowed redirect_to " \
+                                             "#{doc.redirect_to.inspect} in #{doc.relative_path}"
+        return
+      end
+
       page = RedirectPage.redirect_to(doc, doc.redirect_to)
       doc.data.merge!(page.data)
       doc.content = doc.output = page.output

@@ -1,4 +1,8 @@
-## HEAD
+## 0.17.0 / 2026-09-29
+
+### Security
+
+  * Only allow http(s) and relative `redirect_to` targets, percent-encode unsafe characters in them, and escape them in the redirect page (GHSA-xfg6-hjrc-hpvx)
 
 ### styles
 
