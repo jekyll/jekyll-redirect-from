@@ -21,6 +21,13 @@ module JekyllRedirectFrom
     URL_TRIM_REGEX = %r!\A[\u0000-\u0020]+|[\u0000-\u0020]+\z!.freeze
     SCHEME_REGEX = %r!\A([a-z][a-z0-9+\-.]*):!i.freeze
 
+    # Characters which are never valid unencoded in a URL and could break out
+    # of an HTML attribute or a JavaScript string if the target is output raw
+    # (e.g. by a custom redirect layout): quotes, angle brackets, backslash,
+    # backtick, curly braces (JavaScript template literal interpolation),
+    # whitespace, C0 control characters and DEL.
+    UNSAFE_URL_CHARS_REGEX = %r![\s"'<>\\`{}\x00-\x1F\x7F]!.freeze
+
     # Characters which must be escaped for a JSON string to be safely embedded
     # in an HTML <script> element.
     JS_ESCAPE_REGEX = %r![<>&\u2028\u2029]!.freeze
@@ -71,6 +78,7 @@ module JekyllRedirectFrom
       @context ||= context
       from = ensure_leading_slash(from)
       to = %r!^https?://!.match?(to) ? to : absolute_url(to)
+      to = encode_unsafe_chars(to)
       data.merge!(
         "permalink" => from,
         "redirect"  => {
@@ -90,6 +98,12 @@ module JekyllRedirectFrom
     end
 
     private
+
+    def encode_unsafe_chars(url)
+      url.to_s.gsub(UNSAFE_URL_CHARS_REGEX) do |char|
+        char.bytes.map { |byte| format("%%%02X", byte) }.join
+      end
+    end
 
     def js_escape(json)
       json.gsub(JS_ESCAPE_REGEX) { |char| format("\\u%04x", char.ord) }

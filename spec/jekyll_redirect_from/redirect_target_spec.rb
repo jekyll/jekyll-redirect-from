@@ -20,30 +20,53 @@ RSpec.describe "redirect target handling" do
 
     context "with a double quote" do
       let(:to) { 'https://example.com/";alert(document.domain)//' }
+      let(:encoded) { "https://example.com/%22;alert(document.domain)//" }
 
-      it "keeps the URL inside the JavaScript string" do
-        expect(output).to include('<script>location="https://example.com/\";alert(document.domain)//"</script>')
+      it "percent-encodes the quote in the target" do
+        expect(page.redirect_to).to eql(encoded)
       end
 
-      it "escapes the URL in attributes" do
-        escaped = "https://example.com/&quot;;alert(document.domain)//"
-        expect(output).to include("<link rel=\"canonical\" href=\"#{escaped}\">")
-        expect(output).to include("<meta http-equiv=\"refresh\" content=\"0; url=#{escaped}\">")
-        expect(output).to include("<a href=\"#{escaped}\">Click here if you are not redirected.</a>")
+      it "keeps the URL inside the JavaScript string" do
+        expect(output).to include("<script>location=\"#{encoded}\"</script>")
+      end
+
+      it "keeps the URL inside attributes" do
+        expect(output).to include("<link rel=\"canonical\" href=\"#{encoded}\">")
+        expect(output).to include("<meta http-equiv=\"refresh\" content=\"0; url=#{encoded}\">")
+        expect(output).to include("<a href=\"#{encoded}\">Click here if you are not redirected.</a>")
       end
     end
 
     context "with a closing script tag" do
       let(:to) { 'https://evil.example/"</script><script>alert("rt")</script><a x="' }
 
+      it "percent-encodes the markup characters in the target" do
+        expect(page.redirect_to).to eql(
+          "https://evil.example/%22%3C/script%3E%3Cscript%3Ealert(%22rt%22)%3C/script%3E%3Ca%20x=%22"
+        )
+      end
+
       it "does not emit additional script tags" do
         expect(script_tags(output)).to eql(1)
         expect(output).to_not include("</script><script>")
         expect(output).to_not include("<a x=")
       end
+    end
 
-      it "escapes markup characters in the JavaScript string" do
-        expect(output).to include('location="https://evil.example/\"\u003c/script\u003e')
+    context "with other unsafe characters" do
+      let(:to) { "https://example.com/a b'c`d\\e\tf\u007Fg\u0001h" }
+
+      it "percent-encodes them" do
+        expect(page.redirect_to).to eql("https://example.com/a%20b%27c%60d%5Ce%09f%7Fg%01h")
+      end
+    end
+
+    context "that is already percent-encoded" do
+      let(:to) { "https://example.com/a%20b%22c?q=%3C&r=1#frag%3E" }
+
+      it "is not encoded again" do
+        expect(page.redirect_to).to eql(to)
+        expect(output).to include("<a href=\"https://example.com/a%20b%22c?q=%3C&amp;r=1#frag%3E\">")
       end
     end
 
@@ -54,6 +77,72 @@ RSpec.describe "redirect target handling" do
         expect(output).to include('<script>location="https://example.com/?a=1\u0026b=2"</script>')
         expect(output).to include('<a href="https://example.com/?a=1&amp;b=2">')
       end
+    end
+  end
+
+  context "with a custom layout that outputs the target raw" do
+    let(:custom_layout) do
+      JekyllRedirectFrom::Layout.new(site).tap do |layout|
+        layout.content = <<~HTML
+          <script>location="{{ page.redirect.to }}"</script>
+          <script>location='{{ page.redirect.to }}'</script>
+          <script>location=`{{ page.redirect.to }}`</script>
+          <a href="{{ page.redirect.to }}">link</a>
+          <a href='{{ page.redirect.to }}'>link</a>
+        HTML
+      end
+    end
+
+    before { site.layouts["redirect"] = custom_layout }
+
+    subject(:page) { JekyllRedirectFrom::RedirectPage.redirect_to(doc, to) }
+    let(:output) { render(page) }
+
+    [
+      'https://example.com/";alert(1)//',
+      "https://example.com/';alert(1)//",
+      "https://example.com/`;alert(1)//",
+      "https://example.com/${alert(1)}",
+      "https://example.com/</script><script>alert(1)</script>",
+      'https://example.com/" onmouseover="alert(1)',
+      "https://example.com/\\\";alert(1)//",
+      "https://example.com/\n</script><script>alert(1)</script>",
+    ].each do |target|
+      context target.inspect do
+        let(:to) { target }
+
+        it "cannot break out of the script or attribute" do
+          expect(script_tags(output)).to eql(3)
+          expect(output).to_not match(%r!</script><script>!i)
+          expect(output).to_not match(%r!\sonmouseover=!i)
+          expect(output).to_not include("${")
+          url = %r!https://example\.com/[^"'`<>{}\\\s]*!
+          expect(output).to include("<script>location=\"#{page.redirect_to}\"</script>")
+          expect(output).to include("<script>location='#{page.redirect_to}'</script>")
+          expect(output).to include("<script>location=`#{page.redirect_to}`</script>")
+          expect(output).to include("<a href=\"#{page.redirect_to}\">link</a>")
+          expect(output).to include("<a href='#{page.redirect_to}'>link</a>")
+          expect(page.redirect_to).to match(%r!\A#{url}\z!)
+        end
+      end
+    end
+  end
+
+  context "a normal target" do
+    [
+      "https://example.com/path/to/page.html?a=1&b=two%20words&c[]=3#section-2",
+      "http://example.com:8080/~user/a+b;c=d,e!f*g(h)@i$j?k=l/m?n#o/p?q",
+      "https://example.com/caf%C3%A9?q=%E2%9C%93#%F0%9F%98%80",
+      "https://example.com/unicode/café",
+    ].each do |target|
+      it "leaves #{target.inspect} unchanged" do
+        expect(JekyllRedirectFrom::RedirectPage.redirect_to(doc, target).redirect_to).to eql(target)
+      end
+    end
+
+    it "leaves relative paths with query strings and fragments unchanged" do
+      page = JekyllRedirectFrom::RedirectPage.redirect_to(doc, "/bar/baz.html?a=1&b=2#frag")
+      expect(page.redirect_to).to eql("http://jekyllrb.com/bar/baz.html?a=1&b=2#frag")
     end
   end
 
