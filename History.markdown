@@ -4,6 +4,10 @@
 
   * Only allow http(s) and relative `redirect_to` targets, percent-encode unsafe characters in them, and escape them in the redirect page (GHSA-xfg6-hjrc-hpvx)
 
+### Minor Enhancements
+
+  * Output a Cloudflare Pages-compatible `_redirects` file
+
 ### styles
 
   * style: Style/SpecialGlobalVars (#216)

@@ -155,6 +155,84 @@ RSpec.describe JekyllRedirectFrom::Generator do
     end
   end
 
+  context "_redirects" do
+    let(:path) { dest_dir("_redirects") }
+    let(:contents) { File.read(path) }
+    let(:lines) { contents.split("\n") }
+    let(:domain) { "http://jekyllrb.com" }
+
+    it "creates the _redirects file" do
+      expect(path).to exist
+    end
+
+    it "contains a line per redirect" do
+      expect(lines.count).to eql(13)
+    end
+
+    it "formats each line with an explicit 301 status code" do
+      lines.each do |line|
+        expect(line).to end_with(" 301")
+      end
+    end
+
+    it "contains single redirect tos" do
+      expect(lines).to include "/one_redirect_to_path.html #{domain}/foo 301"
+    end
+
+    it "contains multiple redirect tos" do
+      expect(lines).to include "/multiple_redirect_tos.html https://www.jekyllrb.com 301"
+    end
+
+    it "contains single redirect froms" do
+      expect(lines).to include "/some/other/path #{domain}/one_redirect_from.html 301"
+    end
+
+    it "contains multiple redirect froms" do
+      expect(lines).to include "/help #{domain}/multiple_redirect_froms.html 301"
+      expect(lines).to include "/contact #{domain}/multiple_redirect_froms.html 301"
+    end
+
+    it "percent-encodes whitespace in the source path" do
+      expect(lines).to include "/tags/our%20projects/ #{domain}/tags/our-projects/ 301"
+    end
+
+    context "with a user-supplied _redirects" do
+      let(:source_path) { File.join fixtures_path, "_redirects" }
+      before do
+        File.write source_path, "/foo /bar 301"
+        # Jekyll caches static-file mtimes globally; reset so the freshly
+        # written source is copied rather than skipped as "unmodified".
+        Jekyll::StaticFile.reset_cache
+        site.reset
+        site.read
+        site.generate
+        site.render
+        site.write
+      end
+
+      after do
+        FileUtils.rm_f source_path
+      end
+
+      it "doesn't overwrite _redirects" do
+        expect(path).to exist
+        expect(contents).to eql("/foo /bar 301")
+      end
+
+      it "automatically includes the underscore-prefixed file in the output" do
+        expect(site.config["include"]).to include("_redirects")
+      end
+    end
+
+    context "when explicitly disabled" do
+      let(:site) { Jekyll::Site.new(config.merge("redirect_from" => { "cloudflare" => false })) }
+
+      it "does not create the _redirects file" do
+        expect(path).to_not exist
+      end
+    end
+  end
+
   context "redirectable_document?" do
     let(:generator) { JekyllRedirectFrom::Generator.new }
 
